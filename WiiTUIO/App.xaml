@@ -1,0 +1,20 @@
+﻿<Application x:Class="WiiTUIO.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <!--
+        <ResourceDictionary>
+            <tb:TaskbarIcon x:Key="tbNotifyIcon" IconSource="Resources/icon.ico" ToolTipText="Pulsar para editar los parámetros de Touchmote" TrayBalloonTipClicked="TaskbarIcon_TrayBalloonTipClicked_1">
+                <tb:TaskbarIcon.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Name="mnuExit" Header="Salir" Click="mnuExit_Click" />
+                    </ContextMenu>
+                </tb:TaskbarIcon.ContextMenu>
+                <tb:TaskbarIcon.TrayPopup>
+                    <local:MainTrayWindow />
+                </tb:TaskbarIcon.TrayPopup>
+            </tb:TaskbarIcon>
+        </ResourceDictionary>
+        -->
+    </Application.Resources>
+</Application>

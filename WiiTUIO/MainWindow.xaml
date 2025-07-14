@@ -1,0 +1,105 @@
+﻿<Controls:MetroWindow
+  x:Class="WiiTUIO.MainWindow"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+  Title="Touchmote" ResizeMode="CanMinimize"
+  Width="419" SizeToContent="Height">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Green.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Controls:MetroWindow.WindowCommands>
+        <Controls:WindowCommands>
+            <Button Name="btnAbout" Content="Sobre" Click="btnAbout_Click" />
+            <Button Name="btnAppSettings" Click="btnAppSettings_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Resources>
+                            <SolidColorBrush x:Key="BlackBrush" Color="White" />
+                        </Rectangle.Resources>
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <TextBlock Text="Config." Margin="5,0" Foreground="White" />
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.WindowCommands>
+    <StackPanel Width="419">
+        <StackPanel Name="mainPanel">
+            <StackPanel Name="spErrorMsg" Background="#FFFF4138" MouseUp="spErrorMsg_MouseUp" Cursor="Hand">
+                <TextBlock Margin="10" FontSize="14" FontFamily="Segoe UI Semibold">Error</TextBlock>
+                <TextBlock Margin="10,0,10,10" Name="tbErrorMsg" FontSize="12" FontFamily="Segoe UI Semilight" TextWrapping="Wrap">mensaje</TextBlock>
+                <Rectangle Fill="#FF191919" Height="3"/>
+            </StackPanel>
+            <StackPanel Name="spInfoMsg" Background="#FFFFDC00" MouseUp="spInfoMsg_MouseUp" Cursor="Hand">
+                <TextBlock Margin="10" FontSize="14" FontFamily="Segoe UI Semibold">Info</TextBlock>
+                <TextBlock Margin="10,0,10,10" Name="tbInfoMsg" FontSize="12" FontFamily="Segoe UI Semilight" TextWrapping="Wrap">mensaje</TextBlock>
+                <Rectangle Fill="#FF191919" Height="3"/>
+            </StackPanel>
+            <Canvas Height="64">
+                <Label Name="connectedCount" Content="0 Wiimotes conectados" Canvas.Left="15" Canvas.Top="10" FontFamily="Segoe UI Light" FontSize="24"/>
+            </Canvas>
+            <StackPanel Background="#FF232323">
+
+                <Rectangle Fill="#FF191919" Height="3"/>
+                <StackPanel Name="statusStack">
+                    
+                </StackPanel>
+                <Border BorderBrush="#FF191919" BorderThickness="0,0,0,3">
+                    <StackPanel Name="spPairing">
+                        <Canvas Name="canvasPairing" Height="87" Background="#FF00A2FF">
+
+                            <TextBlock Name="pairWiimoteText" Canvas.Left="98" Canvas.Top="31" FontFamily="Segoe UI Light" FontSize="18" Foreground="White" Width="305" TextAlignment="Left">
+                        Emparejando...
+                            </TextBlock>
+                            <TextBlock Name="pairWiimotePressSync" Canvas.Left="98" TextWrapping="Wrap" Canvas.Top="55" Height="26" Width="305" FontFamily="Segoe UI Semilight" Foreground="White" FontSize="11">
+                            Pulsa SYNC<Image Height="12" Width="12" Source="Resources/sync.png" Cursor="Hand" Stretch="None"/> para conexión permantente o 1+2 para conexión temporal.
+                            </TextBlock>
+                            <TextBlock Name="pairWiimoteTryAgain" Visibility="Hidden" Canvas.Left="58" TextWrapping="Wrap" Canvas.Top="61" Height="26" Width="270" FontFamily="Segoe UI Semilight" TextAlignment="Center">
+                            <Hyperlink Click="pairWiimoteTryAgain_Click" Foreground="White">Inténtalo de nuevo gañán
+                            </Hyperlink>
+                            </TextBlock>
+
+                            <TextBlock Name="pairWiimoteTRFail" Visibility="Hidden" Foreground="White" Canvas.Left="70" TextWrapping="Wrap" Canvas.Top="7" Height="63" Width="270" FontFamily="Segoe UI Semilight" FontSize="11" TextAlignment="Center">
+                            Al menos uno de tus Wiimotes no es compatible con la pila Bluetooth de Microsoft, usa sólo Wiimotes manufacturados antes de Noviembre de 2011 o sigue las instrucciones en 
+                            <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="http://touchmote.net/wiimotetr" Foreground="White">
+                                esta página
+                            </Hyperlink>
+                            </TextBlock>
+                            <Controls:ProgressRing Name="pairProgress" IsActive="True" Foreground="White" Canvas.Left="13" Canvas.Top="14" />
+                        </Canvas>
+                    </StackPanel>
+                </Border>
+                
+                <!--Canvas Height="40">
+                    <Label Content="Esperando por Wiimotes conectados..." Canvas.Left="15" Canvas.Top="5" FontFamily="Segoe UI Light" FontSize="15" Foreground="White"/>
+                </Canvas>
+
+                <Rectangle Fill="#FF191919" Height="3"/-->
+            </StackPanel>
+            <TextBlock MouseUp="PairWiimotes_Click" Name="tbPair2" Background="#FF00A2FF" Padding="10" FontSize="24" FontFamily="Segoe UI Light" TextAlignment="Center" Cursor="Hand" Foreground="White">                                
+                Emparejar Wiimotes
+            </TextBlock>
+            <TextBlock MouseUp="PairWiimotesDone_Click" Name="tbPairDone" Background="#FF6DD533" Padding="10" FontSize="24" FontFamily="Segoe UI Light" TextAlignment="Center" Foreground="White" Cursor="Hand">                                
+                Hecho
+            </TextBlock>
+        </StackPanel>
+        <StackPanel Name="canvasSettings">
+        </StackPanel>
+        <StackPanel Name="canvasAbout">
+        </StackPanel>
+    </StackPanel>
+</Controls:MetroWindow>

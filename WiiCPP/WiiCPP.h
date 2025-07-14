@@ -1,0 +1,536 @@
+// WiiCPP.h
+
+#pragma once
+
+#include "stdafx.h"
+
+#include <tchar.h>
+#include <windows.h>
+#include <bthsdpdef.h>
+#include <bthdef.h>
+#include <BluetoothAPIs.h>
+#include <strsafe.h>
+#include <vcclr.h>
+#include <map>
+
+#pragma comment(lib, "Bthprops.lib")
+
+using namespace System;
+
+namespace WiiCPP {
+
+	public ref class WiiPairReport
+	{
+	public:
+
+		enum class Status
+		{
+			RUNNING,
+			CANCELLED,
+			EXCEPTION,
+			DONE
+		};
+
+		Status status;
+		int numberPaired;
+		bool removeMode;
+		array<String^>^ deviceNames;
+	};
+
+	public interface class WiiPairListener
+	{
+	public:
+
+		enum class MessageType 
+		{
+			INFO,
+			SUCCESS,
+			ERR
+		};
+
+
+		void pairingConsole(System::String ^message);
+		void pairingMessage(System::String ^message, MessageType type);
+		void onPairingStarted();
+		void onPairingProgress(WiiPairReport ^report);
+	};
+
+	[System::Security::SuppressUnmanagedCodeSecurityAttribute]
+	public ref class WiiPair
+	{
+	private:
+
+		bool killme;
+		bool cancelled;
+
+		WiiPairListener ^listener;
+
+		DWORD ShowErrorCode(LPTSTR msg, DWORD dw) 
+		{ 
+			// Retrieve the system error message for the last-error code
+
+			LPVOID lpMsgBuf;
+
+			FormatMessage(
+				FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+				NULL,
+				dw,
+				MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+				(LPTSTR) &lpMsgBuf,
+				0, 
+				NULL 
+				);
+
+			String ^msgstr = gcnew String(msg);
+			String ^lpMsgBufstr = gcnew String((LPTSTR)lpMsgBuf);
+			System::String ^str = msgstr+": "+lpMsgBufstr;
+			listener->pairingConsole(str);
+
+			//_tprintf(_T("%s: %s"), msg, lpMsgBuf);
+
+			LocalFree(lpMsgBuf);
+
+			return dw;
+		}
+
+
+		_TCHAR * FormatBTAddress(BLUETOOTH_ADDRESS address)
+		{
+			static _TCHAR ret[20];
+			_stprintf(ret, _T("%02x:%02x:%02x:%02x:%02x:%02x"),
+				address.rgBytes[5],
+				address.rgBytes[4],
+				address.rgBytes[3],
+				address.rgBytes[2],
+				address.rgBytes[1],
+				address.rgBytes[0]
+			);
+			return ret;
+		}
+
+		
+
+	public:
+
+		void addListener(WiiPairListener ^listener) {
+			this->listener = listener;
+		}
+
+		void stop() {
+			killme = true;
+			cancelled = true;
+		}
+
+		void start(bool removeMode, int stopat)
+		{
+			
+			cancelled = false;
+			killme = false;
+			WiiPairReport ^report = gcnew WiiPairReport();
+			HANDLE hRadios[256];
+			int nRadios;
+			int nPaired = 0;
+
+			listener->onPairingStarted();
+
+			report->removeMode = removeMode;
+
+			report->deviceNames = gcnew array<String^>(10);
+
+			do
+			{
+				///////////////////////////////////////////////////////////////////////
+				// Enumerate BT radios
+				///////////////////////////////////////////////////////////////////////
+				{
+					HBLUETOOTH_RADIO_FIND hFindRadio;
+					BLUETOOTH_FIND_RADIO_PARAMS radioParam;
+
+					listener->pairingConsole("Enumerando radios...\n");
+
+					radioParam.dwSize = sizeof(BLUETOOTH_FIND_RADIO_PARAMS);
+
+					nRadios = 0;
+					hFindRadio = BluetoothFindFirstRadio(&radioParam, &hRadios[nRadios++]);
+					if (hFindRadio)
+					{
+						while (BluetoothFindNextRadio(&radioParam, &hRadios[nRadios++]));
+						BluetoothFindRadioClose(hFindRadio);
+					}
+					else
+					{
+						
+						ShowErrorCode(_T("Error enumerando radios"), GetLastError());
+						listener->pairingMessage("No puedo encontrar dispositivos bluetooth",WiiPairListener::MessageType::ERR);
+						
+						/*if (GetLastError() == ERROR_NO_MORE_ITEMS)
+						{*/
+							report->status = WiiPairReport::Status::EXCEPTION;
+							listener->onPairingProgress(report);
+						/*}
+						else
+						{
+							report->status = WiiPairReport::Status::RUNNING;
+							listener->onPairingProgress(report);
+						}*/
+						return;
+					}
+					nRadios--;
+
+					System::String^ str = "Encontrados " + nRadios + " radios\n"; 
+					listener->pairingConsole(str);
+				}
+
+				///////////////////////////////////////////////////////////////////////
+				// Keep looping until we pair with a Wii device
+				///////////////////////////////////////////////////////////////////////
+
+				do
+				{
+					 //If this run is just to remove all previous connections, just loop once.
+				
+					/*
+					if(killme) {
+						listener->onPairingCancelled();
+						return;
+					}
+					*/
+
+					int radio;
+
+					for (radio = 0; radio < nRadios; radio++)
+					{
+						BLUETOOTH_RADIO_INFO radioInfo;
+						HBLUETOOTH_DEVICE_FIND hFind;
+						BLUETOOTH_DEVICE_INFO btdi;
+						BLUETOOTH_DEVICE_SEARCH_PARAMS srch;
+
+						radioInfo.dwSize = sizeof(radioInfo);
+						btdi.dwSize = sizeof(btdi);
+						srch.dwSize = sizeof(BLUETOOTH_DEVICE_SEARCH_PARAMS);
+
+						Sleep(100);
+
+						ShowErrorCode(_T("BluetoothGetRadioInfo"), BluetoothGetRadioInfo(hRadios[radio], &radioInfo));
+
+						System::String^ szNamestr = gcnew System::String(radioInfo.szName);
+						System::String^ addressstr = gcnew System::String(FormatBTAddress(radioInfo.address));
+						System::String^ str = "Radio " + radio + ": " + szNamestr + " " + addressstr + "\n";
+						listener->pairingConsole(str);
+
+						srch.fReturnAuthenticated = TRUE;
+						srch.fReturnRemembered = TRUE;
+						srch.fReturnConnected = TRUE;
+						srch.fReturnUnknown = TRUE;
+						srch.fIssueInquiry = TRUE;
+						srch.cTimeoutMultiplier = 1;
+						srch.hRadio = hRadios[radio];
+
+						listener->pairingConsole("Escaneando...\n");
+						if(removeMode)
+						{
+							listener->pairingMessage("Quitando conexiones antiguas...",WiiPairListener::MessageType::INFO);
+						}
+						else
+						{
+							listener->pairingMessage("Escaneando...",WiiPairListener::MessageType::INFO);
+						}
+
+						hFind = BluetoothFindFirstDevice(&srch, &btdi);
+
+						if (hFind == NULL)
+						{
+							if (GetLastError() == ERROR_NO_MORE_ITEMS)
+							{
+								listener->pairingConsole("No se han encontrado dispositivos bluetooth.\n");
+								if(removeMode)
+								{
+									killme = true;
+								}
+							}
+							else
+							{
+
+								//listener->pairingMessage("The bluetooth device is acting funky",WiiPairListener::MessageType::ERR);
+								ShowErrorCode(_T("Error enumerando dispositivos"), GetLastError());
+								//report->status = WiiPairReport::Status::RUNNING;
+								//listener->onPairingProgress(report);
+								//break;
+							}
+						}
+						else
+						{
+							do
+							{
+								String ^szName = gcnew String(btdi.szName);
+								System::String ^str = "Encontrado:"+szName+"\n";
+								listener->pairingConsole(str);
+
+								if (!wcscmp(btdi.szName, L"Nintendo RVL-CNT-01-TR") || !wcscmp(btdi.szName, L"Nintendo RVL-CNT-01"))
+								{
+									WCHAR pass[6];
+									DWORD pcServices = 16;
+									GUID guids[16];
+									BOOL error = FALSE;
+
+									if (!error)
+									{
+										if (btdi.fRemembered && removeMode)
+										{
+											listener->pairingMessage("Quitando antiguo Wiimote",WiiPairListener::MessageType::SUCCESS);
+											// Make Windows forget pairing
+											if (ShowErrorCode(_T("BluetoothRemoveDevice"), BluetoothRemoveDevice(&btdi.Address)) != ERROR_SUCCESS)
+											{
+												listener->pairingMessage("No puedo quitar el dispositivo",WiiPairListener::MessageType::ERR);
+											}
+											else if(removeMode)
+											{
+												error = TRUE;
+											}
+										} else if(btdi.fRemembered || removeMode) {
+											error = TRUE;
+										} else {
+											listener->pairingMessage("Encontrado nuevo Wiimote",WiiPairListener::MessageType::SUCCESS);
+										}
+									}
+
+									// MAC address is passphrase
+									pass[0] = radioInfo.address.rgBytes[0];
+									pass[1] = radioInfo.address.rgBytes[1];
+									pass[2] = radioInfo.address.rgBytes[2];
+									pass[3] = radioInfo.address.rgBytes[3];
+									pass[4] = radioInfo.address.rgBytes[4];
+									pass[5] = radioInfo.address.rgBytes[5];
+									
+									if (!error && !removeMode)
+									{
+										//BluetoothRegisterForAuthenticationEx(&btdi,NULL,(PFN_AUTHENTICATION_CALLBACK_EX)OnAuthenticate,NULL);
+										// Pair with Wii device
+										DWORD autherror = BluetoothAuthenticateDevice(NULL, hRadios[radio], &btdi, pass, 6);
+										if (ShowErrorCode(_T("BluetoothAuthenticateDevice"), autherror) != ERROR_SUCCESS) {
+										//if (ShowErrorCode(_T("BluetoothAuthenticateDevice"), BluetoothAuthenticateDeviceEx(NULL, hRadios[radio], &btdi, NULL,MITMProtectionNotDefined)) != ERROR_SUCCESS) {
+											//error = TRUE;
+											if (autherror != ERROR_NO_MORE_ITEMS) {
+												//listener->pairingMessage("Could not authenticate",WiiPairListener::MessageType::ERR);
+											}
+											Sleep(400);
+										} else {
+											listener->pairingMessage("Autenticado",WiiPairListener::MessageType::SUCCESS);
+										}
+									}
+
+									if (!error && !removeMode)
+									{
+										Sleep(100);
+										// If this is not done, the Wii device will not remember the pairing
+										if (ShowErrorCode(_T("BluetoothEnumerateInstalledServices"), BluetoothEnumerateInstalledServices(hRadios[radio], &btdi, &pcServices, guids)) != ERROR_SUCCESS) {
+											error = TRUE;
+											listener->pairingMessage("No puedo emparejar permanentemente el Wiimote",WiiPairListener::MessageType::ERR);
+										} else {
+											listener->pairingMessage("Emparejado",WiiPairListener::MessageType::SUCCESS);
+										}
+									}
+								
+									if (!error && !removeMode)
+									{
+										Sleep(100);
+										// Activate service
+										if (ShowErrorCode(_T("BluetoothSetServiceState"), BluetoothSetServiceState (hRadios[radio], &btdi, &HumanInterfaceDeviceServiceClass_UUID, BLUETOOTH_SERVICE_ENABLE )) != ERROR_SUCCESS) {
+											error = TRUE;
+											listener->pairingMessage("No puedo activar",WiiPairListener::MessageType::ERR);
+										} else {
+											listener->pairingMessage("Activado",WiiPairListener::MessageType::SUCCESS);
+										}
+									}
+
+									if (!error)
+									{
+										report->deviceNames[nPaired] = (gcnew System::String(btdi.szName));
+										nPaired++;
+										report->numberPaired = nPaired;
+										report->status = WiiPairReport::Status::RUNNING;
+										listener->onPairingProgress(report);
+										if(nPaired >= stopat) {
+											killme = true;
+										}
+									}
+								} // if (!wcscmp(btdi.szName, L"Nintendo RVL-WBC-01") || !wcscmp(btdi.szName, L"Nintendo RVL-CNT-01"))
+							}
+							while (BluetoothFindNextDevice(hFind, &btdi));
+						
+							if(removeMode)
+							{
+								killme = true;
+							}
+						} // if (hFind == NULL)
+					} // for (radio = 0; radio < nRadios; radio++)
+
+				} while (!killme);
+
+			} while (!killme);
+			///////////////////////////////////////////////////////////////////////
+			// Clean up
+			///////////////////////////////////////////////////////////////////////
+
+			{
+				int radio;
+
+				for (radio = 0; radio < nRadios; radio++)
+				{
+					CloseHandle(hRadios[radio]);
+				}
+			}
+
+			listener->pairingConsole("=============================================\n");
+			System::String^ str =  nPaired + " Dispositivos Wii emparejados\n";
+			listener->pairingConsole(str);
+
+			if(cancelled)
+			{
+				report->status = WiiPairReport::Status::CANCELLED;
+			}
+			else
+			{
+				report->status = WiiPairReport::Status::DONE;
+			}
+			listener->onPairingProgress(report);
+
+			return;
+		}
+	};
+
+	//To be able to use LUID in map
+	class luidComp
+	{
+	public:
+
+		bool operator()(const LUID& l,
+			const LUID& r)
+			const
+		{
+			return (l.LowPart != r.LowPart) || (l.HighPart != r.HighPart);
+		}
+	};
+
+	//
+	//
+	// Following is based on
+	// https://github.com/Ciantic/monitortoggler/blob/master/src/restoremonitors7.c
+	//
+	public ref class MonitorInfo
+	{
+	public:
+		String^ DevicePath;
+		String^ DeviceName;
+		String^ FriendlyName;
+	};
+
+	[System::Security::SuppressUnmanagedCodeSecurityAttribute]
+	public ref class Monitors
+	{
+	public:
+		/*
+		Gets GDI Device name from Source (e.g. \\.\DISPLAY4).
+		*/
+		static String^ getGDIDeviceNameFromSource(LUID adapterId, UINT32 sourceId) {
+			DISPLAYCONFIG_SOURCE_DEVICE_NAME deviceName;
+			DISPLAYCONFIG_DEVICE_INFO_HEADER header;
+			header.size = sizeof(DISPLAYCONFIG_SOURCE_DEVICE_NAME);
+			header.adapterId = adapterId;
+			header.id = sourceId;
+			header.type = DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME;
+			deviceName.header = header;
+			DisplayConfigGetDeviceInfo((DISPLAYCONFIG_DEVICE_INFO_HEADER*)&deviceName);
+			return gcnew System::String(deviceName.viewGdiDeviceName);
+		}
+
+		/*
+		Gets Device Path from Target
+		e.g. \\?\DISPLAY#SAM0304#5&9a89472&0&UID33554704#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+		*/
+		static String^ getMonitorDevicePathFromTarget(LUID adapterId, UINT32 targetId) {
+			DISPLAYCONFIG_TARGET_DEVICE_NAME deviceName;
+			DISPLAYCONFIG_DEVICE_INFO_HEADER header;
+			header.size = sizeof(DISPLAYCONFIG_TARGET_DEVICE_NAME);
+			header.adapterId = adapterId;
+			header.id = targetId;
+			header.type = DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME;
+			deviceName.header = header;
+			DisplayConfigGetDeviceInfo((DISPLAYCONFIG_DEVICE_INFO_HEADER*)&deviceName);
+			return gcnew System::String(deviceName.monitorDevicePath);
+		}
+
+
+		/*
+		Gets Friendly name from Target (e.g. "SyncMaster")
+		*/
+		static String^ getFriendlyNameFromTarget(LUID adapterId, UINT32 targetId) {
+			DISPLAYCONFIG_TARGET_DEVICE_NAME deviceName;
+			DISPLAYCONFIG_DEVICE_INFO_HEADER header;
+			header.size = sizeof(DISPLAYCONFIG_TARGET_DEVICE_NAME);
+			header.adapterId = adapterId;
+			header.id = targetId;
+			header.type = DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME;
+			deviceName.header = header;
+			DisplayConfigGetDeviceInfo((DISPLAYCONFIG_DEVICE_INFO_HEADER*)&deviceName);
+			return gcnew System::String(deviceName.monitorFriendlyDeviceName);
+		}
+
+
+		static array<MonitorInfo^>^ enumerateMonitors(){
+
+			int numMonitors = 0;
+			int curMonitor = 0;
+
+			UINT32 num_of_paths = 0;
+			UINT32 num_of_modes = 0;
+			DISPLAYCONFIG_PATH_INFO* displayPaths = NULL;
+			DISPLAYCONFIG_MODE_INFO* displayModes = NULL;
+
+			GetDisplayConfigBufferSizes(QDC_ALL_PATHS, &num_of_paths, &num_of_modes);
+			
+			// Allocate paths and modes dynamically
+			displayPaths = (DISPLAYCONFIG_PATH_INFO*)calloc((int)num_of_paths, sizeof(DISPLAYCONFIG_PATH_INFO));
+			displayModes = (DISPLAYCONFIG_MODE_INFO*)calloc((int)num_of_modes, sizeof(DISPLAYCONFIG_MODE_INFO));
+
+			// Query for the information 
+			LONG result = QueryDisplayConfig(QDC_ALL_PATHS, &num_of_paths, displayPaths, &num_of_modes, displayModes, NULL);
+			
+			std::map<int, gcroot<MonitorInfo^>> monitormap;
+
+			//display paths lists relationships between virtual desktop (source) -> physical monitors (target)
+			//we will base the list on physical monitor ids
+			//since there can only be either several monitors to one virtual desktop but never 
+			//several virtual desktops to one monitor (as far as I can tell...)
+			for (int i = 0; i < num_of_paths; i++)
+			{
+				if (displayPaths[i].flags & DISPLAYCONFIG_PATH_ACTIVE) //If the monitor is active
+				{
+					monitormap[displayPaths[i].targetInfo.id] = gcnew MonitorInfo();
+					monitormap[displayPaths[i].targetInfo.id]->DeviceName = getGDIDeviceNameFromSource(displayPaths[i].sourceInfo.adapterId, displayPaths[i].sourceInfo.id);
+					monitormap[displayPaths[i].targetInfo.id]->DevicePath = getMonitorDevicePathFromTarget(displayPaths[i].targetInfo.adapterId, displayPaths[i].targetInfo.id);
+					monitormap[displayPaths[i].targetInfo.id]->FriendlyName = getFriendlyNameFromTarget(displayPaths[i].targetInfo.adapterId, displayPaths[i].targetInfo.id);
+				}
+			}
+
+			array<MonitorInfo^>^ monitors = gcnew array<MonitorInfo^>(monitormap.size());
+			
+			for (std::map<int, gcroot<MonitorInfo^>>::iterator iter = monitormap.begin();
+				iter != monitormap.end();
+				++iter)
+			{
+				/*
+				printf("\n id: %d", iter->first);
+				printf("\n Devname: %s", iter->second->DeviceName);
+				printf("\n friendly: %s", iter->second->FriendlyName);
+				*/
+				monitors[curMonitor++] = iter->second;
+			}
+			
+			free(displayPaths);
+			free(displayModes);
+			return monitors;
+		}
+	};
+
+}

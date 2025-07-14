@@ -1,0 +1,20 @@
+{
+  "LayoutChooser": [
+    {
+      "Title": "Default",
+      "Keymap": "default.json"
+    },
+    {
+      "Title": "Mouse",
+      "Keymap": "mouse.json"
+    },
+    {
+      "Title": "Steering Wheel",
+      "Keymap": "steeringwheel.json"
+    }
+  ],
+  "Applications": [
+  ],
+  "Default": "default.json",
+  "Calibration": "Calibration.json"
+}

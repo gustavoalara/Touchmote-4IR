@@ -1,0 +1,146 @@
+[Version]
+Signature="$CHICAGO$"
+Class=HIDClass
+ClassGuid={745a17a0-74d3-11d0-b6fe-00a0c90f57da}
+Provider=%VENDOR%
+DriverVer=08/18/2012,6.1.7600.16385
+CatalogFile=kmdfsamples.cat
+
+[SourceDisksFiles]
+vmultib.sys = 99
+hidkmdf.sys = 99
+
+[SourceDisksNames]
+99 = %DISK_NAME%,,,""
+
+[DestinationDirs]
+CopyFunctionDriver = 12      
+
+[Manufacturer]
+%VENDOR%=Vendor, NTAMD64, NTAMD64.6.1
+
+; For XP and later
+[Vendor.NTAMD64]
+%vmultib%    = vmultib.Inst, ecologylab\vmultib
+
+; For Win7 and later so that we can use inbox HID-KMDF mapper
+[Vendor.NTAMD64.6.1]
+%vmultib%    = vmultib.Inst.Win7, ecologylab\vmultib
+
+;===============================================================
+;   vmultib for XP thru Vista
+;===============================================================
+[vmultib.Inst.NT]
+CopyFiles = CopyFunctionDriver
+
+[vmultib.Inst.NT.HW]
+AddReg = vmultib_Parameters.AddReg 
+
+;
+; vmultib is the function driver and hidkmdf is the WDM HID minidriver
+;
+[vmultib.Inst.NT.Services]
+AddService = hidkmdf,,hidkmdf_Service_Inst,
+AddService = vmultib,0x00000002, vmultib_Service_Inst
+
+[CopyFunctionDriver]
+hidkmdf.sys
+
+[vmultib_Parameters.AddReg]
+HKR,,"UpperFilters",0x00010000,"hidkmdf"
+
+[hidkmdf_Service_Inst]
+DisplayName    = %hidkmdf.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START 
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\hidkmdf.sys
+LoadOrderGroup = PNP Filter
+
+
+;===============================================================
+;   vmultib for Win7
+;   Instead of using hidkmdf.sys as a filter, use the inbox 
+;   mshidkmdf.sys as a mapper filter
+;===============================================================
+[vmultib.Inst.Win7.NT]
+; Just copy the driver. No neeed to copy other system binaries.
+CopyFiles = CopyFunctionDriver
+
+[vmultib.Inst.Win7.NT.HW]
+AddReg = vmultib_Win7_Parameters.AddReg 
+
+;
+; vmultib is the function driver and mshidkmdf is the WDM HID minidriver
+;
+[vmultib.Inst.Win7.NT.Services]
+AddService = vmultib,0x00000002, vmultib_Service_Inst
+
+[vmultib_Win7_Parameters.AddReg]
+HKR,,"UpperFilters",0x00010000,"mshidkmdf"
+
+;===============================================================
+;   Sections common to all OS versions
+;===============================================================
+
+[CopyFunctionDriver]
+vmultib.sys
+
+[vmultib_Service_Inst]
+DisplayName    = %vmultib%
+ServiceType    = %SERVICE_KERNEL_DRIVER% 
+StartType      = %SERVICE_DEMAND_START% 
+ErrorControl   = %SERVICE_ERROR_IGNORE% 
+ServiceBinary  = %12%\vmultib.sys 
+
+;================================================================
+;--- WDF Coinstaller installation ------
+;
+[DestinationDirs]
+vmultib.Inst_CoInstaller_CopyFiles = 11
+
+[vmultib.Inst.NT.CoInstallers]
+AddReg=vmultib.Inst_CoInstaller_AddReg
+CopyFiles=vmultib.Inst_CoInstaller_CopyFiles
+
+[vmultib.Inst_CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "WdfCoInstaller01009.dll,WdfCoInstaller"
+
+[vmultib.Inst_CoInstaller_CopyFiles]
+WdfCoInstaller01009.dll,,,0x00000010    ;COPYFLG_NO_OVERWRITE (for win2k)
+
+[SourceDisksFiles]
+WdfCoInstaller01009.dll=99 ; make sure the number matches with SourceDisksNames
+
+[vmultib.Inst.NT.Wdf]
+KmdfService = vmultib, vmultib_wdfsect
+[vmultib_wdfsect]
+KmdfLibraryVersion = 1.9
+
+[Strings] 
+;  *******Localizable Strings******* 
+VENDOR         = "djpnewton@gmail.com" 
+vmultib         = "vmultib HID" 
+DISK_NAME      = "vmultib Device Install Disk"
+hidkmdf.SVCDESC= "Filter Driver Service for HID-KMDF Interface layer"
+
+;  *******Non Localizable Strings******* 
+
+SERVICE_BOOT_START     = 0x0 
+SERVICE_SYSTEM_START   = 0x1 
+SERVICE_AUTO_START     = 0x2 
+SERVICE_DEMAND_START   = 0x3 
+SERVICE_DISABLED       = 0x4 
+
+SERVICE_KERNEL_DRIVER  = 0x1 
+SERVICE_ERROR_IGNORE   = 0x0 
+SERVICE_ERROR_NORMAL   = 0x1 
+SERVICE_ERROR_SEVERE   = 0x2 
+SERVICE_ERROR_CRITICAL = 0x3 
+
+REG_EXPAND_SZ          = 0x00020000 
+REG_DWORD              = 0x00010001 
+REG_MULTI_SZ           = 0x00010000
+REG_BINARY             = 0x00000001
+REG_SZ                 = 0x00000000
+

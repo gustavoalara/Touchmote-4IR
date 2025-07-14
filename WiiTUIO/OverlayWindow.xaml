@@ -1,0 +1,40 @@
+﻿<Window x:Class="WiiTUIO.OverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="OSD"
+        Topmost="True"
+        Top="0"
+        Left="0"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Background="Transparent"
+        ShowInTaskbar="False"
+        WindowStartupLocation="Manual">
+    <Canvas Name="baseCanvas">
+        <Grid MouseUp="Grid_MouseUp" Name="baseGrid" Background="#88000000">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0"></Border>
+            <Border Grid.Row="1" Name="layoutChooserOverlay" Width="Auto" Height="Auto">
+                <StackPanel>
+                    <Border Name="titleBorder" Background="#00FFFFFF" BorderThickness="0" BorderBrush="Transparent" Margin="0,0,0,10">
+                        <TextBlock Name="title" Text="Elige diseño" FontSize="30" FontFamily="Segoe UI Semilight" Foreground="White" Margin="10" TextAlignment="Center"></TextBlock>
+                    </Border>
+                    <ScrollViewer MouseUp="layoutChooserOverlay_MouseUp" Width="306" Name="scrollViewer" PanningMode="VerticalOnly" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+                        <StackPanel Name="layoutList" Margin="0,0,0,10">
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                </StackPanel>
+            </Border>
+            <Border Grid.Row="2"></Border>
+        </Grid>
+        <StackPanel Name="noticeStack" Canvas.Right="20" Canvas.Top="20" Width="400">
+            
+        </StackPanel>
+    </Canvas>
+</Window>

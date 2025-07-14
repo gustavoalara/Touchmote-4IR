@@ -1,0 +1,10 @@
+{
+  "Title": "Mouse pointer",
+  "All": {
+    "OnScreen": {
+      "Pointer": "Mouse",
+      "A": "MouseLeft",
+      "B": "MouseRight"
+    }
+  }
+}

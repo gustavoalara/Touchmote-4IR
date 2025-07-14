@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="WiiTUIO.AboutUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" d:DesignWidth="419" Height="308">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Canvas Margin="0,17,0,17">
+        <Button Name="btnAboutBack" Width="40" Height="40" Style="{DynamicResource MetroCircleButtonStyle}" Canvas.Left="10" Canvas.Top="10" Click="btnAboutBack_Click">
+            <Rectangle Width="14" Height="14" Fill="Black" Opacity="0.8">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Visual="{StaticResource appbar_arrow_left}" Stretch="Fill" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Button>
+        <Label Name="versionLabel" Content="Touchmote v1.0b16" Canvas.Left="76" Canvas.Top="36" FontFamily="Segoe UI Light" FontSize="18"/>
+        <TextBlock Canvas.Left="81" TextWrapping="Wrap" Canvas.Top="80" Height="54" Width="292" FontFamily="Segoe UI Semilight">Touchmote proporciona una manera de actuar a uno o varios Wiimotes como dispositivo multi-touch y gamepad.</TextBlock>
+        <!--<TextBlock Canvas.Left="81" TextWrapping="Wrap" Canvas.Top="134" Height="37" Width="270" FontFamily="Segoe UI Semilight">        
+        #                    Visita <Hyperlink NavigateUri="https://t.me/+L5Fq0C-HBqkwNjc0" RequestNavigate="Hyperlink_RequestNavigate">Wiimotes como Lightguns</Hyperlink> para más información.
+        #</TextBlock> -->
+        <TextBlock Canvas.Left="81" TextWrapping="Wrap" Canvas.Top="134" Height="105" Width="292" FontFamily="Segoe UI Semilight" HorizontalAlignment="Center" VerticalAlignment="Top">Gracias a Symphax por la creación de esta maravillosa aplicación que le ha dado una segunda vida a nuestros Wiimotes, a Ryochan por sus mejoras y a Suegrini por añadir la capacidad de usar 4 IR LEDS para mayor precisión. Esta versión continúa ese trabajo y añade mejoras a la disposición en diamante de los IR LEDs .</TextBlock>
+
+    </Canvas>
+</UserControl>

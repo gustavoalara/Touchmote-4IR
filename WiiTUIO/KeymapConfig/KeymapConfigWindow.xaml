@@ -1,0 +1,149 @@
+﻿<Controls:MetroWindow
+  x:Class="WiiTUIO.KeymapConfigWindow"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+  Title="Configuración del mando" ResizeMode="CanResize" MinHeight="200" MaxWidth="1100" MinWidth="1100" Height="600" Closed="MetroWindow_Closed">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Controls:MetroWindow.WindowCommands>
+        <Controls:WindowCommands>
+
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.WindowCommands>
+    <StackPanel Name="mainPanel" Orientation="Horizontal" Width="1050">
+        <DockPanel Width="240">
+            <Label FontFamily="Segoe UI Light" FontSize="18" Padding="10" DockPanel.Dock="Top">Diseño</Label>
+            <ScrollViewer>
+                <StackPanel>
+                    <StackPanel Name="spLayoutList">
+                    </StackPanel>
+                    <Grid>
+                        <Border Name="bAddKeymap" MouseUp="bAddKeymap_MouseUp" Cursor="Hand" Width="180" Background="#FFEAEAEA" BorderThickness="0" BorderBrush="#FF2E2E2E" Margin="5" CornerRadius="2">
+                            <Rectangle Name="rClear" Width="14" Height="14" Fill="#FF2E2E2E" Margin="5">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_add}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Border>
+
+                        <!-- Need hidden Rectangle that uses appbar_close for later hook application usage.
+                             WPF will make appbar_close canvas icon disappear if not previously used.
+                             Weird stuff
+                        -->
+                        <Rectangle Visibility="Collapsed">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Visual="{StaticResource appbar_close}" Stretch="Fill" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+        <DockPanel Width="488">
+            <Label FontFamily="Segoe UI Light" FontSize="18" Padding="10" DockPanel.Dock="Top">Editar diseño</Label>
+            <ScrollViewer PanningMode="VerticalOnly">
+                <StackPanel>
+                    <StackPanel Margin="4">
+                        <Grid>
+                            <TextBox HorizontalAlignment="Left" Name="tbKeymapTitle" Tag="Título" FontFamily="Segoe UI Semilight" FontSize="14" Padding="2,1" Margin="6" Width="223"></TextBox>
+                            <TextBlock Name="tbDelete" Cursor="Hand" MouseUp="tbDelete_MouseUp" Foreground="Red" FontFamily="Segoe UI Semilight" FontSize="12" Margin="349,10,6,10" TextAlignment="Center" TextDecorations="Underline">Borrar</TextBlock>
+                        </Grid>
+                        <CheckBox Name="cbLayoutChooser" FontFamily="Segoe UI Semilight" Margin="6">Disponible en selector de diseño (mantener Home 3 seg)</CheckBox>
+                        <DockPanel VerticalAlignment="Top">
+                            <CheckBox Name="cbApplicationSearch" FontFamily="Segoe UI Semilight" Margin="6,6,6,2">Enlazar a aplicación</CheckBox>
+
+                            <ItemsControl x:Name="hookAppItemsControl" ItemsSource="{Binding SearchStrings}" IsEnabled="{Binding IsChecked, ElementName=cbApplicationSearch}" DockPanel.Dock="Left" Margin="8,0,20,0">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel>
+                                            <Rectangle Cursor="Hand" Width="16" Height="16" Fill="Gray" Tag="{Binding}" MouseUp="RemoveHookAppEntry" VerticalAlignment="Center" DockPanel.Dock="Right" Margin="8,0,0,0">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Visual="{StaticResource appbar_close}" Stretch="UniformToFill" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+
+                                            <Rectangle Cursor="Hand" Width="16" Height="16" Fill="Gray" Tag="{Binding}" MouseUp="AddHookAppEntry" VerticalAlignment="Center" DockPanel.Dock="Right" Margin="8,0,0,0">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Visual="{StaticResource appbar_add}" Stretch="UniformToFill" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+
+                                            <TextBox Text="{Binding SearchString,UpdateSourceTrigger=PropertyChanged}" FontFamily="Segoe UI Semilight" FontSize="12" Padding="2,1" Margin="6,3,6,6"
+                                                Foreground="{Binding BrushColor}" Tag="{Binding}" LostFocus="HookApp_TextBox_LostFocus" KeyUp="HookApp_TextBox_KeyUp">
+                                            </TextBox>
+                                        </DockPanel>
+
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </DockPanel>
+                    </StackPanel>
+                    <Border BorderBrush="#FFCBCBCB" BorderThickness="0,0,0,1" Margin="6"></Border>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
+                        <Label FontFamily="Segoe UI Semilight" FontSize="13" Margin="2,2,2,2">Mandos</Label>
+                        <Border Name="btnAllBorder" Background="#FF2E2E2E" CornerRadius="2" Margin="2">
+                            <Button Cursor="Hand" Name="btnAll" Click="btnAll_Click" Background="{x:Null}" Foreground="White" Padding="4,0" Height="27">Todos</Button>
+                        </Border>
+                        <Border Name="btn1Border" Background="#FF2E2E2E" CornerRadius="2" Margin="2">
+                            <Button Cursor="Hand" Name="btn1" Click="btn1_Click" Background="{x:Null}" Foreground="White" Padding="6,0" Height="27">1</Button>
+                        </Border>
+                        <Border Name="btn2Border" Background="#FF2E2E2E" CornerRadius="2" Margin="2">
+                            <Button Cursor="Hand" Name="btn2" Click="btn2_Click" Background="{x:Null}" Foreground="White" Padding="6,0" Height="27">2</Button>
+                        </Border>
+                        <Border Name="btn3Border" Background="#FF2E2E2E" CornerRadius="2" Margin="2">
+                            <Button Cursor="Hand" Name="btn3" Click="btn3_Click" Background="{x:Null}" Foreground="White" Padding="6,0" Height="27">3</Button>
+                        </Border>
+                        <Border Name="btn4Border" Background="#FF2E2E2E" CornerRadius="2" Margin="2">
+                            <Button Cursor="Hand" Name="btn4" Click="btn4_Click" Background="{x:Null}" Foreground="White" Padding="6,0" Height="27">4</Button>
+                        </Border>
+                        <Border Name="rad1Border" CornerRadius="2" Margin="20,2,2,2">
+                            <RadioButton Name="rbOnscreen" FontFamily="Segoe UI Semilight" Margin="2">En pantalla</RadioButton>
+                        </Border>
+                        <Border Name="rad2Border" CornerRadius="2" Margin="2">
+                            <RadioButton Name="rbOffscreen" FontFamily="Segoe UI Semilight" Margin="2">Fuera de pantalla</RadioButton>
+                        </Border>
+                    </StackPanel>
+                    <Label FontFamily="Segoe UI Light" FontSize="18" Padding="10" RenderTransformOrigin="0.504,0.539">Wiimote</Label>
+                    <StackPanel Name="spWiimoteConnections">
+                    </StackPanel>
+                    <Label FontFamily="Segoe UI Light" FontSize="18" Padding="10">Nunchuk</Label>
+                    <StackPanel Name="spNunchukConnections">
+                    </StackPanel>
+                    <Label FontFamily="Segoe UI Light" FontSize="18" Padding="10">Mando clásico</Label>
+                    <StackPanel Name="spClassicConnections">
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+        <DockPanel Width="326">
+            <StackPanel DockPanel.Dock="Top" Margin="10">
+                <Label FontFamily="Segoe UI Light" FontSize="18" Padding="10" Content="Salidas"/>
+                <ComboBox SelectionChanged="cbOutput_SelectionChanged" x:Name="cbOutput" FontFamily="Segoe UI Semilight" FontSize="14" Padding="5">
+                    <ComboBoxItem IsSelected="True" x:Name="cbiAll" Content="Todas"/>
+                    <ComboBoxItem x:Name="cbiKeyboard" Content="Teclado"/>
+                    <ComboBoxItem x:Name="cbiMouse" Content="Ratón"/>
+                    <ComboBoxItem x:Name="cbi360" Content="Mando Xbox 360"/>
+                    <ComboBoxItem x:Name="cbiWiimote" Content="Wiimote"/>
+                    <ComboBoxItem x:Name="cbiCursor" Content="Cursor"/>
+                    <ComboBoxItem x:Name="cbiOther" Content="Otros"/>
+                </ComboBox>
+                <TextBox x:Name="tbOutputFilter" GotFocus="tb_placeholder_GotFocus" LostFocus="tb_placeholder_LostFocus" TextChanged="tbOutputFilter_TextChanged" Tag="Filtro" FontFamily="Segoe UI Semilight" FontSize="14" Padding="2,1" Margin="0,8,0,0"/>
+            </StackPanel>
+            <ScrollViewer PanningMode="VerticalOnly" Width="311">
+                <StackPanel x:Name="spOutputList"/>
+            </ScrollViewer>
+        </DockPanel>
+    </StackPanel>
+</Controls:MetroWindow>
