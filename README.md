@@ -1,19 +1,21 @@
 Touchmote
 ==============
-Introducing Touchmote, a Windows app to control the Windows 8 Metro interface from your couch.<br />
+Introducing Touchmote, a Windows app to control the Windows 8 Metro interface from your couch started by Symphax and improved by Ryochan7, Suegrini and others.<br />
 Swipe, scroll and tap by pointing your Wiimote on your screen or HDTV.
 
-Visit http://touchmote.net/ for a compiled installer.
-
 Touchmote is based on the WiiTUIO project which allows data from a Wii Remote to be translated as genuine Windows touch events.<br />
-Touch position is calculated using the Wii Sensor Bar.<br />
+Touch position is calculated using One Wii Sensor Bar (upside or downside), 2 Wii Sensor Bar (one upside and one downside), 4 IR Leds on a square arrangement or 4 IR Leds on a diamond arrangement.<br />
+
 The application is developed in primarily C# .NET 4.5 and some C++.
+
 
 Prerequisites
 ==============
+At least:
+
 1x Nintendo Wii Remote<br />
 1x Wireless Wii Sensor Bar<br />
-1x Bluetooth enabled computer with Windows 8
+1x Bluetooth enabled computer with Windows 8/10/11
 
 Bug reports
 ==============
@@ -47,10 +49,18 @@ WiiPair:  				http://www.richlynch.com/code/wiipair<br />
 EcoTUIOdriver:    https://github.com/ecologylab/EcoTUIODriver<br />
 MultiTouchVista:  http://multitouchvista.codeplex.com<br />
 OpenFIRE:  https://github.com/TeamOpenFIRE/OpenFIRE-Firmware<br />
+Symphax: https://github.com/simphax/Touchmote<br />
+Ryochan7: https://github.com/Ryochan7/Touchmote <br />
+Suegrini: https://github.com/Suegrini/Touchmote <br />
 
 Release History
 ==============
-
+**v1.0 beta 16**<br />
+- Added 4 IR Leds initial support by Suegrini
+- Improved 4 IR Leds diamond arrange support
+- Performance improvements, thanks to all developers
+- Spanish translation (sorry I'll work on multilanguage support soon)
+  
 **v1.0 beta 15**<br />
 - Fix touch input on Windows 10
 - New smoothing algorithm, thanks DevNullx64
