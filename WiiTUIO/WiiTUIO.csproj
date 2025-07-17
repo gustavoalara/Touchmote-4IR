@@ -202,6 +202,9 @@
     <Compile Include="AboutUC.xaml.cs">
       <DependentUpon>AboutUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdvConfig\NewAppSettingsUC.xaml.cs" />
+    <Compile Include="AdvConfig\SettingsData.cs" />
+    <Compile Include="AdvConfig\SettingsManager.cs" />
     <Compile Include="AppSettings.xaml.cs">
       <DependentUpon>AppSettings.xaml</DependentUpon>
     </Compile>
@@ -290,6 +293,10 @@
     <Page Include="AboutUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdvConfig\NewAppSettingsUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="AppSettings.xaml">
       <SubType>Designer</SubType>
