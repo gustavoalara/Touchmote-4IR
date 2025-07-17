@@ -55,6 +55,8 @@ Suegrini: https://github.com/Suegrini/Touchmote <br />
 
 Release History
 ==============
+**v1.0 beta 17**<br />
+- Added new advanced configuration window for all Suegrini's new parameters
 **v1.0 beta 16**<br />
 - Added 4 IR Leds initial support by Suegrini
 - Improved 4 IR Leds diamond arrange support
