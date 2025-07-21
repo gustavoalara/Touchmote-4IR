@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:loc="clr-namespace:WiiTUIO"
              mc:Ignorable="d" d:DesignWidth="419">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -26,15 +27,15 @@
 
             </Button>
 
-            <CheckBox x:Name="cbWindowsStart" Content="Iniciar Touchmote con Windows" Canvas.Left="125" Canvas.Top="87" FontFamily="Segoe UI Semilight" Checked="cbWindowsStart_Checked" Unchecked="cbWindowsStart_Unchecked"/>
+            <CheckBox x:Name="cbWindowsStart" Content="{loc:Localization WindowsStart}" Canvas.Left="125" Canvas.Top="87" FontFamily="Segoe UI Semilight" Checked="cbWindowsStart_Checked" Unchecked="cbWindowsStart_Unchecked"/>
             <!--Button Name="btnConfigDone" Content="Hecho" Canvas.Left="236" Canvas.Top="126" Width="44" Background="#FFECECEC" BorderBrush="Gainsboro" Height="25"/-->
-            <Label Content="Parámetros de Touchmote" Canvas.Left="71" Canvas.Top="36" FontFamily="Segoe UI Light" FontSize="18"/>
-            <CheckBox x:Name="cbPairOnStart" Content="Emparejar un mando al iniciar" Canvas.Left="125" Canvas.Top="109" FontFamily="Segoe UI Semilight" Checked="cbPairOnStart_Checked" Unchecked="cbPairOnStart_Unchecked" />
-            <CheckBox x:Name="cbDisconnectOnExit" Content="Desconectar todos los mandos al salir" Canvas.Left="125" Canvas.Top="131" FontFamily="Segoe UI Semilight" Checked="cbDisconnectOnExit_Checked" Unchecked="cbDisconnectOnExit_Unchecked" />
-            <CheckBox x:Name="cbMinimizeToTray" Content="Minimizar a la bandeja" Canvas.Left="125" Canvas.Top="154" FontFamily="Segoe UI Semilight" Checked="cbMinimizeToTray_Checked" Unchecked="cbMinimizeToTray_Unchecked" />
-            <CheckBox x:Name="cbMinimizeOnStart" Content="Iniciar minimizado" Canvas.Left="125" Canvas.Top="177" FontFamily="Segoe UI Semilight" Checked="cbMinimizeOnStart_Checked" Unchecked="cbMinimizeOnStart_Unchecked" />
-            <Button x:Name="btnEditKeymaps" Content="Configuración del mando" Canvas.Left="46" Canvas.Top="204" Width="160" Click="btnEditKeymaps_Click" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center"></Button>
-            <Button x:Name="btnAdvConfig" Content="Configuración avanzada" Canvas.Left="223" Canvas.Top="204" Width="158" Click="btnAdvConfig_Click" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center"></Button>
+            <Label Content="{loc:Localization AppSettings}" Canvas.Left="71" Canvas.Top="36" FontFamily="Segoe UI Light" FontSize="18"/>
+            <CheckBox x:Name="cbPairOnStart" Content="{loc:Localization pairOnStart}" Canvas.Left="125" Canvas.Top="109" FontFamily="Segoe UI Semilight" Checked="cbPairOnStart_Checked" Unchecked="cbPairOnStart_Unchecked" />
+            <CheckBox x:Name="cbDisconnectOnExit" Content="{loc:Localization DisconnectOnExit}" Canvas.Left="125" Canvas.Top="131" FontFamily="Segoe UI Semilight" Checked="cbDisconnectOnExit_Checked" Unchecked="cbDisconnectOnExit_Unchecked" />
+            <CheckBox x:Name="cbMinimizeToTray" Content="{loc:Localization MinimizeToTray}" Canvas.Left="125" Canvas.Top="154" FontFamily="Segoe UI Semilight" Checked="cbMinimizeToTray_Checked" Unchecked="cbMinimizeToTray_Unchecked" />
+            <CheckBox x:Name="cbMinimizeOnStart" Content="{loc:Localization MinimizeOnStart}" Canvas.Left="125" Canvas.Top="177" FontFamily="Segoe UI Semilight" Checked="cbMinimizeOnStart_Checked" Unchecked="cbMinimizeOnStart_Unchecked" />
+            <Button x:Name="btnEditKeymaps" Content="{loc:Localization EditKeymaps}" Canvas.Left="46" Canvas.Top="204" Width="160" Click="btnEditKeymaps_Click" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center"></Button>
+            <Button x:Name="btnAdvConfig" Content="{loc:Localization AdvConfigTitle}" Canvas.Left="223" Canvas.Top="204" Width="158" Click="btnAdvConfig_Click" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center"></Button>
 
         </Canvas>
         <StackPanel x:Name="providerSettingsContent" />

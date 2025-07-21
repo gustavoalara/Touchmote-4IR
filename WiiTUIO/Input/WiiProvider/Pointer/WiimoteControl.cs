@@ -172,7 +172,7 @@ namespace WiiTUIO.Provider
             {
                 currentKeymap = evt.Filename;
                 if (Settings.Default.notifications_enabled)
-                    OverlayWindow.Current.ShowNotice("Layout for Wiimote " + this.Status.ID + " changed to \"" + evt.Name + "\"", this.Status.ID);
+                    OverlayWindow.Current.ShowNotice("Perfil para el Wiimote " + this.Status.ID + " cambiado a \"" + evt.Name + "\"", this.Status.ID);
             }
         }
 

@@ -4,11 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="40" d:DesignWidth="240">
+             d:DesignHeight="40" d:DesignWidth="240"
+             xmlns:loc="clr-namespace:WiiTUIO">
     <Grid>
         <Border Width="180" Name="border" Background="#FF2E2E2E" BorderThickness="0" BorderBrush="Red" Margin="5" CornerRadius="2">
-        <TextBlock Name="tbName" Text="Predeterminado" Margin="5" FontSize="14" FontFamily="Segoe UI Semilight" Foreground="White" TextAlignment="Left" />
+            <TextBlock Name="tbName" Text="{loc:Localization tbName}" Margin="5" FontSize="14" FontFamily="Segoe UI Semilight" Foreground="White" TextAlignment="Left" />
         </Border>
-        <TextBlock Name="tbDefault" Text="predeterminado" Margin="158,13,39,11" FontSize="10" FontFamily="Segoe UI Semilight" Foreground="White" TextAlignment="Left" TextDecorations="{x:Null}" Visibility="Hidden" />
+        <TextBlock Name="tbDefault" Text="{loc:Localization tbDefault}" Margin="158,13,39,11" FontSize="10" FontFamily="Segoe UI Semilight" Foreground="White" TextAlignment="Left" TextDecorations="{x:Null}" Visibility="Hidden" />
     </Grid>
 </UserControl>

@@ -7,6 +7,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Security.Permissions;
 using System.Security.Principal;
 using System.Text;
+using System.Threading; // Added for Thread.CurrentThread
+using System.Globalization; // Added for CultureInfo
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +20,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using static DriverInstall.Resources.Resources;
+
 namespace DriverInstall
 {
     public partial class MainWindow : Window
@@ -26,6 +30,36 @@ namespace DriverInstall
 
         public MainWindow()
         {
+            // --- INICIO DE LOS CAMBIOS PARA LOCALIZACIÓN ---
+
+            // Establece la cultura de la interfaz de usuario (UI Culture) para la aplicación.
+            // Esta es la cultura que ResourceManager usará para buscar las cadenas en los archivos .resx.
+            // La lógica aquí asegura que el inglés ('en-US') sea el idioma por defecto
+            // si el idioma del sistema no es español ('es').
+
+            // Obtiene la cultura actual de la UI del sistema operativo.
+            CultureInfo currentSystemUICulture = CultureInfo.CurrentUICulture;
+
+            // Comprueba si el idioma del sistema no es español.
+            if (!currentSystemUICulture.Name.StartsWith("es", StringComparison.OrdinalIgnoreCase))
+            {
+                // Si no es español, establece la cultura de la UI a inglés (Estados Unidos).
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+            }
+            else
+            {
+                // Si el idioma del sistema es español, establece la cultura de la UI a español (España).
+                // Puedes cambiar "es-ES" a "es" si quieres que cualquier variante de español use
+                // el archivo Resources.es.resx (si lo creas) o caiga al Resources.resx genérico si no hay uno específico.
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-ES");
+            }
+
+            // También establece la cultura general del hilo (afecta formatos de fecha, números, etc.)
+            // para que coincida con la cultura de la UI.
+            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture;
+
+            // --- FIN DE LOS CAMBIOS PARA LOCALIZACIÓN ---
+
             InitializeComponent();
 
             if (Environment.GetCommandLineArgs().Contains("-silent"))
@@ -64,13 +98,14 @@ namespace DriverInstall
             {
                 Application.Current.Shutdown(1);
             }
-
-            
         }
 
-        private void consoleLine(string text) {
+        private void consoleLine(string text)
+        {
             this.console.Text += "\n";
             this.console.Text += text;
+            // Desplazar el ScrollViewer al final para ver los mensajes más recientes
+            this.console.ScrollToEnd();
         }
 
         private void installAll()
@@ -89,7 +124,7 @@ namespace DriverInstall
         private void installVmultiDriverComplete()
         {
             this.uninstallVmultiDriver();
-            this.uninstallVmultiDriver();
+            this.uninstallVmultiDriver(); // Llamada duplicada, ¿intencional?
             this.installVmultiDrivers();
 
             this.removeAllButMKB();
@@ -106,7 +141,8 @@ namespace DriverInstall
             string path = System.AppDomain.CurrentDomain.BaseDirectory + "CodeSign.cer";
             X509Certificate2 cert = new X509Certificate2(path);
             byte[] encodedCert = cert.GetRawCertData();
-            consoleLine("Adding Touchmote Test Certificate to trusted root.");
+            // --- LOCALIZACIÓN PENDIENTE: Este string debería venir de los recursos ---
+            consoleLine(AddingCertMsg);
             store.Add(cert);
             store.Close();
         }
@@ -118,7 +154,8 @@ namespace DriverInstall
             sp.Flags = StorePermissionFlags.OpenStore;
             sp.Assert();
             store.Open(OpenFlags.ReadWrite);
-            consoleLine("Removing Touchmote Test Certificate.");
+            // --- LOCALIZACIÓN PENDIENTE: Este string debería venir de los recursos ---
+            consoleLine(RemovingCertMsg);
             foreach (X509Certificate2 c in store.Certificates)
             {
                 if (c.IssuerName.Name.Contains("Touchmote"))
@@ -132,7 +169,7 @@ namespace DriverInstall
         private void uninstallVmultiDriverComplete()
         {
             this.uninstallVmultiDriver();
-            this.uninstallVmultiDriver();
+            this.uninstallVmultiDriver(); // Llamada duplicada, ¿intencional?
         }
 
         private void installVmultiDrivers()
@@ -160,13 +197,15 @@ namespace DriverInstall
 
                     proc.Start();
                     string result = proc.StandardOutput.ReadToEnd();
-                    Console.WriteLine(result);
+                    Console.WriteLine(result); // Considerar enviar esto también a consoleLine
                     proc.WaitForExit();
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); // Considerar enviar esto también a consoleLine
+                // --- LOCALIZACIÓN PENDIENTE: El mensaje de error también podría ser localizado o formateado ---
+                consoleLine(string.Format(ErrorVmultiInstall, ex.Message));
             }
         }
 
@@ -196,6 +235,8 @@ namespace DriverInstall
             catch (Exception objException)
             {
                 consoleLine(objException.Message);
+                // --- LOCALIZACIÓN PENDIENTE: El mensaje de error también podría ser localizado o formateado ---
+                consoleLine(string.Format(ErrorVmultiUninstall, objException.Message ));
             }
         }
 
@@ -226,26 +267,30 @@ namespace DriverInstall
 
                     proc.Start();
                     string result = proc.StandardOutput.ReadToEnd();
-                    Console.WriteLine(result);
+                    Console.WriteLine(result); // Considerar enviar esto también a consoleLine
                     proc.WaitForExit();
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.Message); // Considerar enviar esto también a consoleLine
+                    // --- LOCALIZACIÓN PENDIENTE: El mensaje de error también podría ser localizado o formateado ---
+                    consoleLine(string.Format(ErrorDisablingDriver,  ex.Message));
                 }
             }
         }
 
-
         private void btnInstall_Click(object sender, RoutedEventArgs e)
         {
             this.installVmultiDriverComplete();
+            // --- LOCALIZACIÓN PENDIENTE: Este string debería venir de los recursos ---
+            consoleLine(DriverInstallSuccesfull);
         }
 
         private void btnUninstall_Click(object sender, RoutedEventArgs e)
         {
             this.uninstallVmultiDriverComplete();
+            // --- LOCALIZACIÓN PENDIENTE: Este string debería venir de los recursos ---
+            consoleLine(DriverUninstallSuccessfull);
         }
-
     }
 }

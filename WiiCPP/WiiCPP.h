@@ -12,12 +12,20 @@
 #include <strsafe.h>
 #include <vcclr.h>
 #include <map>
+#include <msclr\gcroot.h> // Necesario para gcroot si no está ya
 
 #pragma comment(lib, "Bthprops.lib")
 
 using namespace System;
+using namespace System::Resources; // Necesario para ResourceManager
+using namespace System::Reflection; // Necesario para Assembly
+
+using namespace System;
 
 namespace WiiCPP {
+	// Declaración estática del ResourceManager para acceder a los recursos
+	// Se inicializará una vez en el constructor de WiiPair o en un método estático.
+	static msclr::gcroot<ResourceManager^> s_resourceManager;
 
 	public ref class WiiPairReport
 	{
@@ -65,10 +73,25 @@ namespace WiiCPP {
 
 		WiiPairListener ^listener;
 
-		DWORD ShowErrorCode(LPTSTR msg, DWORD dw) 
-		{ 
-			// Retrieve the system error message for the last-error code
+		// Método para obtener una cadena localizada
+		System::String^ GetLocalizedText(System::String^ key)
+		{
+			// Inicializar el ResourceManager si aún no lo está
+			// Corrección: Asignar a una variable temporal de tipo ResourceManager^ para forzar la conversión
+			ResourceManager^ rm = s_resourceManager;
+			if (rm == nullptr)
+			{
+				// El primer parámetro es el nombre base del recurso (espacio de nombres.nombre_del_archivo_resx_sin_extension)
+				// El segundo parámetro es el ensamblado donde está incrustado el recurso.
+				s_resourceManager = gcnew ResourceManager("WiiCPP.Resources", Assembly::GetExecutingAssembly());
+			}
+			return s_resourceManager->GetString(key);
+		}
 
+		// Modificado para aceptar System::String^ para el mensaje localizado
+		DWORD ShowErrorCode(System::String^ msg, DWORD dw)
+		{
+			// Retrieve the system error message for the last-error code
 			LPVOID lpMsgBuf;
 
 			FormatMessage(
@@ -76,17 +99,15 @@ namespace WiiCPP {
 				NULL,
 				dw,
 				MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-				(LPTSTR) &lpMsgBuf,
-				0, 
-				NULL 
-				);
+				(LPTSTR)&lpMsgBuf,
+				0,
+				NULL
+			);
 
-			String ^msgstr = gcnew String(msg);
-			String ^lpMsgBufstr = gcnew String((LPTSTR)lpMsgBuf);
-			System::String ^str = msgstr+": "+lpMsgBufstr;
+			// Combina el mensaje localizado con el error del sistema
+			System::String^ lpMsgBufstr = gcnew System::String((LPTSTR)lpMsgBuf);
+			System::String^ str = msg + ": " + lpMsgBufstr;
 			listener->pairingConsole(str);
-
-			//_tprintf(_T("%s: %s"), msg, lpMsgBuf);
 
 			LocalFree(lpMsgBuf);
 
@@ -146,7 +167,7 @@ namespace WiiCPP {
 					HBLUETOOTH_RADIO_FIND hFindRadio;
 					BLUETOOTH_FIND_RADIO_PARAMS radioParam;
 
-					listener->pairingConsole("Enumerando radios...\n");
+					listener->pairingConsole(GetLocalizedText("Pairing_EnumeratingRadios") + "\n");
 
 					radioParam.dwSize = sizeof(BLUETOOTH_FIND_RADIO_PARAMS);
 
@@ -160,8 +181,8 @@ namespace WiiCPP {
 					else
 					{
 						
-						ShowErrorCode(_T("Error enumerando radios"), GetLastError());
-						listener->pairingMessage("No puedo encontrar dispositivos bluetooth",WiiPairListener::MessageType::ERR);
+						ShowErrorCode(GetLocalizedText("Error_EnumeratingRadios"), GetLastError());
+						listener->pairingMessage(GetLocalizedText("Pairing_NoBluetoothDevicesFound"),WiiPairListener::MessageType::ERR);
 						
 						/*if (GetLastError() == ERROR_NO_MORE_ITEMS)
 						{*/
@@ -177,8 +198,8 @@ namespace WiiCPP {
 					}
 					nRadios--;
 
-					System::String^ str = "Encontrados " + nRadios + " radios\n"; 
-					listener->pairingConsole(str);
+					System::String^ str = System::String::Format(GetLocalizedText("Pairing_FoundRadios"), nRadios);
+					listener->pairingConsole(str + "\n");
 				}
 
 				///////////////////////////////////////////////////////////////////////
@@ -225,15 +246,14 @@ namespace WiiCPP {
 						srch.fIssueInquiry = TRUE;
 						srch.cTimeoutMultiplier = 1;
 						srch.hRadio = hRadios[radio];
-
-						listener->pairingConsole("Escaneando...\n");
+						listener->pairingConsole(GetLocalizedText("Pairing_Scanning") + "\n");
 						if(removeMode)
 						{
-							listener->pairingMessage("Quitando conexiones antiguas...",WiiPairListener::MessageType::INFO);
+							listener->pairingMessage(GetLocalizedText("Pairing_RemovingOldConnections"), WiiPairListener::MessageType::INFO);
 						}
 						else
 						{
-							listener->pairingMessage("Escaneando...",WiiPairListener::MessageType::INFO);
+							listener->pairingMessage(GetLocalizedText("Pairing_Scanning"),WiiPairListener::MessageType::INFO);
 						}
 
 						hFind = BluetoothFindFirstDevice(&srch, &btdi);
@@ -242,7 +262,7 @@ namespace WiiCPP {
 						{
 							if (GetLastError() == ERROR_NO_MORE_ITEMS)
 							{
-								listener->pairingConsole("No se han encontrado dispositivos bluetooth.\n");
+								listener->pairingConsole(GetLocalizedText("Pairing_NoBluetoothDevicesFoundInScan") + "\n");
 								if(removeMode)
 								{
 									killme = true;
@@ -252,7 +272,7 @@ namespace WiiCPP {
 							{
 
 								//listener->pairingMessage("The bluetooth device is acting funky",WiiPairListener::MessageType::ERR);
-								ShowErrorCode(_T("Error enumerando dispositivos"), GetLastError());
+								ShowErrorCode(GetLocalizedText("Error_EnumeratingDevices"), GetLastError());
 								//report->status = WiiPairReport::Status::RUNNING;
 								//listener->onPairingProgress(report);
 								//break;
@@ -263,7 +283,7 @@ namespace WiiCPP {
 							do
 							{
 								String ^szName = gcnew String(btdi.szName);
-								System::String ^str = "Encontrado:"+szName+"\n";
+								System::String^ str = System::String::Format(GetLocalizedText("Pairing_FoundDevice"), szName);
 								listener->pairingConsole(str);
 
 								if (!wcscmp(btdi.szName, L"Nintendo RVL-CNT-01-TR") || !wcscmp(btdi.szName, L"Nintendo RVL-CNT-01"))
@@ -277,11 +297,11 @@ namespace WiiCPP {
 									{
 										if (btdi.fRemembered && removeMode)
 										{
-											listener->pairingMessage("Quitando antiguo Wiimote",WiiPairListener::MessageType::SUCCESS);
+											listener->pairingMessage(GetLocalizedText("Pairing_RemovingOldWiimote"), WiiPairListener::MessageType::SUCCESS);
 											// Make Windows forget pairing
 											if (ShowErrorCode(_T("BluetoothRemoveDevice"), BluetoothRemoveDevice(&btdi.Address)) != ERROR_SUCCESS)
 											{
-												listener->pairingMessage("No puedo quitar el dispositivo",WiiPairListener::MessageType::ERR);
+												listener->pairingMessage(GetLocalizedText("Pairing_CouldNotRemoveDevice"), WiiPairListener::MessageType::ERR);
 											}
 											else if(removeMode)
 											{
@@ -290,7 +310,7 @@ namespace WiiCPP {
 										} else if(btdi.fRemembered || removeMode) {
 											error = TRUE;
 										} else {
-											listener->pairingMessage("Encontrado nuevo Wiimote",WiiPairListener::MessageType::SUCCESS);
+											listener->pairingMessage(GetLocalizedText("Pairing_FoundNewWiimote"), WiiPairListener::MessageType::SUCCESS);
 										}
 									}
 
@@ -315,7 +335,7 @@ namespace WiiCPP {
 											}
 											Sleep(400);
 										} else {
-											listener->pairingMessage("Autenticado",WiiPairListener::MessageType::SUCCESS);
+											listener->pairingMessage(GetLocalizedText("Pairing_Authenticated"), WiiPairListener::MessageType::SUCCESS);
 										}
 									}
 
@@ -325,9 +345,9 @@ namespace WiiCPP {
 										// If this is not done, the Wii device will not remember the pairing
 										if (ShowErrorCode(_T("BluetoothEnumerateInstalledServices"), BluetoothEnumerateInstalledServices(hRadios[radio], &btdi, &pcServices, guids)) != ERROR_SUCCESS) {
 											error = TRUE;
-											listener->pairingMessage("No puedo emparejar permanentemente el Wiimote",WiiPairListener::MessageType::ERR);
+											listener->pairingMessage(GetLocalizedText("Pairing_CouldNotPairPermanently"), WiiPairListener::MessageType::ERR);
 										} else {
-											listener->pairingMessage("Emparejado",WiiPairListener::MessageType::SUCCESS);
+											listener->pairingMessage(GetLocalizedText("Pairing_Paired"), WiiPairListener::MessageType::SUCCESS);
 										}
 									}
 								
@@ -337,9 +357,9 @@ namespace WiiCPP {
 										// Activate service
 										if (ShowErrorCode(_T("BluetoothSetServiceState"), BluetoothSetServiceState (hRadios[radio], &btdi, &HumanInterfaceDeviceServiceClass_UUID, BLUETOOTH_SERVICE_ENABLE )) != ERROR_SUCCESS) {
 											error = TRUE;
-											listener->pairingMessage("No puedo activar",WiiPairListener::MessageType::ERR);
+											listener->pairingMessage(GetLocalizedText("Pairing_CouldNotActivate"), WiiPairListener::MessageType::ERR);
 										} else {
-											listener->pairingMessage("Activado",WiiPairListener::MessageType::SUCCESS);
+											listener->pairingMessage(GetLocalizedText("Pairing_Activated"), WiiPairListener::MessageType::SUCCESS);
 										}
 									}
 
@@ -382,7 +402,7 @@ namespace WiiCPP {
 			}
 
 			listener->pairingConsole("=============================================\n");
-			System::String^ str =  nPaired + " Dispositivos Wii emparejados\n";
+			System::String^ str = System::String::Format(GetLocalizedText("Pairing_TotalPairedDevices"), nPaired);
 			listener->pairingConsole(str);
 
 			if(cancelled)

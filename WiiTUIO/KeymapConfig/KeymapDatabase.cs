@@ -7,6 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WiiTUIO.Properties;
+using System.Globalization;
+
+using static WiiTUIO.Resources.Resources;
+using System.Threading;
+using System.Reflection;
 
 namespace WiiTUIO
 {
@@ -23,6 +28,7 @@ namespace WiiTUIO
         private static KeymapDatabase currentInstance;
         public static KeymapDatabase Current
         {
+
             get
             {
                 if (currentInstance == null)
@@ -35,188 +41,220 @@ namespace WiiTUIO
 
         private KeymapDatabase()
         {
-            this.DisableKey = "Deshabilitado";
+
+            // --- INICIO DE LOS CAMBIOS PARA LOCALIZACIÓN ---
+
+            // Establece la cultura de la interfaz de usuario (UI Culture) para la aplicación.
+            // Esta es la cultura que ResourceManager usará para buscar las cadenas en los archivos .resx.
+            // La lógica aquí asegura que el inglés ('en-US') sea el idioma por defecto
+            // si el idioma del sistema no es español ('es').
+
+            // Obtiene la cultura actual de la UI del sistema operativo.
+            CultureInfo currentSystemUICulture = CultureInfo.CurrentUICulture;
+
+            // Comprueba si el idioma del sistema no es español.
+            if (!currentSystemUICulture.Name.StartsWith("es", StringComparison.OrdinalIgnoreCase))
+            {
+                // Si no es español, establece la cultura de la UI a inglés (Estados Unidos).
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+            }
+            else
+            {
+                // Si el idioma del sistema es español, establece la cultura de la UI a español (España).
+                // Puedes cambiar "es-ES" a "es" si quieres que cualquier variante de español use
+                // el archivo Resources.es.resx (si lo creas) o caiga al Resources.resx genérico si no hay uno específico.
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-ES");
+            }
+
+            // También establece la cultura general del hilo (afecta formatos de fecha, números, etc.)
+            // para que coincida con la cultura de la UI.
+            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture;
+
+            // --- FIN DE LOS CAMBIOS PARA LOCALIZACIÓN ---
+
+            
+            this.DisableKey = tDisableKey;
 
             allInputs = new List<KeymapInput>();
-            allInputs.Add(new KeymapInput(KeymapInputSource.IR, "Puntero", "Pointer", true, false, true));
-            allInputs.Add(new KeymapInput(KeymapInputSource.IR, "Puntero Izquierdo", "PointerX-", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.IR, "Puntero Derecho", "PointerX+", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.IR, "Puntero Arriba", "PointerY-", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.IR, "Puntero Abajo", "PointerY+", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.IR, tPointer, "Pointer", true, false, true));
+            allInputs.Add(new KeymapInput(KeymapInputSource.IR, tPointerXminus, "PointerX-", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.IR, tPointerXplus, "PointerX+", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.IR, tPointerYminus, "PointerY-", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.IR, tPointerYplus, "PointerY+", true, true, false));
             allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "A", "A"));
             allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "B", "B"));
             allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Home", "Home"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Izquierda", "Left"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Derecha", "Right"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Arriba", "Up"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Aabajo", "Down"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Plus", "Plus"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Minus", "Minus"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Uno", "One"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Dos", "Two"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Tilt X-", "AccelX-", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Tilt X+", "AccelX+", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Tilt Y-", "AccelY-", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Tilt Y+", "AccelY+", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Tilt Z-", "AccelZ-", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Tilt Z+", "AccelZ+", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Shake", "Shake"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Extensión", "Extension"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tLeft, "Left"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tRight, "Right"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tUp, "Up"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tDown, "Down"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tPlus, "Plus"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tMinus, "Minus"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tOne, "One"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tTwo, "Two"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tTiltXMinus, "AccelX-", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tTiltXPlus, "AccelX+", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tTiltYMinus, "AccelY-", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tTiltYPlus, "AccelY+", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tTiltZMinus, "AccelZ-", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tTiltZPlus, "AccelZ+", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tShake, "Shake"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tExtension, "Extension"));
 
             allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "C", "Nunchuk.C"));
             allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Z", "Nunchuk.Z"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Stick Arriba", "Nunchuk.StickUp", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Stick Abajo", "Nunchuk.StickDown", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Stick Izquierda", "Nunchuk.StickLeft", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Stick Derecha", "Nunchuk.StickRight", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Stick Rotación+", "Nunchuk.Rotation+"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Stick Rotación-", "Nunchuk.Rotation-"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Tilt X-", "Nunchuk.AccelX-", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Tilt X+", "Nunchuk.AccelX+", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Tilt Y-", "Nunchuk.AccelY-", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Tilt Y+", "Nunchuk.AccelY+", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Tilt Z-", "Nunchuk.AccelZ-", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Tilt Z+", "Nunchuk.AccelZ+", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Shake", "Nunchuk.Shake"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tStickUp, "Nunchuk.StickUp", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tStickDown, "Nunchuk.StickDown", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tStickLeft, "Nunchuk.StickLeft", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tStickRight, "Nunchuk.StickRight", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tStickRotationPlus, "Nunchuk.Rotation+"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tStickRotationMinus, "Nunchuk.Rotation-"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tTiltXMinus, "Nunchuk.AccelX-", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tTiltXPlus, "Nunchuk.AccelX+", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tTiltYMinus, "Nunchuk.AccelY-", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tTiltYPlus, "Nunchuk.AccelY+", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tTiltZMinus, "Nunchuk.AccelZ-", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tTiltZPlus, "Nunchuk.AccelZ+", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tShake, "Nunchuk.Shake"));
 
 
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Izquierda", "Classic.Left"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Derecha", "Classic.Right"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Arriba", "Classic.Up"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Abajo", "Classic.Down"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tLeft, "Classic.Left"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tRight, "Classic.Right"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tUp, "Classic.Up"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tDown, "Classic.Down"));
 
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Stick Izq. Izquierda", "Classic.StickLLeft", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Stick Izq. Derecha", "Classic.StickLRight", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Stick Izq. Arriba", "Classic.StickLUp", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Stick Izq. Abajo", "Classic.StickLDown", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Stick Der. Izquierda", "Classic.StickRLeft", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Stick Der. Derecha", "Classic.StickRRight", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Stick Der. Arriba", "Classic.StickRUp", true, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Stick Der. Abajo", "Classic.StickRDown", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tStickLLeft, "Classic.StickLLeft", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tStickLRight, "Classic.StickLRight", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tStickLUp, "Classic.StickLUp", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tStickLDown, "Classic.StickLDown", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tStickRLeft, "Classic.StickRLeft", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tStickRRight, "Classic.StickRRight", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tStickRUp, "Classic.StickRUp", true, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tStickRDown, "Classic.StickRDown", true, true, false));
 
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Minus", "Classic.Minus"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Plus", "Classic.Plus"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tMinus, "Classic.Minus"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tPlus, "Classic.Plus"));
             allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Home", "Classic.Home"));
             allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Y", "Classic.Y"));
             allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "X", "Classic.X"));
             allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "A", "Classic.A"));
             allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "B", "Classic.B"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Gatillo Izq.", "Classic.TriggerL", false, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Gatillo Der.", "Classic.TriggerR", false, true, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Gatillo Izq. Pulsar", "Classic.L"));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Gatillo Der. Pulsar", "Classic.R"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tTriggerL, "Classic.TriggerL", false, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tTriggerR, "Classic.TriggerR", false, true, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tL, "Classic.L"));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tR, "Classic.R"));
             allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "ZL", "Classic.ZL"));
             allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "ZR", "Classic.ZR"));
 
 
-            allInputs.Add(new KeymapInput(KeymapInputSource.IR, "Puntero", "OffScreen.Pointer", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.IR, "Puntero Izquierda", "OffScreen.PointerX-", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.IR, "Puntero Derecha", "OffScreen.PointerX+", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.IR, "Puntero Arriba", "OffScreen.PointerY-", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.IR, "Puntero Abajo", "OffScreen.PointerY+", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.IR, tPointer, "OffScreen.Pointer", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.IR, tPointerXminus, "OffScreen.PointerX-", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.IR, tPointerXplus, "OffScreen.PointerX+", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.IR, tPointerYminus, "OffScreen.PointerY-", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.IR, tPointerYplus, "OffScreen.PointerY+", true, true, false, false));
             allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "A", "OffScreen.A", false));
             allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "B", "OffScreen.B", false));
             allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Home", "OffScreen.Home", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Izquierda", "OffScreen.Left", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Derecha", "OffScreen.Right", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Arriba", "OffScreen.Up", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Abajo", "OffScreen.Down", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Plus", "OffScreen.Plus", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Minus", "OffScreen.Minus", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Uno", "OffScreen.One", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Dos", "OffScreen.Two", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Tilt X-", "OffScreen.AccelX-", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Tilt X+", "OffScreen.AccelX+", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Tilt Y-", "OffScreen.AccelY-", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Tilt Y+", "OffScreen.AccelY+", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Tilt Z-", "OffScreen.AccelZ-", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Tilt Z+", "OffScreen.AccelZ+", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Shake", "OffScreen.Shake", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, "Extensión", "OffScreen.Extension", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tLeft, "OffScreen.Left", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tRight, "OffScreen.Right", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tUp, "OffScreen.Up", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tDown, "OffScreen.Down", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tPlus, "OffScreen.Plus", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tMinus, "OffScreen.Minus", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tOne, "OffScreen.One", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tTwo, "OffScreen.Two", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tTiltXMinus, "OffScreen.AccelX-", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tTiltXPlus, "OffScreen.AccelX+", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tTiltYMinus, "OffScreen.AccelY-", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tTiltYPlus, "OffScreen.AccelY+", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tTiltZMinus, "OffScreen.AccelZ-", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tTiltZPlus, "OffScreen.AccelZ+", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tShake, "OffScreen.Shake", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.WIIMOTE, tExtension, "OffScreen.Extension", false));
 
             allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "C", "OffScreen.Nunchuk.C", false));
             allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Z", "OffScreen.Nunchuk.Z", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Stick Arriba", "OffScreen.Nunchuk.StickUp", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Stick Abajo", "OffScreen.Nunchuk.StickDown", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Stick Izquierda", "OffScreen.Nunchuk.StickLeft", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Stick Derecha", "OffScreen.Nunchuk.StickRight", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Stick Rotación+", "OffScreen.Nunchuk.Rotation+", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Stick Rotación-", "OffScreen.Nunchuk.Rotation-", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Tilt X-", "OffScreen.Nunchuk.AccelX-", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Tilt X+", "OffScreen.Nunchuk.AccelX+", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Tilt Y-", "OffScreen.Nunchuk.AccelY-", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Tilt Y+", "OffScreen.Nunchuk.AccelY+", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Tilt Z-", "OffScreen.Nunchuk.AccelZ-", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Tilt Z+", "OffScreen.Nunchuk.AccelZ+", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, "Shake", "OffScreen.Nunchuk.Shake", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tStickUp, "OffScreen.Nunchuk.StickUp", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tStickDown, "OffScreen.Nunchuk.StickDown", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tStickLeft, "OffScreen.Nunchuk.StickLeft", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tStickRight, "OffScreen.Nunchuk.StickRight", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tStickRotationPlus, "OffScreen.Nunchuk.Rotation+", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tStickRotationMinus, "OffScreen.Nunchuk.Rotation-", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tTiltXMinus, "OffScreen.Nunchuk.AccelX-", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tTiltXPlus, "OffScreen.Nunchuk.AccelX+", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tTiltYMinus, "OffScreen.Nunchuk.AccelY-", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tTiltYPlus, "OffScreen.Nunchuk.AccelY+", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tTiltZMinus, "OffScreen.Nunchuk.AccelZ-", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tTiltZPlus, "OffScreen.Nunchuk.AccelZ+", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.NUNCHUK, tShake, "OffScreen.Nunchuk.Shake", false));
 
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Izquierda", "OffScreen.Classic.Left", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Derecha", "OffScreen.Classic.Right", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Arriba", "OffScreen.Classic.Up", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Abajo", "OffScreen.Classic.Down", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tLeft, "OffScreen.Classic.Left", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tRight, "OffScreen.Classic.Right", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tUp, "OffScreen.Classic.Up", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tDown, "OffScreen.Classic.Down", false));
 
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Stick Izq. Izquierda", "OffScreen.Classic.StickLLeft", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Stick Izq. Derecha", "OffScreen.Classic.StickLRight", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Stick Izq. Arriba", "OffScreen.Classic.StickLUp", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Stick Izq. Abajo", "OffScreen.Classic.StickLDown", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Stick Der. Izquierda", "OffScreen.Classic.StickRLeft", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Stick Der. Derecha", "OffScreen.Classic.StickRRight", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Stick Der. Arriba", "OffScreen.Classic.StickRUp", true, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Stick Der. Abajo", "OffScreen.Classic.StickRDown", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tStickLLeft, "OffScreen.Classic.StickLLeft", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tStickLRight, "OffScreen.Classic.StickLRight", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tStickLUp, "OffScreen.Classic.StickLUp", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tStickLDown, "OffScreen.Classic.StickLDown", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tStickRLeft, "OffScreen.Classic.StickRLeft", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tStickRRight, "OffScreen.Classic.StickRRight", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tStickRUp, "OffScreen.Classic.StickRUp", true, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tStickRDown, "OffScreen.Classic.StickRDown", true, true, false, false));
 
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Minus", "OffScreen.Classic.Minus", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Plus", "OffScreen.Classic.Plus", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tMinus, "OffScreen.Classic.Minus", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tPlus, "OffScreen.Classic.Plus", false));
             allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Home", "OffScreen.Classic.Home", false));
             allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Y", "OffScreen.Classic.Y", false));
             allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "X", "OffScreen.Classic.X", false));
             allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "A", "OffScreen.Classic.A", false));
             allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "B", "OffScreen.Classic.B", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Gatillo Izquierdo", "OffScreen.Classic.TriggerL", false, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Gatillo Derecho", "OffScreen.Classic.TriggerR", false, true, false, false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Gatillo Izq. Pulsar", "OffScreen.Classic.L", false));
-            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "Gatillo Der. Pulsar", "OffScreen.Classic.R", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tTriggerL, "OffScreen.Classic.TriggerL", false, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tTriggerR, "OffScreen.Classic.TriggerR", false, true, false, false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tL, "OffScreen.Classic.L", false));
+            allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, tR, "OffScreen.Classic.R", false));
             allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "ZL", "OffScreen.Classic.ZL", false));
             allInputs.Add(new KeymapInput(KeymapInputSource.CLASSIC, "ZR", "OffScreen.Classic.ZR", false));
 
             allOutputs = new List<KeymapOutput>();
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, "Cursor Ratón", "mouse", false, false, true, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, "Ratón FPS", "fpsmouse", false, false, true, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, "Ratón Lightgun", "lightgunmouse", false, false, true, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, "Ratón Izquierdo", "mouseleft"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, "Ratón Medio", "mousemiddle"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, "Ratón Derecho", "mouseright"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, "Ratón Rueda Arriba", "mousewheelup"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, "Ratón Rueda Abajo", "mousewheeldown"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, "Ratón Mover Derecha", "mousex+", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, "Ratón Mover Arriba", "mousey+", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, "Ratón Mover Izquierda", "mousex-", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, "Ratón Mover Abajo", "mousey-", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, tMouse, "mouse", false, false, true, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, tFPSMouse, "fpsmouse", false, false, true, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, tLightgunMouse, "lightgunmouse", false, false, true, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, tMouseLeftB, "mouseleft"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, tMouseMiddleB, "mousemiddle"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, tMouseRightB, "mouseright"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, tMouseWheelUp, "mousewheelup"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, tMouseWheelDown, "mousewheeldown"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, tMouseRight, "mousex+", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, tMouseUp, "mousey+", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, tMouseLeft, "mousex-", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, tMouseDown, "mousey-", true, true, false, false));
             //allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, "Mouse Middle", "mbutton"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, "Ratón Extra 1", "mousexbutton1"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, "Ratón Extra 2", "mousexbutton2"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, tMouseExtra1, "mousexbutton1"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.MOUSE, tMouseExtra2, "mousexbutton2"));
 
 
             allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Tab", "tab"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Retroceso", "back"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Return", "return"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Mayúsculas", "shift"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tBack, "back"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tReturn, "return"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tShift, "shift"));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Control", "control"));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Alt", "menu"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Pause", "pause"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Caps Lock", "capital"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tPause, "pause"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tCapsLock, "capital"));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Escape", "escape"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Barra espaciadora", "space"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Pag. Arriba", "prior"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Pag. Abajo", "next"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Fin", "end"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Home", "home"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Flecha Izq.", "left"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Flecha Arriba", "up"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Flecha Der.", "right"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Flecha Abajo", "down"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Imprimir Pantalla", "snapshot"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Insertar", "insert"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Suprimir", "delete"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tSpace, "space"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tPagUp, "prior"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tPagDown, "next"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tEnd, "end"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tHome, "home"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tNumLeft, "left"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tNumUp, "up"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tNumRight, "right"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tNumDown, "down"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tPrintScreen, "snapshot"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tInsert, "insert"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tDel, "delete"));
 
 
             allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "0", "vk_0"));
@@ -256,11 +294,11 @@ namespace WiiTUIO
             allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Y", "vk_y"));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Z", "vk_z"));
 
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Periodo .", "oem_period"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Coma ,", "oem_comma"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tPeriod, "oem_period"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tComma, "oem_comma"));
 
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Win Izquierdo", "lwin"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Win Derecho", "rwin"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tLWin, "lwin"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tRWin, "rwin"));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Apps / Menu", "apps"));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Numpad 0", "numpad0"));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Numpad 1", "numpad1"));
@@ -272,11 +310,11 @@ namespace WiiTUIO
             allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Numpad 7", "numpad7"));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Numpad 8", "numpad8"));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Numpad 9", "numpad9"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Multiplicar *", "multiply"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Sumar +", "add"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Restar -", "subtract"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Decimal ,", "decimal"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Dividir /", "divide"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tMultiply, "multiply"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tAdd, "add"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tSubtract, "subtract"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tDecimal, "decimal"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tDivide, "divide"));
 
 
             allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "F1", "f1"));
@@ -293,30 +331,30 @@ namespace WiiTUIO
             allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "F12", "f12"));
 
 
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Numlock", "numlock"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Mayúsculas Izq.", "lshift"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Mayúsculas Der.", "rshift"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Control Izq.", "lcontrol"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Control Der.", "rcontrol"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Alt Izq.", "lmenu"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Alt Der.", "rmenu"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tNumlock, "numlock"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tLShift, "lshift"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tRShift, "rshift"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tLControl, "lcontrol"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tRControl, "rcontrol"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tLAlt, "lmenu"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tRAlt, "rmenu"));
 
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Navegador Atrás", "browser_back"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Navegador Adelante", "browser_forward"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Navegador Refrescar", "browser_refresh"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Navegador Stop", "browser_stop"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Navegador Buscar", "browser_search"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Navegador Favoritos", "browser_favorites"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Navegador Home", "browser_home"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tBrowserBack, "browser_back"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tBrowserForward, "browser_forward"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tBrowserRefresh, "browser_refresh"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tBrowserStop, "browser_stop"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tBrowserSearch, "browser_search"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tBrowserFavorites, "browser_favorites"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tBrowserHome, "browser_home"));
 
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Silenciar", "volume_mute"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Volumen +", "volume_up"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Volumen -", "volume_down"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tVolumeMute, "volume_mute"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tVolumeUp, "volume_up"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tVolumeDown, "volume_down"));
 
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Pista Siguiente", "media_next_track"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Pista Anterior", "media_prev_track"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Stop Media", "media_stop"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Repr./Pausar Media", "media_play_pause"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tNextTrack, "media_next_track"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tPrevTrack, "media_prev_track"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tStop, "media_stop"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, tPlayPause, "media_play_pause"));
 
             allOutputs.Add(new KeymapOutput(KeymapOutputType.KEYBOARD, "Zoom", "zoom"));
 
@@ -324,53 +362,53 @@ namespace WiiTUIO
             allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "B", "360.b"));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "X", "360.x"));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Y", "360.y"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Izquierda", "360.left", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Derecha", "360.right", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Arriba", "360.up", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Abajo", "360.down", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Back", "360.back"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Start", "360.start"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Guide", "360.guide"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Izq. Pulsar", "360.stickpressl"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Der. Pulsar", "360.stickpressr"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Izq.", "360.stickl", false, false, true, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Izq. Light", "360.stickl-light", false, false, true, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Izq. Light 4:3", "360.stickl-light-4:3", false, false, true, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Izq. Arriba", "360.sticklup", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Izq. Abajo", "360.stickldown", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Izq. Izq.", "360.sticklleft", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Izq. Der.", "360.sticklright", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Izq.Centro", "360.sticklcenter"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Der.", "360.stickr", false, false, true, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Der. Light", "360.stickr-light", false, false, true, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Der. Light 4:3", "360.stickr-light-4:3", false, false, true, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Der. Arriba", "360.stickrup", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Der. Abajo", "360.stickrdown", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Der. Izq.", "360.stickrleft", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Der. Der.", "360.stickrright", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Stick Der. Centro", "360.stickrcenter"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Gatillo Izq.", "360.triggerl", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Gatillo Der.", "360.triggerr", true, true, false, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Bumper Izq.", "360.bumperl"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, "Bumper Der.", "360.bumperr"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tLeft, "360.left", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tRight, "360.right", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tUp, "360.up", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tDown, "360.down", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tBack, "360.back"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStart, "360.start"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tGuide, "360.guide"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickLPress, "360.stickpressl"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickRPress, "360.stickpressr"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickLeft, "360.stickl", false, false, true, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickLLight, "360.stickl-light", false, false, true, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickLLight43, "360.stickl-light-4:3", false, false, true, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickLUp, "360.sticklup", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickLDown, "360.stickldown", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickLLeft, "360.sticklleft", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickLRight, "360.sticklright", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickLCenter, "360.sticklcenter"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickRight, "360.stickr", false, false, true, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickRLight, "360.stickr-light", false, false, true, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickRLight43, "360.stickr-light-4:3", false, false, true, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickRUp, "360.stickrup", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickRDown, "360.stickrdown", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickRLeft, "360.stickrleft", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickRRight, "360.stickrright", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tStickRCenter, "360.stickrcenter"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tTriggerL, "360.triggerl", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tTriggerR, "360.triggerr", true, true, false, false));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tBumperL, "360.bumperl"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.XINPUT, tBumperR, "360.bumperr"));
 
             allOutputs.Add(new KeymapOutput(KeymapOutputType.CURSOR, "Cursor", "cursor", false, false, true, false));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.CURSOR, "Lightgun Cursor", "lightguncursor", false, false, true, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.CURSOR, "Pulsar Cursor", "cursorpress"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.CURSOR, tPressCursor, "cursorpress"));
 
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, "Rumble Corto", "rumbleshort"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, "Rumble Largo", "rumblelong"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, "Rumble Contínuo", "rumblehold"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, "Rumble Alternado", "rumblealt"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, tShortRumble, "rumbleshort"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, tLongRumble, "rumblelong"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, tRumbleHold, "rumblehold"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, tRumbleAlt, "rumblealt"));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, "LED 1", "led1"));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, "LED 2", "led2"));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, "LED 3", "led3"));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, "LED 4", "led4"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, "Altavoz Sonido 1", "sound1"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, "Altavoz Sonido 2", "sound2"));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, "Altavoz Sonido Bucle", "loop"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, tSound1, "sound1"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, tSound2, "sound2"));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, tSoundLoop, "loop"));
 
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.DISABLE, "Deshabilitado", this.DisableKey));
+            allOutputs.Add(new KeymapOutput(KeymapOutputType.DISABLE, tDisableKey, this.DisableKey));
         }
 
 

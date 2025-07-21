@@ -202,9 +202,7 @@
     <Compile Include="AboutUC.xaml.cs">
       <DependentUpon>AboutUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AdvConfig\NewAppSettingsUC.xaml.cs" />
-    <Compile Include="AdvConfig\SettingsData.cs" />
-    <Compile Include="AdvConfig\SettingsManager.cs" />
+    <Compile Include="AdvConfig\AdvSettings.xaml.cs" />
     <Compile Include="AppSettings.xaml.cs">
       <DependentUpon>AppSettings.xaml</DependentUpon>
     </Compile>
@@ -213,6 +211,7 @@
     <Compile Include="ArcadeHook\IniFileHandler.cs" />
     <Compile Include="ArcadeHook\OutputProvider.cs" />
     <Compile Include="Autostart.cs" />
+    <Compile Include="LocalizationExtension.cs" />
     <Compile Include="CommandListener.cs" />
     <Compile Include="DeviceUtils\AudioUtil.cs" />
     <Compile Include="DeviceUtils\DeviceUtil.cs" />
@@ -284,6 +283,21 @@
     <Compile Include="Properties\Settings.cs" />
     <Compile Include="Input\WiiProvider\Pointer\WiimoteControl.cs" />
     <Compile Include="Input\WiiProvider\Pointer\WiiPointerProvider.cs" />
+    <Compile Include="Resources\Resources.en-US.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Resources.es-ES.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.es-ES.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SubPanel.cs" />
     <Compile Include="SystemProcessMonitor.cs" />
     <Compile Include="UIHelpers.cs" />
@@ -294,7 +308,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AdvConfig\NewAppSettingsUC.xaml">
+    <Page Include="AdvConfig\AdvSettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -382,6 +396,18 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Resources.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Resources.es-ES.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.es-ES.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="app.manifest">
       <SubType>Designer</SubType>
@@ -457,7 +483,11 @@
   <ItemGroup>
     <Resource Include="Resources\openhand.cur" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="ViGem\ViGEmBus_1.22.0_x64_x86_arm64.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(ProjectDir)VMultiDll_$(PlatformName).dll" "$(TargetDir)VMultiDll.dll" /Y

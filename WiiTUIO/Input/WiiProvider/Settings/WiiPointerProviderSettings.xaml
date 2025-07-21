@@ -1,23 +1,29 @@
 ﻿<UserControl x:Class="WiiTUIO.Provider.WiiPointerProviderSettings"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Height="145"
+        xmlns:loc="clr-namespace:WiiTUIO"
         >
     <Canvas Height="150" Width="419">
         <!--CheckBox Name="cbSystemCursor" Content="Change System Cursor" HorizontalAlignment="Left" Margin="62,61,0,0" VerticalAlignment="Top" Unchecked="systemCursor_Unchecked" Checked="systemCursor_Checked" FontFamily="Segoe UI Semilight"/-->
         <!--CheckBox Name="cbMoveCursor" Content="Move Cursor When Pointing" HorizontalAlignment="Left" Margin="62,61,0,0" VerticalAlignment="Top" Unchecked="moveCursor_Unchecked" Checked="moveCursor_Checked" FontFamily="Segoe UI Semilight"/-->
-        <Label Content="Configuración de apuntado" FontFamily="Segoe UI Light" FontSize="18" Canvas.Left="73" Canvas.Top="10"/>
+        <Label Content="{loc:Localization AimConfig}" FontFamily="Segoe UI Light" FontSize="18" Canvas.Left="73" Canvas.Top="10"/>
         <!--Label Content="Monitor" FontFamily="Segoe UI Semilight" HorizontalAlignment="Right" Canvas.Left="177" Canvas.Top="53" RenderTransformOrigin="0.49,0.615" />
         <ComboBox Name="MonitorComboBox" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="138" SelectionChanged="MonitorComboBox_SelectionChanged" FontFamily="Segoe UI Semilight" Canvas.Left="233" Canvas.Top="54">
 
         </ComboBox-->
 
-        <Label Content="Modo Sensor" FontFamily="Segoe UI Semilight" HorizontalAlignment="Right" Canvas.Left="150" Canvas.Top="53" VerticalAlignment="Center" />
+        <Label Content="{loc:Localization SensorMode}" FontFamily="Segoe UI Semilight" HorizontalAlignment="Right" Canvas.Left="150" Canvas.Top="53" VerticalAlignment="Center" />
         <ComboBox Name="SBPositionComboBox" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="110" SelectionChanged="SBPositionComboBox_SelectionChanged" FontFamily="Segoe UI Semilight" Canvas.Left="233" Canvas.Top="53">
-            <ComboBoxItem Name="cbiCenter">2IR: Centrado</ComboBoxItem>
-            <ComboBoxItem Name="cbiTop">2IR: Arriba</ComboBoxItem>
-            <ComboBoxItem Name="cbiBottom">2IR: Abajo</ComboBoxItem>
-            <ComboBoxItem Name="cbiSquare">4IR: Cuadrado</ComboBoxItem>
-            <ComboBoxItem Name="cbiDiamond">4IR: Diamante</ComboBoxItem>
+            <ComboBoxItem Name="cbiCenter">
+                <Run Text="{loc:Localization 2IRCentered}"/></ComboBoxItem>
+            <ComboBoxItem Name="cbiTop">
+                <Run Text="{loc:Localization 2IRTop}"/></ComboBoxItem>
+            <ComboBoxItem Name="cbiBottom">
+                <Run Text="{loc:Localization 2IRBottom}"/></ComboBoxItem>
+            <ComboBoxItem Name="cbiSquare">
+                <Run Text="{loc:Localization 4IRSquare}"/></ComboBoxItem>
+            <ComboBoxItem Name="cbiDiamond">
+                <Run Text="{loc:Localization 4IRDiamond}"/></ComboBoxItem>
         </ComboBox>
 
 

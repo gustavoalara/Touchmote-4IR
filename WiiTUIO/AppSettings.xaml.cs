@@ -127,7 +127,7 @@ namespace WiiTUIO
 
         private void btnAdvConfig_Click(object sender, RoutedEventArgs e)
         {
-            NewAppSettingsUC.Instance.Show(); // Llama a la instancia única de la ventana de configuración avanzada
+            AdvSettingsUC.Instance.Show(); // Llama a la instancia única de la ventana de configuración avanzada
         }
 
     }

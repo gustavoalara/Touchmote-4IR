@@ -1,0 +1,894 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdvConfigTitle" xml:space="preserve">
+    <value>Configuración Avanzada</value>
+  </data>
+  <data name="Battery" xml:space="preserve">
+    <value>Batería: </value>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>Conectado</value>
+  </data>
+  <data name="ConnectOnStart" xml:space="preserve">
+    <value>Conectar al iniciar</value>
+  </data>
+  <data name="DisconnectWiimotesOnDolphin" xml:space="preserve">
+    <value>Desconectar Wiimotes al iniciar Dolphin</value>
+  </data>
+  <data name="DolphinPath" xml:space="preserve">
+    <value>Ruta de Dolphin:</value>
+  </data>
+  <data name="GlobalConf" xml:space="preserve">
+    <value>Configuración General</value>
+  </data>
+  <data name="Configuración de Keymaps:" xml:space="preserve">
+    <value>Configuración de Keymaps:</value>
+  </data>
+  <data name="KeymapsPath" xml:space="preserve">
+    <value>Ruta de Keymaps:</value>
+  </data>
+  <data name="menuExit" xml:space="preserve">
+    <value>Salir</value>
+  </data>
+  <data name="NotificationsEnabled" xml:space="preserve">
+    <value>Habilitar notificaciones</value>
+  </data>
+  <data name="NoTopmost" xml:space="preserve">
+    <value>No mantener la ventana siempre encima</value>
+  </data>
+  <data name="PrimaryMonitor" xml:space="preserve">
+    <value>Monitor Principal:</value>
+  </data>
+  <data name="SaveAndReboot" xml:space="preserve">
+    <value>Guardar y Reiniciar Touchmote</value>
+  </data>
+  <data name="TouchmoteAbout1" xml:space="preserve">
+    <value>Touchmote proporciona una manera de actuar a uno o varios Wiimotes como dispositivo multi-touch y gamepad.</value>
+  </data>
+  <data name="TouchmoteAbout2" xml:space="preserve">
+    <value>Gracias a Symphax por la creación de esta maravillosa aplicación que le ha dado una segunda vida a nuestros Wiimotes, a Ryochan por sus mejoras y a Suegrini por añadir la capacidad de usar 4 IR LEDS para mayor precisión. Esta versión continúa ese trabajo y añade mejoras a la disposición en diamante de los IR LEDs .</value>
+  </data>
+  <data name="TrayBalloonTip" xml:space="preserve">
+    <value>Pulsar para editar los parámetros de Touchmote</value>
+  </data>
+  <data name="AutoDisconnectTimeout" xml:space="preserve">
+    <value>Tiempo de desconexión automática (ms):</value>
+  </data>
+  <data name="DefaultContinousScale" xml:space="preserve">
+    <value>Escala continua predeterminada:</value>
+  </data>
+  <data name="DefaultContinousPressThreshold" xml:space="preserve">
+    <value>Umbral de pulsación continua predeterminado:</value>
+  </data>
+  <data name="DefaultContinousDeadzone" xml:space="preserve">
+    <value>Zona muerta continua predeterminada:</value>
+  </data>
+  <data name="PointerConfigHeaderText" xml:space="preserve">
+    <value>Configuración del Puntero</value>
+  </data>
+  <data name="PointerSensorBarPosCompensation" xml:space="preserve">
+    <value>Compensación de posición de la barra sensora:</value>
+  </data>
+  <data name="PointerCursorSize" xml:space="preserve">
+    <value>Tamaño del cursor del puntero:</value>
+  </data>
+  <data name="PointerMarginsTopBottom" xml:space="preserve">
+    <value>Márgenes superior/inferior del puntero:</value>
+  </data>
+  <data name="PointerMarginsLeftRight" xml:space="preserve">
+    <value>Márgenes izquierdo/derecho del puntero:</value>
+  </data>
+  <data name="PointerFPS" xml:space="preserve">
+    <value>Puntero FPS:</value>
+  </data>
+  <data name="PointerPositionSmoothing" xml:space="preserve">
+    <value>Suavizado de la Posición del Puntero:</value>
+  </data>
+  <data name="PointerPositionRadius" xml:space="preserve">
+    <value>Radio de posición del puntero:</value>
+  </data>
+  <data name="TestConfigHeader" xml:space="preserve">
+    <value>Configuración de Prueba</value>
+  </data>
+  <data name="TestDeltaAccel" xml:space="preserve">
+    <value>Habilita Aceleración Delta de Prueba:</value>
+  </data>
+  <data name="TestDeltaAccelMulti" xml:space="preserve">
+    <value>Multiplicador de aceleración delta de prueba:</value>
+  </data>
+  <data name="TestDeltaAccelMinTravel" xml:space="preserve">
+    <value>Recorrido mínimo de aceleración delta de prueba:</value>
+  </data>
+  <data name="TestDeltaAccelEasingDuration" xml:space="preserve">
+    <value>Duración de suavizado de aceleración delta de prueba:</value>
+  </data>
+  <data name="TestRegionEasingXDuration" xml:space="preserve">
+    <value>Duración de suavizado de región X de prueba:</value>
+  </data>
+  <data name="TestDeltaAccelMaxTravel" xml:space="preserve">
+    <value>Recorrido máximo de aceleración delta de prueba:</value>
+  </data>
+  <data name="TestRegionEasingXOffset" xml:space="preserve">
+    <value>Desplazamiento de región X de prueba:</value>
+  </data>
+  <data name="TestSmoothingWeight" xml:space="preserve">
+    <value>Peso de suavizado de prueba:</value>
+  </data>
+  <data name="TestFpsmouseOffset" xml:space="preserve">
+    <value>Desplazamiento del ratón FPS de prueba:</value>
+  </data>
+  <data name="CalibrationMarginX" xml:space="preserve">
+    <value>Margen de Calibración X:</value>
+  </data>
+  <data name="CalibrationMarginY" xml:space="preserve">
+    <value>Margen de Calibración Y:</value>
+  </data>
+  <data name="TestLightgunOneeuroMincutoff" xml:space="preserve">
+    <value>Recorte mínimo de One Euro de pistola de luz:</value>
+  </data>
+  <data name="TestLightgunOneeuroBeta" xml:space="preserve">
+    <value>Beta de One Euro de pistola de luz:</value>
+  </data>
+  <data name="FpsmouseDeadzone" xml:space="preserve">
+    <value>Zona muerta del ratón FPS:</value>
+  </data>
+  <data name="FpsmouseSpeed" xml:space="preserve">
+    <value>Velocidad del ratón FPS:</value>
+  </data>
+  <data name="ShakeTitle" xml:space="preserve">
+    <value>Configuración de Agitación</value>
+  </data>
+  <data name="ShakeThreshold" xml:space="preserve">
+    <value>Umbral de Agitación:</value>
+  </data>
+  <data name="ShakeCount" xml:space="preserve">
+    <value>Conteo de Agitación:</value>
+  </data>
+  <data name="ShakeMaxTimeInBetween" xml:space="preserve">
+    <value>Tiempo máximo entre agitaciones (ms):</value>
+  </data>
+  <data name="ShakePressedTime" xml:space="preserve">
+    <value>Tiempo de pulsación de agitación (ms):</value>
+  </data>
+  <data name="RumbleXinputTitle" xml:space="preserve">
+    <value>Configuración de vibración XInput</value>
+  </data>
+  <data name="XinputRumbleThresholdBig" xml:space="preserve">
+    <value>Umbral de vibración grande XInput:</value>
+  </data>
+  <data name="XinputRumbleThresholdSmall" xml:space="preserve">
+    <value>Umbral de vibración pequeña XInput:</value>
+  </data>
+  <data name="SoundAndRumbleTitle" xml:space="preserve">
+    <value>Configuración de Vibración y Sonido Wiimote</value>
+  </data>
+  <data name="WiimoteRumbleTimeShort" xml:space="preserve">
+    <value>Tiempo de vibración corta (ms):</value>
+  </data>
+  <data name="WiimoteRumbleTimeLong" xml:space="preserve">
+    <value>Tiempo de vibración larga (ms):</value>
+  </data>
+  <data name="WiimodeRumbleTimeAlternatingOn" xml:space="preserve">
+    <value>Tiempo de vibración alternante ON (ms):</value>
+  </data>
+  <data name="WiimodeRumbleTimeAlternatingOff" xml:space="preserve">
+    <value>Tiempo de vibración alternante OFF (ms):</value>
+  </data>
+  <data name="WiimodeLoopSoundTime" xml:space="preserve">
+    <value>Tiempo de sonido de bucle (ms):</value>
+  </data>
+  <data name="IDTitle" xml:space="preserve">
+    <value>Configuración de Colores de los ID de los Wiimotes</value>
+  </data>
+  <data name="ColorID1" xml:space="preserve">
+    <value>Color ID 1 (R, G, B):</value>
+  </data>
+  <data name="ColorID2" xml:space="preserve">
+    <value>Color ID 2 (R, G, B):</value>
+  </data>
+  <data name="ColorID3" xml:space="preserve">
+    <value>Color ID 3 (R, G, B):</value>
+  </data>
+  <data name="ColorID4" xml:space="preserve">
+    <value>Color ID 4 (R, G, B):</value>
+  </data>
+  <data name="KeymapsConfig" xml:space="preserve">
+    <value>Fichero de Config. Keymaps:</value>
+  </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>Parámetros de Touchmote</value>
+  </data>
+  <data name="WindowsStart" xml:space="preserve">
+    <value>Iniciar Touchmote con Windows</value>
+  </data>
+  <data name="pairOnStart" xml:space="preserve">
+    <value>Emparejar al iniciar</value>
+  </data>
+  <data name="DisconnectOnExit" xml:space="preserve">
+    <value>Desconectar todos los wiimotes al salir</value>
+  </data>
+  <data name="MinimizeToTray" xml:space="preserve">
+    <value>Minimizar a la bandeja</value>
+  </data>
+  <data name="MinimizeOnStart" xml:space="preserve">
+    <value>Iniciar minimizado</value>
+  </data>
+  <data name="EditKeymaps" xml:space="preserve">
+    <value>Configuración del mando</value>
+  </data>
+  <data name="connectedCount" xml:space="preserve">
+    <value>0 Wiimotes Conectados</value>
+  </data>
+  <data name="pairWiimote" xml:space="preserve">
+    <value>Emparejando...</value>
+  </data>
+  <data name="PressSyncPart1" xml:space="preserve">
+    <value>Pulsa SYNC</value>
+  </data>
+  <data name="PressSyncPart2" xml:space="preserve">
+    <value> para conexión permantente o 1+2 para conexión temporal.</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Inténtalo de nuevo gañán</value>
+  </data>
+  <data name="WiimoteComp" xml:space="preserve">
+    <value>Al menos uno de tus Wiimotes no es compatible con la pila Bluetooth de Microsoft, usa sólo Wiimotes manufacturados antes de Noviembre de 2011 o sigue las instrucciones en </value>
+  </data>
+  <data name="ThisPage" xml:space="preserve">
+    <value>  esta página</value>
+  </data>
+  <data name="PairWiimotes" xml:space="preserve">
+    <value>Emparejar Wiimotes</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Hecho</value>
+  </data>
+  <data name="OneWiimoteConnected" xml:space="preserve">
+    <value>Un Wiimote conectado</value>
+  </data>
+  <data name="WiimotesConnected" xml:space="preserve">
+    <value> Wiimotes Conectados</value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>Escaneando...</value>
+  </data>
+  <data name="TClosing" xml:space="preserve">
+    <value>Cerrando...</value>
+  </data>
+  <data name="Layout" xml:space="preserve">
+    <value>Diseño cambiado a</value>
+  </data>
+  <data name="ChooseLayout" xml:space="preserve">
+    <value>Elige diseño</value>
+  </data>
+  <data name="ChooseWiimoteLayout" xml:space="preserve">
+    <value>Elige un diseño para el wiimote </value>
+  </data>
+  <data name="RestartError" xml:space="preserve">
+    <value>Error reiniciando la aplicación {0}</value>
+  </data>
+  <data name="DolphinFolder" xml:space="preserve">
+    <value>Selecciona la carpeta de Dolphin</value>
+  </data>
+  <data name="KeymapsFolder" xml:space="preserve">
+    <value>Selecciona la carpeta Keymaps</value>
+  </data>
+  <data name="KeymapsConfigSelect" xml:space="preserve">
+    <value>Selecciona el fichero de configuración Keymaps</value>
+  </data>
+  <data name="insText2" xml:space="preserve">
+    <value> apunta a los objetivos y pulsa A o B para calibrar</value>
+  </data>
+  <data name="AimButtomRight" xml:space="preserve">
+    <value>Apunte a la esquina INFERIOR DERECHA y presione A o B para calibrar</value>
+  </data>
+  <data name="AimCenter" xml:space="preserve">
+    <value> Apunte al objetivo CENTRAL y presione A o B para calibrar</value>
+  </data>
+  <data name="AimTargets" xml:space="preserve">
+    <value> apunte a los objetivos y presione A o B para calibrar</value>
+  </data>
+  <data name="AimTopCenter" xml:space="preserve">
+    <value>Apunte al objetivo SUPERIOR central y presione A o B para calibrar</value>
+  </data>
+  <data name="AimTopLeft" xml:space="preserve">
+    <value>Apunte a la esquina SUPERIOR IZQUIERDA y presione A o B para calibrar</value>
+  </data>
+  <data name="AimButtomCenter" xml:space="preserve">
+    <value>Apunte al objetivo INFERIOR central y presione A o B para calibrar</value>
+  </data>
+  <data name="AimConfirm" xml:space="preserve">
+    <value>Presione A para confirmar la calibración, presione B para reiniciar la calibración</value>
+  </data>
+  <data name="AimLeftCenter" xml:space="preserve">
+    <value>Apunte al objetivo IZQUIERDO central y presione A o B para calibrar</value>
+  </data>
+  <data name="AimRightCenter" xml:space="preserve">
+    <value>Apunte al objetivo DERECHO central y presione A o B para calibrar</value>
+  </data>
+  <data name="HoldDown" xml:space="preserve">
+    <value>Mantenga presionado</value>
+  </data>
+  <data name="NoSensors" xml:space="preserve">
+    <value>No se encuentran sensores. Asegúrese de estar a la distancia adecuada y apuntando a la pantalla.</value>
+  </data>
+  <data name="ReleaseText" xml:space="preserve">
+    <value>Suelte</value>
+  </data>
+  <data name="AimConfig" xml:space="preserve">
+    <value>Configuración de apuntado</value>
+  </data>
+  <data name="SensorMode" xml:space="preserve">
+    <value>Modo Sensor</value>
+  </data>
+  <data name="2IRCentered" xml:space="preserve">
+    <value> 2IR: Centrado</value>
+  </data>
+  <data name="2IRTop" xml:space="preserve">
+    <value> 2IR: Arriba</value>
+  </data>
+  <data name="2IRBottom" xml:space="preserve">
+    <value> 2IR: Abajo</value>
+  </data>
+  <data name="4IRSquare" xml:space="preserve">
+    <value> 4IR: Cuadrado</value>
+  </data>
+  <data name="4IRDiamond" xml:space="preserve">
+    <value> 4IR: Rombo</value>
+  </data>
+  <data name="tbName" xml:space="preserve">
+    <value>Predeterminado</value>
+  </data>
+  <data name="tbDefault" xml:space="preserve">
+    <value>Predeterminado</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>Acerca de</value>
+  </data>
+  <data name="SettingsBut" xml:space="preserve">
+    <value>Config.</value>
+  </data>
+  <data name="KeymapConfigTitle" xml:space="preserve">
+    <value>Configuración del mando</value>
+  </data>
+  <data name="KeyMapLayout" xml:space="preserve">
+    <value>Diseño</value>
+  </data>
+  <data name="EditLayout" xml:space="preserve">
+    <value>Editar Diseño</value>
+  </data>
+  <data name="KeyMapDel" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="cbLayoutChooser" xml:space="preserve">
+    <value> Disponible en selector de diseño (mantener Home 3 seg)</value>
+  </data>
+  <data name="AppLink" xml:space="preserve">
+    <value> Enlazar a aplicación</value>
+  </data>
+  <data name="GamepadsLabel" xml:space="preserve">
+    <value> Mandos</value>
+  </data>
+  <data name="btnAll" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="rbOnscreen" xml:space="preserve">
+    <value> En pantalla</value>
+  </data>
+  <data name="rbOffscreen" xml:space="preserve">
+    <value> Fuera de pantalla</value>
+  </data>
+  <data name="ClassicGamepad" xml:space="preserve">
+    <value>Mando Clásico</value>
+  </data>
+  <data name="OutputsLabel" xml:space="preserve">
+    <value>Salidas</value>
+  </data>
+  <data name="cbiAll" xml:space="preserve">
+    <value>Todas</value>
+  </data>
+  <data name="cbiKeyboard" xml:space="preserve">
+    <value>Teclado</value>
+  </data>
+  <data name="cbiMouse" xml:space="preserve">
+    <value>Ratón</value>
+  </data>
+  <data name="cbi360" xml:space="preserve">
+    <value>Mando de Xbox 360</value>
+  </data>
+  <data name="cbiWiimote" xml:space="preserve">
+    <value>Wiimote</value>
+  </data>
+  <data name="cbiCursor" xml:space="preserve">
+    <value>Cursor</value>
+  </data>
+  <data name="cbiOther" xml:space="preserve">
+    <value>Otros</value>
+  </data>
+  <data name="tbOutputFilter" xml:space="preserve">
+    <value>Filtro de salidas</value>
+  </data>
+  <data name="tbKeymapTitle" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="tDisableKey" xml:space="preserve">
+    <value>Deshabilitada</value>
+  </data>
+  <data name="tPointer" xml:space="preserve">
+    <value>Puntero</value>
+  </data>
+  <data name="tPointerXminus" xml:space="preserve">
+    <value>Puntero Izquierdo</value>
+  </data>
+  <data name="tPointerXplus" xml:space="preserve">
+    <value>Puntero Derecho</value>
+  </data>
+  <data name="tPointerYminus" xml:space="preserve">
+    <value>Puntero Arriba</value>
+  </data>
+  <data name="tPointerYplus" xml:space="preserve">
+    <value>Puntero Abajo</value>
+  </data>
+  <data name="tLeft" xml:space="preserve">
+    <value>Izquierda</value>
+  </data>
+  <data name="tRight" xml:space="preserve">
+    <value>Bien</value>
+  </data>
+  <data name="tUp" xml:space="preserve">
+    <value>Arriba</value>
+  </data>
+  <data name="tDown" xml:space="preserve">
+    <value>Abajo</value>
+  </data>
+  <data name="tPlus" xml:space="preserve">
+    <value>Más (+)</value>
+  </data>
+  <data name="tMinus" xml:space="preserve">
+    <value>Menos (-)</value>
+  </data>
+  <data name="tOne" xml:space="preserve">
+    <value>Uno (1)</value>
+  </data>
+  <data name="tTwo" xml:space="preserve">
+    <value>Dos (1)</value>
+  </data>
+  <data name="tTiltXMinus" xml:space="preserve">
+    <value>Inclinación x -</value>
+  </data>
+  <data name="tTiltXPlus" xml:space="preserve">
+    <value>Tilt x +</value>
+  </data>
+  <data name="tTiltYMinus" xml:space="preserve">
+    <value>Tilt y -</value>
+  </data>
+  <data name="tTiltYPlus" xml:space="preserve">
+    <value>Tilt y +</value>
+  </data>
+  <data name="tTiltZMinus" xml:space="preserve">
+    <value>Tilt Z -</value>
+  </data>
+  <data name="tTiltZPlus" xml:space="preserve">
+    <value>Tilt Z +</value>
+  </data>
+  <data name="tShake" xml:space="preserve">
+    <value>Agitar</value>
+  </data>
+  <data name="tExtension" xml:space="preserve">
+    <value>Extensión</value>
+  </data>
+  <data name="tStickLeft" xml:space="preserve">
+    <value>Palo izquierdo</value>
+  </data>
+  <data name="tStickRight" xml:space="preserve">
+    <value>Palo correcto</value>
+  </data>
+  <data name="tStickUp" xml:space="preserve">
+    <value>Meter</value>
+  </data>
+  <data name="tStickDown" xml:space="preserve">
+    <value>Pegar</value>
+  </data>
+  <data name="tStickRotationPlus" xml:space="preserve">
+    <value>Rotación de palo (+)</value>
+  </data>
+  <data name="tStickRotationMinus" xml:space="preserve">
+    <value>Rotación de Stick (-)</value>
+  </data>
+  <data name="tStickLLeft" xml:space="preserve">
+    <value>Stick izquierdo izquierda</value>
+  </data>
+  <data name="tStickLRight" xml:space="preserve">
+    <value>Stick izquierdo derecha</value>
+  </data>
+  <data name="tStickLUp" xml:space="preserve">
+    <value>Stick izquierdo arriba</value>
+  </data>
+  <data name="tStickLDown" xml:space="preserve">
+    <value>Stick izquierdo abajo</value>
+  </data>
+  <data name="tStickRLeft" xml:space="preserve">
+    <value>Stick derecho izquierda</value>
+  </data>
+  <data name="tStickRRight" xml:space="preserve">
+    <value>Stick derecho derecha</value>
+  </data>
+  <data name="tStickRUp" xml:space="preserve">
+    <value>Stick derecho arriba</value>
+  </data>
+  <data name="tStickRDown" xml:space="preserve">
+    <value>Stick derecho abajo</value>
+  </data>
+  <data name="tTriggerL" xml:space="preserve">
+    <value>Gatillo Izquierdo</value>
+  </data>
+  <data name="tTriggerR" xml:space="preserve">
+    <value>Gatillo Derecho</value>
+  </data>
+  <data name="tL" xml:space="preserve">
+    <value>Gatillo Izquierdo Pulsar</value>
+  </data>
+  <data name="tR" xml:space="preserve">
+    <value>Gatillo Derecho Pulsar</value>
+  </data>
+  <data name="tMouse" xml:space="preserve">
+    <value>Ratón</value>
+  </data>
+  <data name="tFPSMouse" xml:space="preserve">
+    <value>Ratón FPS</value>
+  </data>
+  <data name="tLightgunMouse" xml:space="preserve">
+    <value>Ratón Lightgun</value>
+  </data>
+  <data name="tMouseLeftB" xml:space="preserve">
+    <value>Botón izquierdo del ratón</value>
+  </data>
+  <data name="tMouseMiddleB" xml:space="preserve">
+    <value>Botón central del ratón</value>
+  </data>
+  <data name="tMouseRightB" xml:space="preserve">
+    <value>Gatillo Derecho Botón</value>
+  </data>
+  <data name="tMouseWheelUp" xml:space="preserve">
+    <value>Rueda del ratón arriba</value>
+  </data>
+  <data name="tMouseWheelDown" xml:space="preserve">
+    <value>Rueda del ratón abajo</value>
+  </data>
+  <data name="tMouseRight" xml:space="preserve">
+    <value>Mov. Ratón derecha</value>
+  </data>
+  <data name="tMouseUp" xml:space="preserve">
+    <value>Mov. Ratón arriba</value>
+  </data>
+  <data name="tMouseLeft" xml:space="preserve">
+    <value>Mov. Ratón izquierda</value>
+  </data>
+  <data name="tMouseDown" xml:space="preserve">
+    <value>Mov. Ratón abajo</value>
+  </data>
+  <data name="tMouseExtra1" xml:space="preserve">
+    <value>Botón 1 extra del ratón</value>
+  </data>
+  <data name="tMouseExtra2" xml:space="preserve">
+    <value>Botón 2 extra del ratón</value>
+  </data>
+  <data name="tBack" xml:space="preserve">
+    <value>Atrás</value>
+  </data>
+  <data name="tReturn" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="tShift" xml:space="preserve">
+    <value>Mayúsculas</value>
+  </data>
+  <data name="tPause" xml:space="preserve">
+    <value>Pausa</value>
+  </data>
+  <data name="tCapsLock" xml:space="preserve">
+    <value>Bloqueo Mays.</value>
+  </data>
+  <data name="tSpace" xml:space="preserve">
+    <value>Espacio</value>
+  </data>
+  <data name="tPagUp" xml:space="preserve">
+    <value>Pág. Arriba</value>
+  </data>
+  <data name="tPagDown" xml:space="preserve">
+    <value>Pág. Abajo</value>
+  </data>
+  <data name="tEnd" xml:space="preserve">
+    <value>Fin</value>
+  </data>
+  <data name="tHome" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="tNumLeft" xml:space="preserve">
+    <value>Numpad Izquierda</value>
+  </data>
+  <data name="tNumUp" xml:space="preserve">
+    <value>Numpad Arriba</value>
+  </data>
+  <data name="tNumRight" xml:space="preserve">
+    <value>Numpad derecho</value>
+  </data>
+  <data name="tNumDown" xml:space="preserve">
+    <value>Numpad abajo</value>
+  </data>
+  <data name="tPrintScreen" xml:space="preserve">
+    <value>Imprimir Pantalla</value>
+  </data>
+  <data name="tInsert" xml:space="preserve">
+    <value>Insertar</value>
+  </data>
+  <data name="tDel" xml:space="preserve">
+    <value>Suprimir</value>
+  </data>
+  <data name="tPeriod" xml:space="preserve">
+    <value>Período (.)</value>
+  </data>
+  <data name="tComma" xml:space="preserve">
+    <value>Coma (,)</value>
+  </data>
+  <data name="tLWin" xml:space="preserve">
+    <value>Win Izquierdo</value>
+  </data>
+  <data name="tRWin" xml:space="preserve">
+    <value>Win Derecho</value>
+  </data>
+  <data name="tMultiply" xml:space="preserve">
+    <value>Multiplicar (*)</value>
+  </data>
+  <data name="tAdd" xml:space="preserve">
+    <value>Agregar (+)</value>
+  </data>
+  <data name="tSubtract" xml:space="preserve">
+    <value>Restar (-)</value>
+  </data>
+  <data name="tDecimal" xml:space="preserve">
+    <value>Decimal (.)</value>
+  </data>
+  <data name="tDivide" xml:space="preserve">
+    <value>Dividir (/)</value>
+  </data>
+  <data name="tNumlock" xml:space="preserve">
+    <value>Bloq. Numérico</value>
+  </data>
+  <data name="tLShift" xml:space="preserve">
+    <value>Mayus. Izquierdo</value>
+  </data>
+  <data name="tRShift" xml:space="preserve">
+    <value>Mayus. Derecho</value>
+  </data>
+  <data name="tLControl" xml:space="preserve">
+    <value>Control izquierdo</value>
+  </data>
+  <data name="tRControl" xml:space="preserve">
+    <value>Control derecho</value>
+  </data>
+  <data name="tLAlt" xml:space="preserve">
+    <value>Alt Izquierdo</value>
+  </data>
+  <data name="tRAlt" xml:space="preserve">
+    <value>Alt Derecho</value>
+  </data>
+  <data name="tBrowserBack" xml:space="preserve">
+    <value>Navegador atrás</value>
+  </data>
+  <data name="tBrowserForward" xml:space="preserve">
+    <value>Navegador adelante</value>
+  </data>
+  <data name="tBrowserRefresh" xml:space="preserve">
+    <value>Refresco del navegador</value>
+  </data>
+  <data name="tBrowserStop" xml:space="preserve">
+    <value>Parada del navegador</value>
+  </data>
+  <data name="tBrowserSearch" xml:space="preserve">
+    <value>Búsqueda de navegador</value>
+  </data>
+  <data name="tBrowserFavorites" xml:space="preserve">
+    <value>Favoritos del navegador</value>
+  </data>
+  <data name="tBrowserHome" xml:space="preserve">
+    <value>Inicio del Navegador</value>
+  </data>
+  <data name="tVolumeMute" xml:space="preserve">
+    <value>Mutear volumen</value>
+  </data>
+  <data name="tVolumeUp" xml:space="preserve">
+    <value>Volumen +</value>
+  </data>
+  <data name="tVolumeDown" xml:space="preserve">
+    <value>Volumen -</value>
+  </data>
+  <data name="tNextTrack" xml:space="preserve">
+    <value>Siguiente pista</value>
+  </data>
+  <data name="tPrevTrack" xml:space="preserve">
+    <value>Pista anterior</value>
+  </data>
+  <data name="tStop" xml:space="preserve">
+    <value>Detener</value>
+  </data>
+  <data name="tPlayPause" xml:space="preserve">
+    <value>Reproducir/Pausa</value>
+  </data>
+  <data name="tStart" xml:space="preserve">
+    <value>Iniciar</value>
+  </data>
+  <data name="tGuide" xml:space="preserve">
+    <value>Guía</value>
+  </data>
+  <data name="tStickLPress" xml:space="preserve">
+    <value>Pulsar Stick izquierdo</value>
+  </data>
+  <data name="tStickRPress" xml:space="preserve">
+    <value>Pulsar Stick Derecho</value>
+  </data>
+  <data name="tStickLLight" xml:space="preserve">
+    <value>Stick Izq. Lightgun</value>
+  </data>
+  <data name="tStickLLight43" xml:space="preserve">
+    <value>Stick Izq. Lightgun 4: 3</value>
+  </data>
+  <data name="tStickLCenter" xml:space="preserve">
+    <value>Sitck Izquierdo Centro</value>
+  </data>
+  <data name="tStickRLight" xml:space="preserve">
+    <value>Stick Der. Lightgun</value>
+  </data>
+  <data name="tStickRLight43" xml:space="preserve">
+    <value>Stick Der. Lightgun 4: 3</value>
+  </data>
+  <data name="tStickRCenter" xml:space="preserve">
+    <value>Stick Derecho Centro</value>
+  </data>
+  <data name="tBumperL" xml:space="preserve">
+    <value>Bumper izquierdo</value>
+  </data>
+  <data name="tBumperR" xml:space="preserve">
+    <value>Bumper derecho</value>
+  </data>
+  <data name="tPressCursor" xml:space="preserve">
+    <value>Cursor presión</value>
+  </data>
+  <data name="tShortRumble" xml:space="preserve">
+    <value>Vibración corta</value>
+  </data>
+  <data name="tLongRumble" xml:space="preserve">
+    <value>Vibración larga</value>
+  </data>
+  <data name="tRumbleHold" xml:space="preserve">
+    <value>Mantener vibración</value>
+  </data>
+  <data name="tRumbleAlt" xml:space="preserve">
+    <value>Vibración alternancia</value>
+  </data>
+  <data name="tSound1" xml:space="preserve">
+    <value>Sonido 1</value>
+  </data>
+  <data name="tSound2" xml:space="preserve">
+    <value>Sonido 2</value>
+  </data>
+  <data name="tSoundLoop" xml:space="preserve">
+    <value>Bucle de sonido</value>
+  </data>
+</root>

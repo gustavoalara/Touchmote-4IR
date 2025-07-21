@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{78EB9DE8-B6FC-47F3-970F-0B4FCB0F38A8}</ProjectGuid>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>WiiCPP</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
@@ -166,6 +166,11 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.en-US.resx" />
+    <EmbeddedResource Include="Resources.es-ES.resx" />
+    <EmbeddedResource Include="Resources.resx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

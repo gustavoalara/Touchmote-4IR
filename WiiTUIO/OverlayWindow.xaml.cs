@@ -19,6 +19,9 @@ using System.Windows.Shapes;
 using WiiTUIO.DeviceUtils;
 using WiiTUIO.Properties;
 using WiiTUIO.Provider;
+using System.Globalization;
+
+using static WiiTUIO.Resources.Resources;
 
 namespace WiiTUIO
 {
@@ -158,7 +161,7 @@ namespace WiiTUIO
                     bordercolor.B = (byte)(bordercolor.B * 0.8);
                     this.titleBorder.BorderBrush = new SolidColorBrush(bordercolor);
 
-                    this.title.Text = "Elige un perfil para el Wiimote " + keyMapper.WiimoteID;
+                    this.title.Text = ChooseWiimoteLayout  + keyMapper.WiimoteID;
                     //this.title.Foreground = new SolidColorBrush(bordercolor);
 
                     this.layoutList.Children.Clear();

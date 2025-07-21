@@ -20,17 +20,21 @@ using WiiTUIO.Properties;
 using System.Windows.Input;
 using WiiTUIO.Output;
 using Microsoft.Win32;
-using System.Diagnostics;
+using System.Diagnostics; // Added for Process.Start
 using Newtonsoft.Json;
 using MahApps.Metro.Controls;
 using System.Windows.Interop;
-using System.Net;
-using Newtonsoft.Json.Linq;
+using System.Net; // Needed for HttpWebRequest
+using Newtonsoft.Json.Linq; // Needed for JObject
 using WiiTUIO.DeviceUtils;
 using WiiCPP;
 using WiiTUIO.Output.Handlers.Xinput;
 using WiiTUIO.ArcadeHook;
 using System.IO.Pipes;
+using System.Globalization;
+using System.Reflection; // Added for Assembly.GetExecutingAssembly
+
+using static WiiTUIO.Resources.Resources;
 
 namespace WiiTUIO
 {
@@ -39,6 +43,11 @@ namespace WiiTUIO
     /// </summary>
     public partial class MainWindow : MetroWindow, WiiCPP.WiiPairListener
     {
+        // Define aquí la URL de la API de releases de tu repositorio de GitHub
+        private const string GitHubApiReleasesUrl = "https://api.github.com/repos/gustavoalara/Touchmote-4IR/releases/latest";
+        private const string GitHubReleasesPageUrl = "https://github.com/gustavoalara/Touchmote-4IR/releases";
+
+
         private bool wiiPairRunning = false;
 
         private bool minimizedOnce = false;
@@ -93,6 +102,36 @@ namespace WiiTUIO
         /// </summary>
         public MainWindow()
         {
+            // --- INICIO DE LOS CAMBIOS PARA LOCALIZACIÓN ---
+
+            // Establece la cultura de la interfaz de usuario (UI Culture) para la aplicación.
+            // Esta es la cultura que ResourceManager usará para buscar las cadenas en los archivos .resx.
+            // La lógica aquí asegura que el inglés ('en-US') sea el idioma por defecto
+            // si el idioma del sistema no es español ('es').
+
+            // Obtiene la cultura actual de la UI del sistema operativo.
+            CultureInfo currentSystemUICulture = CultureInfo.CurrentUICulture;
+
+            // Comprueba si el idioma del sistema no es español.
+            if (!currentSystemUICulture.Name.StartsWith("es", StringComparison.OrdinalIgnoreCase))
+            {
+                // Si no es español, establece la cultura de la UI a inglés (Estados Unidos).
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+            }
+            else
+            {
+                // Si el idioma del sistema es español, establece la cultura de la UI a español (España).
+                // Puedes cambiar "es-ES" a "es" si quieres que cualquier variante de español use
+                // el archivo Resources.es.resx (si lo creas) o caiga al Resources.resx genérico si no hay uno específico.
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-ES");
+            }
+
+            // También establece la cultura general del hilo (afecta formatos de fecha, números, etc.)
+            // para que coincida con la cultura de la UI.
+            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture;
+
+            // --- FIN DE LOS CAMBIOS PARA LOCALIZACIÓN ---
+
             //Set highest priority on main process.
             Process currentProcess = Process.GetCurrentProcess();
             currentProcess.PriorityClass = ProcessPriorityClass.High;
@@ -136,7 +175,7 @@ namespace WiiTUIO
                 OverlayWindow.Current.Show();
                 CalibrationOverlay.Current.Show();
 
-                System.Windows.Threading.Dispatcher.CurrentDispatcher.BeginInvoke(new Action(delegate()
+                System.Windows.Threading.Dispatcher.CurrentDispatcher.BeginInvoke(new Action(delegate ()
                 {
                     D3DCursorWindow.Current.Start((new WindowInteropHelper(OverlayWindow.Current)).Handle);
                 }));
@@ -207,13 +246,13 @@ namespace WiiTUIO
 
         private void processChanged(ProcessChangedEvent obj)
         {
-            if((Settings.Default.dolphin_path == "" && obj.Process.ProcessName == "Dolphin"))
+            if ((Settings.Default.dolphin_path == "" && obj.Process.ProcessName == "Dolphin"))
             {
                 Console.WriteLine("Dolphin detected. Disconnecting provider. Hiding overlay window.");
                 this.disconnectDolphin();
                 D3DCursorWindow.Current.RefreshCursors();
             }
-            else if(obj.Process.ProcessName == "Dolphin" && (Settings.Default.dolphin_path.IndexOfAny(Path.GetInvalidPathChars()) == -1))
+            else if (obj.Process.ProcessName == "Dolphin" && (Settings.Default.dolphin_path.IndexOfAny(Path.GetInvalidPathChars()) == -1))
             {
                 if (obj.Process.MainModule?.FileName == Path.GetFullPath(Settings.Default.dolphin_path))
                 {
@@ -230,45 +269,119 @@ namespace WiiTUIO
 
         private HttpWebRequest wrGETURL;
 
+        /// <summary>
+        /// Checks for a new version of the application by querying the GitHub API.
+        /// </summary>
         private void checkNewVersion()
         {
             try
             {
-                string sURL;
-                sURL = "http://www.touchmote.net/api/versionUpdate?version=1.0b15";
+                // Get the current application version
+                Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+                // Or if the version is in Settings.Default.AppVersion:
+                // Version currentVersion = new Version(Settings.Default.AppVersion);
 
-                wrGETURL = (HttpWebRequest)HttpWebRequest.Create(sURL);
-                wrGETURL.BeginGetResponse(new AsyncCallback(checkNewVersionResponse), null);
+                // Construct the GitHub API URL to get the latest release
+                // We don't need to pass the current version in the URL for GitHub API /latest
+                string sURL = GitHubApiReleasesUrl;
+
+                wrGETURL = (HttpWebRequest)WebRequest.Create(sURL);
+                wrGETURL.Method = "GET";
+                wrGETURL.UserAgent = "TouchmoteAppUpdater"; // GitHub API requires a User-Agent
+                wrGETURL.Accept = "application/vnd.github.v3+json"; // Optional, but good practice
+
+                wrGETURL.BeginGetResponse(new AsyncCallback(checkNewVersionResponse), currentVersion);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-
+                // Error handling: log or display a message if the check fails
+                ShowMessage($"Error al iniciar la verificación de actualizaciones: {e.Message}", MessageType.Error);
             }
-
         }
 
+        /// <summary>
+        /// Handles the response from the GitHub API for version checking.
+        /// </summary>
+        /// <param name="result">The asynchronous result.</param>
         private void checkNewVersionResponse(IAsyncResult result)
         {
+            Version currentVersion = result.AsyncState as Version; // Retrieve the current version
+
             try
             {
-                Stream objStream;
-                objStream = wrGETURL.EndGetResponse(result).GetResponseStream();
-
+                HttpWebResponse response = (HttpWebResponse)wrGETURL.EndGetResponse(result);
+                Stream objStream = response.GetResponseStream();
                 StreamReader objReader = new StreamReader(objStream);
 
-                var serializer = new JsonSerializer();
-                JObject jObject = (JObject)serializer.Deserialize(objReader, typeof(JObject));
+                string jsonResponse = objReader.ReadToEnd();
 
-                bool needsUpdate = (bool)jObject.GetValue("needs_update").ToObject(typeof(bool));
+                // Use JObject to parse the JSON response from GitHub
+                JObject githubRelease = JObject.Parse(jsonResponse);
 
-                if (needsUpdate)
+                // Get the latest version tag (tag_name)
+                string latestVersionTag = githubRelease.Value<string>("tag_name");
+                // The tag_name often includes a 'v' prefix, e.g., 'v1.2.3'.
+                // We need to clean it to compare numeric versions.
+                if (latestVersionTag != null && latestVersionTag.StartsWith("v", StringComparison.OrdinalIgnoreCase))
                 {
-                    this.ShowMessage("A new version (" + jObject.GetValue("latest_version").ToString() + ") is available at touchmote.net", MessageType.Info);
+                    latestVersionTag = latestVersionTag.Substring(1); // Remove the initial 'v'
+                }
+
+                // Get the release URL for the user
+                string releaseHtmlUrl = githubRelease.Value<string>("html_url");
+                if (string.IsNullOrEmpty(releaseHtmlUrl))
+                {
+                    releaseHtmlUrl = GitHubReleasesPageUrl; // Fallback to the general releases page
+                }
+
+                Version latestVersion = new Version(latestVersionTag);
+
+                // Compare versions
+                if (latestVersion > currentVersion)
+                {
+                    // A new version is available
+                    ShowMessage($"Una nueva versión ({latestVersion.ToString()}) está disponible. Visita: {releaseHtmlUrl}", MessageType.Info);
+                    // Or if you want a button to open the link:
+                    // Dispatcher.Invoke(() => {
+                    //    if (MessageBox.Show($"Una nueva versión ({latestVersion.ToString()}) está disponible. ¿Deseas abrir la página de GitHub?", "Actualización Disponible", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                    //    {
+                    //        Process.Start(new ProcessStartInfo(releaseHtmlUrl) { UseShellExecute = true });
+                    //    }
+                    // });
+                }
+                else
+                {
+                    // The current version is the latest or newer
+                    ShowMessage("Estás usando la última versión disponible.", MessageType.Info);
                 }
             }
-            catch(Exception e)
+            catch (WebException wex)
             {
-
+                // Specific handling for network errors (e.g., 404 if the repo doesn't exist, or no connection)
+                if (wex.Response != null)
+                {
+                    using (var errorResponse = (HttpWebResponse)wex.Response)
+                    {
+                        using (var reader = new StreamReader(errorResponse.GetResponseStream()))
+                        {
+                            string errorText = reader.ReadToEnd();
+                            ShowMessage($"Error de la API de GitHub ({errorResponse.StatusCode}): {errorText}", MessageType.Error);
+                        }
+                    }
+                }
+                else
+                {
+                    ShowMessage($"Error de conexión al verificar actualizaciones: {wex.Message}", MessageType.Error);
+                }
+            }
+            catch (JsonReaderException jrex)
+            {
+                ShowMessage($"Error al leer la respuesta JSON de GitHub: {jrex.Message}", MessageType.Error);
+            }
+            catch (Exception e)
+            {
+                // Handling of other unexpected errors
+                ShowMessage($"Error inesperado al verificar actualizaciones: {e.Message}", MessageType.Error);
             }
         }
 
@@ -278,7 +391,7 @@ namespace WiiTUIO
             {
                 MinimizeToTray.Enable(this, Settings.Default.minimizeOnStart);
             }
-            
+
             KeymapConfigWindow.Instance.Owner = this;
         }
 
@@ -305,7 +418,7 @@ namespace WiiTUIO
             {
                 if (Settings.Default.minimizeToTray)
                 {
-                    MinimizeToTray.Enable(this,false);
+                    MinimizeToTray.Enable(this, false);
                 }
                 else
                 {
@@ -324,7 +437,7 @@ namespace WiiTUIO
             base.OnApplyTemplate();
 
         }
-        
+
         private void appWillExit(object sender, ExitEventArgs e)
         {
             if (overlayDispatcher != null)
@@ -352,18 +465,18 @@ namespace WiiTUIO
         private void pWiiProvider_OnConnect(int ID, int totalWiimotes)
         {
             // Dispatch it.
-            Dispatcher.BeginInvoke(new Action(delegate()
+            Dispatcher.BeginInvoke(new Action(delegate ()
             {
                 this.bConnected = true;
 
-                
+
                 if (totalWiimotes == 1)
                 {
-                    this.connectedCount.Content = "Un Wiimote conectado";
+                    this.connectedCount.Content = OneWiimoteConnected;
                 }
                 else
                 {
-                    this.connectedCount.Content = totalWiimotes+" Wiimotes conectados";
+                    this.connectedCount.Content = totalWiimotes + WiimotesConnected;
                 }
                 statusStackMutex.WaitOne();
                 WiimoteStatusUC uc = new WiimoteStatusUC(ID);
@@ -386,15 +499,15 @@ namespace WiiTUIO
         private void pWiiProvider_OnDisconnect(int ID, int totalWiimotes)
         {
             // Dispatch it.
-            Dispatcher.BeginInvoke(new Action(delegate()
+            Dispatcher.BeginInvoke(new Action(delegate ()
             {
                 if (totalWiimotes == 1)
                 {
-                    this.connectedCount.Content = "Un Wiimote conectado";
+                    this.connectedCount.Content = OneWiimoteConnected;
                 }
                 else
                 {
-                    this.connectedCount.Content = totalWiimotes + " Wiimotes conectados";
+                    this.connectedCount.Content = totalWiimotes + WiimotesConnected;
                 }
                 statusStackMutex.WaitOne();
                 foreach (UIElement child in this.statusStack.Children)
@@ -402,7 +515,7 @@ namespace WiiTUIO
                     WiimoteStatusUC uc = (WiimoteStatusUC)child;
                     if (uc.ID == ID)
                     {
-                        this.animateCollapse(uc,true);
+                        this.animateCollapse(uc, true);
                         //this.statusStack.Children.Remove(child);
                         break;
                     }
@@ -420,7 +533,7 @@ namespace WiiTUIO
 
 
         private Mutex pCommunicationMutex = new Mutex();
-      
+
         /// <summary>
         /// This is called when the battery state changes.
         /// </summary>
@@ -428,10 +541,11 @@ namespace WiiTUIO
         private void pWiiProvider_OnStatusUpdate(WiimoteStatus status)
         {
             // Dispatch it.
-            Dispatcher.BeginInvoke(new Action(delegate()
+            Dispatcher.BeginInvoke(new Action(delegate ()
             {
                 statusStackMutex.WaitOne();
-                foreach(UIElement child in this.statusStack.Children) {
+                foreach (UIElement child in this.statusStack.Children)
+                {
                     WiimoteStatusUC uc = (WiimoteStatusUC)child;
                     if (uc.ID == status.ID)
                     {
@@ -445,28 +559,38 @@ namespace WiiTUIO
 
         #region Messages - Err/Inf
 
-        public enum MessageType { Info, Error };
+        public enum MessageType { Info, Warning, Error }; // Added Warning type
 
+        /// <summary>
+        /// Displays a message to the user.
+        /// </summary>
+        /// <param name="message">The message text.</param>
+        /// <param name="eType">The type of message (Info, Warning, Error).</param>
         public void ShowMessage(string message, MessageType eType)
         {
-            Dispatcher.BeginInvoke(new Action(delegate()
+            Dispatcher.BeginInvoke(new Action(delegate ()
             {
-            switch (eType)
-            {
-                case MessageType.Error:
-                    this.tbErrorMsg.Text = message;
-                    this.animateExpand(this.spErrorMsg);
-                    break;
-                case MessageType.Info:
-                    this.tbInfoMsg.Text = message;
-                    this.animateExpand(this.spInfoMsg);
-                    break;
-            }
-            
-
-            // Fade in and out.
-            //messageFadeIn(fTimeout, false);
-            
+                MessageBoxImage icon = MessageBoxImage.Information;
+                switch (eType)
+                {
+                    case MessageType.Error:
+                        icon = MessageBoxImage.Error;
+                        this.tbErrorMsg.Text = message;
+                        this.animateExpand(this.spErrorMsg);
+                        break;
+                    case MessageType.Info:
+                        icon = MessageBoxImage.Information;
+                        this.tbInfoMsg.Text = message;
+                        this.animateExpand(this.spInfoMsg);
+                        break;
+                    case MessageType.Warning: // Handle Warning type
+                        icon = MessageBoxImage.Warning;
+                        this.tbInfoMsg.Text = message; // Or a separate warning message box
+                        this.animateExpand(this.spInfoMsg);
+                        break;
+                }
+                // If you want to use a standard MessageBox for all messages, uncomment this:
+                // MessageBox.Show(message, "Touchmote", MessageBoxButton.OK, icon);
             }), null);
         }
 
@@ -480,14 +604,14 @@ namespace WiiTUIO
 
         private void animateCollapse(FrameworkElement elem, bool remove)
         {
-            UIHelpers.animateCollapse(elem,remove);
+            UIHelpers.animateCollapse(elem, remove);
         }
 
         private void showConfig()
         {
             if (this.mainPanel.IsVisible)
             {
-                animateCollapse(this.mainPanel,false);
+                animateCollapse(this.mainPanel, false);
             }
             if (this.canvasAbout.IsVisible)
             {
@@ -539,7 +663,7 @@ namespace WiiTUIO
             //this.canvasAbout.Visibility = Visibility.Visible;
             //this.canvasSettings.Visibility = Visibility.Collapsed;
         }
-        
+
         #region WiiProvider
         /// <summary>
         /// Try to create the WiiProvider (this involves connecting to the Wiimote).
@@ -590,7 +714,7 @@ namespace WiiTUIO
                 return false;
             }
         }
-        
+
         /// <summary>
         /// Try to create the WiiProvider (this involves connecting to the Wiimote).
         /// </summary>
@@ -601,8 +725,8 @@ namespace WiiTUIO
                 // Connect a Wiimote, hook events then start.
                 this.pWiiProvider = new MultiWiiPointerProvider();
                 this.pWiiProvider.OnStatusUpdate += new Action<WiimoteStatus>(pWiiProvider_OnStatusUpdate);
-                this.pWiiProvider.OnConnect += new Action<int,int>(pWiiProvider_OnConnect);
-                this.pWiiProvider.OnDisconnect += new Action<int,int>(pWiiProvider_OnDisconnect);
+                this.pWiiProvider.OnConnect += new Action<int, int>(pWiiProvider_OnConnect);
+                this.pWiiProvider.OnDisconnect += new Action<int, int>(pWiiProvider_OnDisconnect);
                 return true;
             }
             catch (Exception pError)
@@ -610,7 +734,7 @@ namespace WiiTUIO
                 // Tear down.
                 try
                 {
-                    
+
                 }
                 catch { }
                 Console.WriteLine(pError.Message);
@@ -671,7 +795,7 @@ namespace WiiTUIO
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
         }
-    
+
         private void PairWiimotes_Click(object sender, RoutedEventArgs e)
         {
             //this.disableMainControls();
@@ -681,10 +805,11 @@ namespace WiiTUIO
             this.runWiiPair();
         }
 
-        private void runWiiPair() {
+        private void runWiiPair()
+        {
             if (!this.wiiPairRunning)
             {
-                Dispatcher.BeginInvoke(new Action(delegate()
+                Dispatcher.BeginInvoke(new Action(delegate ()
                 {
                     this.animateExpand(this.spPairing);//.Visibility = Visibility.Visible;
                     this.tbPair2.Visibility = Visibility.Collapsed;
@@ -707,10 +832,11 @@ namespace WiiTUIO
         private void wiiPairThreadWorker()
         {
             this.wiiPairRunning = true;
-            wiiPair.start(true,10);//First remove all connected devices.
+            wiiPair.start(true, 10);//First remove all connected devices.
         }
 
-        private void stopWiiPair() {
+        private void stopWiiPair()
+        {
             this.wiiPairRunning = false;
             wiiPair.stop();
         }
@@ -731,7 +857,7 @@ namespace WiiTUIO
                 {
                     this.wiiPairRunning = true;
 
-                    Dispatcher.BeginInvoke(new Action(delegate()
+                    Dispatcher.BeginInvoke(new Action(delegate ()
                     {
                         this.connectProvider();
                     }), null);
@@ -747,10 +873,10 @@ namespace WiiTUIO
                 else
                 {
                     this.wiiPairRunning = false;
-                    Dispatcher.BeginInvoke(new Action(delegate()
+                    Dispatcher.BeginInvoke(new Action(delegate ()
                     {
                         //this.canvasPairing.Visibility = Visibility.Collapsed;
-                        this.animateCollapse(this.spPairing,false);
+                        this.animateCollapse(this.spPairing, false);
                         this.tbPair2.Visibility = Visibility.Visible;
                         this.tbPairDone.Visibility = Visibility.Collapsed;
 
@@ -770,7 +896,7 @@ namespace WiiTUIO
         public void onPairingStarted()
         {
             this.disconnectProvider();
-            Dispatcher.BeginInvoke(new Action(delegate()
+            Dispatcher.BeginInvoke(new Action(delegate ()
             {
 
                 this.pairProgress.IsActive = true;
@@ -784,10 +910,10 @@ namespace WiiTUIO
 
         public void pairingMessage(string message, WiiCPP.WiiPairListener.MessageType type)
         {
-            Dispatcher.BeginInvoke(new Action(delegate()
+            Dispatcher.BeginInvoke(new Action(delegate ()
             {
                 this.pairWiimoteText.Text = message;
-                if (message == "Escaneando...")
+                if (message == Scanning)
                 {
                     pairWiimotePressSync.Visibility = Visibility.Visible;
 
@@ -804,7 +930,7 @@ namespace WiiTUIO
 
             }), null);
         }
-        
+
         private void btnAppSettings_Click(object sender, RoutedEventArgs e)
         {
             this.showConfig();
@@ -819,7 +945,7 @@ namespace WiiTUIO
         {
             if (this.wiiPairRunning)
             {
-                this.pairWiimoteText.Text = "Cerrando...";
+                this.pairWiimoteText.Text = TClosing;
                 this.pairWiimotePressSync.Visibility = Visibility.Hidden;
 
                 this.stopWiiPair();
@@ -834,13 +960,13 @@ namespace WiiTUIO
         private void spInfoMsg_MouseUp(object sender, MouseButtonEventArgs e)
         {
             //this.spInfoMsg.Visibility = Visibility.Collapsed;
-            this.animateCollapse(spInfoMsg,false);
+            this.animateCollapse(spInfoMsg, false);
         }
 
         private void spErrorMsg_MouseUp(object sender, MouseButtonEventArgs e)
         {
             //this.spErrorMsg.Visibility = Visibility.Collapsed;
-            this.animateCollapse(spErrorMsg,false);
+            this.animateCollapse(spErrorMsg, false);
         }
 
         private void StartArcadeHook()
@@ -865,5 +991,5 @@ namespace WiiTUIO
 
     }
 
-    
+
 }

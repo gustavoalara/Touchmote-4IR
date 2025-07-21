@@ -3,7 +3,8 @@
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-  Title="Configuración del mando" ResizeMode="CanResize" MinHeight="200" MaxWidth="1100" MinWidth="1100" Height="600" Closed="MetroWindow_Closed">
+  xmlns:loc="clr-namespace:WiiTUIO"
+  Title="{loc:Localization KeymapConfigTitle}" ResizeMode="CanResize" MinHeight="200" MaxWidth="1100" MinWidth="1100" Height="600" Closed="MetroWindow_Closed">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -24,7 +25,8 @@
     </Controls:MetroWindow.WindowCommands>
     <StackPanel Name="mainPanel" Orientation="Horizontal" Width="1050">
         <DockPanel Width="240">
-            <Label FontFamily="Segoe UI Light" FontSize="18" Padding="10" DockPanel.Dock="Top">Diseño</Label>
+            <Label FontFamily="Segoe UI Light" FontSize="18" Padding="10" DockPanel.Dock="Top">
+                <Run Text="{loc:Localization KeyMapLayout}"/></Label>
             <ScrollViewer>
                 <StackPanel>
                     <StackPanel Name="spLayoutList">
@@ -52,17 +54,22 @@
             </ScrollViewer>
         </DockPanel>
         <DockPanel Width="488">
-            <Label FontFamily="Segoe UI Light" FontSize="18" Padding="10" DockPanel.Dock="Top">Editar diseño</Label>
+            <Label FontFamily="Segoe UI Light" FontSize="18" Padding="10" DockPanel.Dock="Top">
+                <Run Text="{loc:Localization EditLayout}"/>
+            </Label>
             <ScrollViewer PanningMode="VerticalOnly">
                 <StackPanel>
                     <StackPanel Margin="4">
                         <Grid>
-                            <TextBox HorizontalAlignment="Left" Name="tbKeymapTitle" Tag="Título" FontFamily="Segoe UI Semilight" FontSize="14" Padding="2,1" Margin="6" Width="223"></TextBox>
-                            <TextBlock Name="tbDelete" Cursor="Hand" MouseUp="tbDelete_MouseUp" Foreground="Red" FontFamily="Segoe UI Semilight" FontSize="12" Margin="349,10,6,10" TextAlignment="Center" TextDecorations="Underline">Borrar</TextBlock>
+                            <TextBox HorizontalAlignment="Left" Name="tbKeymapTitle" Tag="{loc:Localization tbKeymapTitle}" FontFamily="Segoe UI Semilight" FontSize="14" Padding="2,1" Margin="6" Width="223"></TextBox>
+                            <TextBlock Name="tbDelete" Cursor="Hand" MouseUp="tbDelete_MouseUp" Foreground="Red" FontFamily="Segoe UI Semilight" FontSize="12" Margin="349,10,6,10" TextAlignment="Center" TextDecorations="Underline" Text="{loc:Localization KeyMapDel}"/>
                         </Grid>
-                        <CheckBox Name="cbLayoutChooser" FontFamily="Segoe UI Semilight" Margin="6">Disponible en selector de diseño (mantener Home 3 seg)</CheckBox>
+                        <CheckBox Name="cbLayoutChooser" FontFamily="Segoe UI Semilight" Margin="6">
+                            <Run Text="{loc:Localization cbLayoutChooser}"/>
+                        </CheckBox>
                         <DockPanel VerticalAlignment="Top">
-                            <CheckBox Name="cbApplicationSearch" FontFamily="Segoe UI Semilight" Margin="6,6,6,2">Enlazar a aplicación</CheckBox>
+                            <CheckBox Name="cbApplicationSearch" FontFamily="Segoe UI Semilight" Margin="6,6,6,2">
+                                <Run Text="{loc:Localization AppLink}"/></CheckBox>
 
                             <ItemsControl x:Name="hookAppItemsControl" ItemsSource="{Binding SearchStrings}" IsEnabled="{Binding IsChecked, ElementName=cbApplicationSearch}" DockPanel.Dock="Left" Margin="8,0,20,0">
                                 <ItemsControl.ItemTemplate>
@@ -92,9 +99,12 @@
                     </StackPanel>
                     <Border BorderBrush="#FFCBCBCB" BorderThickness="0,0,0,1" Margin="6"></Border>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
-                        <Label FontFamily="Segoe UI Semilight" FontSize="13" Margin="2,2,2,2">Mandos</Label>
+                        <Label FontFamily="Segoe UI Semilight" FontSize="13" Margin="2,2,2,2">
+                            <Run Text="{loc:Localization GamepadsLabel}"/></Label>
                         <Border Name="btnAllBorder" Background="#FF2E2E2E" CornerRadius="2" Margin="2">
-                            <Button Cursor="Hand" Name="btnAll" Click="btnAll_Click" Background="{x:Null}" Foreground="White" Padding="4,0" Height="27">Todos</Button>
+                            <Button Cursor="Hand" Name="btnAll" Click="btnAll_Click" Background="{x:Null}" Foreground="White" Padding="4,0" Height="27">
+                                <Run Text="{loc:Localization btnAll}"/>
+                            </Button>
                         </Border>
                         <Border Name="btn1Border" Background="#FF2E2E2E" CornerRadius="2" Margin="2">
                             <Button Cursor="Hand" Name="btn1" Click="btn1_Click" Background="{x:Null}" Foreground="White" Padding="6,0" Height="27">1</Button>
@@ -109,10 +119,13 @@
                             <Button Cursor="Hand" Name="btn4" Click="btn4_Click" Background="{x:Null}" Foreground="White" Padding="6,0" Height="27">4</Button>
                         </Border>
                         <Border Name="rad1Border" CornerRadius="2" Margin="20,2,2,2">
-                            <RadioButton Name="rbOnscreen" FontFamily="Segoe UI Semilight" Margin="2">En pantalla</RadioButton>
+                            <RadioButton Name="rbOnscreen" FontFamily="Segoe UI Semilight" Margin="2">
+                                <Run Text="{loc:Localization rbOnscreen}"/></RadioButton>
                         </Border>
                         <Border Name="rad2Border" CornerRadius="2" Margin="2">
-                            <RadioButton Name="rbOffscreen" FontFamily="Segoe UI Semilight" Margin="2">Fuera de pantalla</RadioButton>
+                            <RadioButton Name="rbOffscreen" FontFamily="Segoe UI Semilight" Margin="2">
+                                <Run Text="{loc:Localization rbOffscreen}"/>
+                            </RadioButton>
                         </Border>
                     </StackPanel>
                     <Label FontFamily="Segoe UI Light" FontSize="18" Padding="10" RenderTransformOrigin="0.504,0.539">Wiimote</Label>
@@ -121,7 +134,9 @@
                     <Label FontFamily="Segoe UI Light" FontSize="18" Padding="10">Nunchuk</Label>
                     <StackPanel Name="spNunchukConnections">
                     </StackPanel>
-                    <Label FontFamily="Segoe UI Light" FontSize="18" Padding="10">Mando clásico</Label>
+                    <Label FontFamily="Segoe UI Light" FontSize="18" Padding="10">
+                        <Run Text="{loc:Localization ClassicGamepad}"/>
+                    </Label>
                     <StackPanel Name="spClassicConnections">
                     </StackPanel>
                 </StackPanel>
@@ -129,17 +144,17 @@
         </DockPanel>
         <DockPanel Width="326">
             <StackPanel DockPanel.Dock="Top" Margin="10">
-                <Label FontFamily="Segoe UI Light" FontSize="18" Padding="10" Content="Salidas"/>
+                <Label FontFamily="Segoe UI Light" FontSize="18" Padding="10" Content="{loc:Localization OutputsLabel}"/>
                 <ComboBox SelectionChanged="cbOutput_SelectionChanged" x:Name="cbOutput" FontFamily="Segoe UI Semilight" FontSize="14" Padding="5">
-                    <ComboBoxItem IsSelected="True" x:Name="cbiAll" Content="Todas"/>
-                    <ComboBoxItem x:Name="cbiKeyboard" Content="Teclado"/>
-                    <ComboBoxItem x:Name="cbiMouse" Content="Ratón"/>
-                    <ComboBoxItem x:Name="cbi360" Content="Mando Xbox 360"/>
-                    <ComboBoxItem x:Name="cbiWiimote" Content="Wiimote"/>
-                    <ComboBoxItem x:Name="cbiCursor" Content="Cursor"/>
-                    <ComboBoxItem x:Name="cbiOther" Content="Otros"/>
+                    <ComboBoxItem IsSelected="True" x:Name="cbiAll" Content="{loc:Localization cbiAll}"/>
+                    <ComboBoxItem x:Name="cbiKeyboard" Content="{loc:Localization cbiKeyboard}"/>
+                    <ComboBoxItem x:Name="cbiMouse" Content="{loc:Localization cbiMouse}"/>
+                    <ComboBoxItem x:Name="cbi360" Content="{loc:Localization cbi360}"/>
+                    <ComboBoxItem x:Name="cbiWiimote" Content="{loc:Localization cbiWiimote}"/>
+                    <ComboBoxItem x:Name="cbiCursor" Content="{loc:Localization cbiCursor}"/>
+                    <ComboBoxItem x:Name="cbiOther" Content="{loc:Localization cbiOther}"/>
                 </ComboBox>
-                <TextBox x:Name="tbOutputFilter" GotFocus="tb_placeholder_GotFocus" LostFocus="tb_placeholder_LostFocus" TextChanged="tbOutputFilter_TextChanged" Tag="Filtro" FontFamily="Segoe UI Semilight" FontSize="14" Padding="2,1" Margin="0,8,0,0"/>
+                <TextBox x:Name="tbOutputFilter" GotFocus="tb_placeholder_GotFocus" LostFocus="tb_placeholder_LostFocus" TextChanged="tbOutputFilter_TextChanged" Tag="{loc:Localization tbOutputFilter}" FontFamily="Segoe UI Semilight" FontSize="14" Padding="2,1" Margin="0,8,0,0"/>
             </StackPanel>
             <ScrollViewer PanningMode="VerticalOnly" Width="311">
                 <StackPanel x:Name="spOutputList"/>

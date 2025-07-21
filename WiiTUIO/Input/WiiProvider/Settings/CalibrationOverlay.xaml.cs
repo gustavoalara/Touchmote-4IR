@@ -15,6 +15,10 @@ using WiiTUIO.Filters;
 using WiimoteLib;
 using static System.Windows.Forms.AxHost;
 using System.Windows.Media.Media3D;
+using System.Globalization;
+
+using static WiiTUIO.Resources.Resources;
+using System.Windows.Documents;
 
 namespace WiiTUIO.Provider
 {
@@ -225,7 +229,7 @@ namespace WiiTUIO.Provider
                     Dispatcher.BeginInvoke(new Action(delegate ()
                     {
                         this.movePoint(1 - marginXBackup, 1 - marginYBackup); // Esquina Inferior Derecha
-                        this.insText2.Text = "Apunte a la esquina INFERIOR DERECHA y presione A o B para calibrar";
+                        this.insText2.Text = AimButtomRight;
                         this.TextBorder.UpdateLayout();
                         this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                         this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
@@ -255,7 +259,7 @@ namespace WiiTUIO.Provider
                     Dispatcher.BeginInvoke(new Action(delegate ()
                     {
                         this.movePoint(0.5, 0.5); // Centro
-                        this.insText2.Text = "Apunte al objetivo CENTRAL y presione A o B para calibrar";
+                        this.insText2.Text = AimCenter;
                         this.TextBorder.UpdateLayout();
                         this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                         this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
@@ -286,7 +290,7 @@ namespace WiiTUIO.Provider
                     Dispatcher.BeginInvoke(new Action(delegate ()
                     {
                         this.movePoint(0.5, 0.5); // Centro
-                        this.insText2.Text = "Apunte al objetivo CENTRAL y presione A o B para calibrar";
+                        this.insText2.Text = AimCenter;
                         this.TextBorder.UpdateLayout();
                         this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                         this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
@@ -411,7 +415,7 @@ namespace WiiTUIO.Provider
                 {
                     this.wiimoteNo.Text = "Wiimote " + keyMapper.WiimoteID + ":";
                     // Resetear la instrucción general
-                    this.insText2.Text = " apunte a los objetivos y presione A o B para calibrar";
+                    this.insText2.Text = AimTargets;
 
                     this.TextBorder.UpdateLayout();
                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
@@ -429,7 +433,7 @@ namespace WiiTUIO.Provider
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
                                     this.movePoint(1 - marginXBackup, 1 - marginYBackup); // Esquina Inferior Derecha
-                                    this.insText2.Text = "Apunte a la esquina INFERIOR DERECHA y presione A o B para calibrar";
+                                    this.insText2.Text = AimButtomRight;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                                     this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
@@ -441,7 +445,7 @@ namespace WiiTUIO.Provider
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
                                     this.movePoint(0.5, 0); // Arriba-Centro
-                                    this.insText2.Text = "Apunte al objetivo SUPERIOR central y presione A o B para calibrar";
+                                    this.insText2.Text = AimTopCenter;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                                     this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
@@ -454,8 +458,8 @@ namespace WiiTUIO.Provider
                             {
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
-                                    this.movePoint(marginXBackup, marginYBackup); 
-                                    this.insText2.Text = "Apunte a la esquina SUPERIOR IZQUIERDA y presione A o B para calibrar";
+                                    this.movePoint(marginXBackup, marginYBackup);
+                                    this.insText2.Text = AimTopLeft;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                                     this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
@@ -467,7 +471,7 @@ namespace WiiTUIO.Provider
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
                                     this.movePoint(0.5, 1); // Abajo-Centro
-                                    this.insText2.Text = "Apunte al objetivo INFERIOR central y presione A o B para calibrar";
+                                    this.insText2.Text = AimButtomCenter;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                                     this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
@@ -496,7 +500,7 @@ namespace WiiTUIO.Provider
                                 {
                                     this.CalibrationPoint.Visibility = Visibility.Hidden; // Oculta el objetivo
                                     this.wiimoteNo.Text = null;
-                                    this.insText2.Text = "Presione A para confirmar la calibración, presione B para reiniciar la calibración";
+                                    this.insText2.Text = AimConfirm;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                                     this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
@@ -508,7 +512,7 @@ namespace WiiTUIO.Provider
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
                                     this.movePoint(0, 0.5); // Izquierda-Centro
-                                    this.insText2.Text = "Apunte al objetivo IZQUIERDO central y presione A o B para calibrar";
+                                    this.insText2.Text = AimLeftCenter;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                                     this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
@@ -523,7 +527,7 @@ namespace WiiTUIO.Provider
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
                                     this.movePoint(1, 0.5); // Derecha-Centro
-                                    this.insText2.Text = "Apunte al objetivo DERECHO central y presione A o B para calibrar";
+                                    this.insText2.Text = AimRightCenter;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                                     this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
@@ -543,7 +547,7 @@ namespace WiiTUIO.Provider
                                 {
                                     this.CalibrationPoint.Visibility = Visibility.Hidden; // Oculta el objetivo
                                     this.wiimoteNo.Text = null;
-                                    this.insText2.Text = "Presione A para confirmar la calibración, presione B para reiniciar la calibración";
+                                    this.insText2.Text = AimConfirm;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                                     this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
@@ -578,7 +582,7 @@ namespace WiiTUIO.Provider
                         Dispatcher.BeginInvoke(new Action(delegate ()
                         {
                             this.movePoint(1 - marginXBackup, 1 - marginYBackup); // Vuelve al primer punto del modo 'none'
-                            this.insText2.Text = "Apunte a la esquina INFERIOR DERECHA y presione A o B para calibrar";
+                            this.insText2.Text = AimButtomRight;
                             this.TextBorder.UpdateLayout();
                             this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                             this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
@@ -590,7 +594,7 @@ namespace WiiTUIO.Provider
                         Dispatcher.BeginInvoke(new Action(delegate ()
                         {
                             this.movePoint(0.5, 0.5); // Vuelve al centro
-                            this.insText2.Text = "Apunte al objetivo CENTRAL y presione A o B para calibrar";
+                            this.insText2.Text = AimCenter;
                             this.TextBorder.UpdateLayout();
                             this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                             this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
@@ -608,7 +612,7 @@ namespace WiiTUIO.Provider
                     Dispatcher.BeginInvoke(new Action(delegate ()
                     {
                         this.wiimoteNo.Text = null;
-                        this.insText2.Text = "Mantenga presionado";
+                        this.insText2.Text = HoldDown;
 
                         this.TextBorder.UpdateLayout();
                         this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
@@ -620,7 +624,7 @@ namespace WiiTUIO.Provider
                     Dispatcher.BeginInvoke(new Action(delegate ()
                     {
                         this.wiimoteNo.Text = null;
-                        this.insText2.Text = "No se encuentran sensores. Asegúrese de estar a la distancia adecuada y apuntando a la pantalla.";
+                        this.insText2.Text = NoSensors;
 
                         this.TextBorder.UpdateLayout();
                         this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
@@ -641,7 +645,7 @@ namespace WiiTUIO.Provider
             Dispatcher.BeginInvoke(new Action(delegate ()
             {
                 this.wiimoteNo.Text = null;
-                this.insText2.Text = "Suelte";
+                this.insText2.Text = ReleaseText;
 
                 this.TextBorder.UpdateLayout();
                 this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
