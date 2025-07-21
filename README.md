@@ -55,6 +55,10 @@ Suegrini: https://github.com/Suegrini/Touchmote <br />
 
 Release History
 ==============
+**v1.0 beta 21**<br />
+- Multilanguage on updates messages
+- Shows compiled version automatically on about window
+- 
 **v1.0 beta 20**<br />
 - Multilanguage support implemented
 - Check updates in this github repository
