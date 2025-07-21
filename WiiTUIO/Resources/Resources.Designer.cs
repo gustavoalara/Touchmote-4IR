@@ -1402,7 +1402,7 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Left Control&quot;.
+        ///   Busca una cadena traducida similar a Left Control.
         /// </summary>
         internal static string tLControl {
             get {
@@ -2289,6 +2289,78 @@ namespace WiiTUIO.Resources {
         internal static string tVolumeUp {
             get {
                 return ResourceManager.GetString("tVolumeUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a GitHub API error ({0}): {1}.
+        /// </summary>
+        internal static string UpdateCheck_ApiError {
+            get {
+                return ResourceManager.GetString("UpdateCheck_ApiError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Connection error when checking for updates: {0}.
+        /// </summary>
+        internal static string UpdateCheck_ConnectionError {
+            get {
+                return ResourceManager.GetString("UpdateCheck_ConnectionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error when starting the update check: {0}.
+        /// </summary>
+        internal static string UpdateCheck_InitialCheckError {
+            get {
+                return ResourceManager.GetString("UpdateCheck_InitialCheckError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error reading JSON response from GitHub: {0}.
+        /// </summary>
+        internal static string UpdateCheck_JsonError {
+            get {
+                return ResourceManager.GetString("UpdateCheck_JsonError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You are using the latest version available..
+        /// </summary>
+        internal static string UpdateCheck_LatestVersion {
+            get {
+                return ResourceManager.GetString("UpdateCheck_LatestVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a A new version ({0}) is available, do you want to open the GitHub page to download it?.
+        /// </summary>
+        internal static string UpdateCheck_NewVersionAvailable_Message {
+            get {
+                return ResourceManager.GetString("UpdateCheck_NewVersionAvailable_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Update Available.
+        /// </summary>
+        internal static string UpdateCheck_NewVersionAvailable_Title {
+            get {
+                return ResourceManager.GetString("UpdateCheck_NewVersionAvailable_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Unexpected error when checking for updates: {0}.
+        /// </summary>
+        internal static string UpdateCheck_UnexpectedError {
+            get {
+                return ResourceManager.GetString("UpdateCheck_UnexpectedError", resourceCulture);
             }
         }
         

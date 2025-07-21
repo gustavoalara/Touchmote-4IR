@@ -778,7 +778,7 @@
     <value>Right Shift</value>
   </data>
   <data name="tLControl" xml:space="preserve">
-    <value>Left Control"</value>
+    <value>Left Control</value>
   </data>
   <data name="tRControl" xml:space="preserve">
     <value>Right Control</value>
@@ -890,5 +890,29 @@
   </data>
   <data name="tSoundLoop" xml:space="preserve">
     <value>Sound Loop</value>
+  </data>
+  <data name="UpdateCheck_LatestVersion" xml:space="preserve">
+    <value>You are using the latest version available.</value>
+  </data>
+  <data name="UpdateCheck_ApiError" xml:space="preserve">
+    <value>GitHub API error ({0}): {1}</value>
+  </data>
+  <data name="UpdateCheck_ConnectionError" xml:space="preserve">
+    <value>Connection error when checking for updates: {0}</value>
+  </data>
+  <data name="UpdateCheck_JsonError" xml:space="preserve">
+    <value>Error reading JSON response from GitHub: {0}</value>
+  </data>
+  <data name="UpdateCheck_UnexpectedError" xml:space="preserve">
+    <value>Unexpected error when checking for updates: {0}</value>
+  </data>
+  <data name="UpdateCheck_NewVersionAvailable_Message" xml:space="preserve">
+    <value>A new version ({0}) is available, do you want to open the GitHub page to download it?</value>
+  </data>
+  <data name="UpdateCheck_NewVersionAvailable_Title" xml:space="preserve">
+    <value>Update Available</value>
+  </data>
+  <data name="UpdateCheck_InitialCheckError" xml:space="preserve">
+    <value>Error when starting the update check: {0}</value>
   </data>
 </root>

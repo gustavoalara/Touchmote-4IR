@@ -891,4 +891,28 @@
   <data name="tSoundLoop" xml:space="preserve">
     <value>Bucle de sonido</value>
   </data>
+  <data name="UpdateCheck_LatestVersion" xml:space="preserve">
+    <value>Estás usando la última versión disponible.</value>
+  </data>
+  <data name="UpdateCheck_ApiError" xml:space="preserve">
+    <value>Error de la API de GitHub ({0}): {1}</value>
+  </data>
+  <data name="UpdateCheck_ConnectionError" xml:space="preserve">
+    <value>Error de conexión al verificar actualizaciones: {0}</value>
+  </data>
+  <data name="UpdateCheck_JsonError" xml:space="preserve">
+    <value>Error al leer la respuesta JSON de GitHub: {0}</value>
+  </data>
+  <data name="UpdateCheck_UnexpectedError" xml:space="preserve">
+    <value>Error inesperado al verificar actualizaciones: {0}</value>
+  </data>
+  <data name="UpdateCheck_NewVersionAvailable_Message" xml:space="preserve">
+    <value>Una nueva versión ({0}) está disponible. ¿Deseas abrir la página de GitHub para descargarla?</value>
+  </data>
+  <data name="UpdateCheck_NewVersionAvailable_Title" xml:space="preserve">
+    <value>Actualización Disponible</value>
+  </data>
+  <data name="UpdateCheck_InitialCheckError" xml:space="preserve">
+    <value>Error al iniciar la verificación de actualizaciones: {0}</value>
+  </data>
 </root>

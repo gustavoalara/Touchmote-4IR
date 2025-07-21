@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Reflection;
 
 namespace WiiTUIO
 {
@@ -26,6 +27,7 @@ namespace WiiTUIO
         public AboutUC()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
 
         private void btnAboutBack_Click(object sender, RoutedEventArgs e)
@@ -40,6 +42,23 @@ namespace WiiTUIO
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
+        }
+        /// <summary>
+        /// Obtiene la versión del ensamblado de la aplicación.
+        /// </summary>
+        public string AppVersion
+        {
+            get
+            {
+                // Obtiene el ensamblado en ejecución (tu aplicación)
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                // Obtiene el objeto Version del ensamblado
+                Version version = assembly.GetName().Version;
+
+                // Formatea la versión como "vX.Y.Z"
+                // Puedes ajustar el formato si solo quieres Major.Minor, etc.
+                return $"v{version.Major}.{version.Minor}.{version.Build}";
+            }
         }
     }
 }

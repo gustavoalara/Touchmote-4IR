@@ -20,7 +20,7 @@ using WiiTUIO.Properties;
 using System.Windows.Input;
 using WiiTUIO.Output;
 using Microsoft.Win32;
-using System.Diagnostics; // Added for Process.Start
+using System.Diagnostics; // Needed for Process.Start
 using Newtonsoft.Json;
 using MahApps.Metro.Controls;
 using System.Windows.Interop;
@@ -32,9 +32,9 @@ using WiiTUIO.Output.Handlers.Xinput;
 using WiiTUIO.ArcadeHook;
 using System.IO.Pipes;
 using System.Globalization;
-using System.Reflection; // Added for Assembly.GetExecutingAssembly
+using System.Reflection; // Needed for Assembly.GetExecutingAssembly
 
-using static WiiTUIO.Resources.Resources;
+using static WiiTUIO.Resources.Resources; // Importa la clase Resources para acceso directo a las cadenas
 
 namespace WiiTUIO
 {
@@ -295,7 +295,7 @@ namespace WiiTUIO
             catch (Exception e)
             {
                 // Error handling: log or display a message if the check fails
-                ShowMessage($"Error al iniciar la verificación de actualizaciones: {e.Message}", MessageType.Error);
+                ShowMessage(string.Format(UpdateCheck_InitialCheckError, e.Message), MessageType.Error);
             }
         }
 
@@ -339,20 +339,26 @@ namespace WiiTUIO
                 // Compare versions
                 if (latestVersion > currentVersion)
                 {
-                    // A new version is available
-                    ShowMessage($"Una nueva versión ({latestVersion.ToString()}) está disponible. Visita: {releaseHtmlUrl}", MessageType.Info);
-                    // Or if you want a button to open the link:
-                    // Dispatcher.Invoke(() => {
-                    //    if (MessageBox.Show($"Una nueva versión ({latestVersion.ToString()}) está disponible. ¿Deseas abrir la página de GitHub?", "Actualización Disponible", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-                    //    {
-                    //        Process.Start(new ProcessStartInfo(releaseHtmlUrl) { UseShellExecute = true });
-                    //    }
-                    // });
+                    // Hay una nueva versión disponible
+                    Dispatcher.Invoke(() => {
+                        MessageBoxResult dialogResult = MessageBox.Show(
+                            string.Format(UpdateCheck_NewVersionAvailable_Message, latestVersion.ToString()),
+                            UpdateCheck_NewVersionAvailable_Title,
+                            MessageBoxButton.YesNo,
+                            MessageBoxImage.Information
+                        );
+
+                        if (dialogResult == MessageBoxResult.Yes)
+                        {
+                            // Abre la URL en el navegador predeterminado
+                            Process.Start(new ProcessStartInfo(releaseHtmlUrl) { UseShellExecute = true });
+                        }
+                    });
                 }
                 else
                 {
-                    // The current version is the latest or newer
-                    ShowMessage("Estás usando la última versión disponible.", MessageType.Info);
+                    // La versión actual es la más reciente o superior
+                    ShowMessage(UpdateCheck_LatestVersion, MessageType.Info);
                 }
             }
             catch (WebException wex)
@@ -365,23 +371,23 @@ namespace WiiTUIO
                         using (var reader = new StreamReader(errorResponse.GetResponseStream()))
                         {
                             string errorText = reader.ReadToEnd();
-                            ShowMessage($"Error de la API de GitHub ({errorResponse.StatusCode}): {errorText}", MessageType.Error);
+                            ShowMessage(string.Format(UpdateCheck_ApiError, errorResponse.StatusCode, errorText), MessageType.Error);
                         }
                     }
                 }
                 else
                 {
-                    ShowMessage($"Error de conexión al verificar actualizaciones: {wex.Message}", MessageType.Error);
+                    ShowMessage(string.Format(UpdateCheck_ConnectionError, wex.Message), MessageType.Error);
                 }
             }
             catch (JsonReaderException jrex)
             {
-                ShowMessage($"Error al leer la respuesta JSON de GitHub: {jrex.Message}", MessageType.Error);
+                ShowMessage(string.Format(UpdateCheck_JsonError, jrex.Message), MessageType.Error);
             }
             catch (Exception e)
             {
                 // Handling of other unexpected errors
-                ShowMessage($"Error inesperado al verificar actualizaciones: {e.Message}", MessageType.Error);
+                ShowMessage(string.Format(UpdateCheck_UnexpectedError, e.Message), MessageType.Error);
             }
         }
 

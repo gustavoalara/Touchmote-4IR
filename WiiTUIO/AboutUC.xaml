@@ -24,7 +24,9 @@
                 </Rectangle.OpacityMask>
             </Rectangle>
         </Button>
-        <Label Name="versionLabel" Content="Touchmote Enhanced v1.0b19" Canvas.Left="76" Canvas.Top="36" FontFamily="Segoe UI Light" FontSize="18"/>
+        <Label Name="versionLabel" Canvas.Left="76" Canvas.Top="36" FontFamily="Segoe UI Light" FontSize="18">
+            <TextBlock Text="{Binding AppVersion, StringFormat=Touchmote Enhanced {0}}"/>
+        </Label>
         <TextBlock Canvas.Left="81" TextWrapping="Wrap" Canvas.Top="80" Height="54" Width="292" FontFamily="Segoe UI Semilight" Text="{loc:Localization TouchmoteAbout1}"/>
         <TextBlock Canvas.Left="81" TextWrapping="Wrap" Canvas.Top="115" Height="129" Width="292" FontFamily="Segoe UI Semilight" HorizontalAlignment="Center" VerticalAlignment="Top" Text="{loc:Localization TouchmoteAbout2}"/>
 
