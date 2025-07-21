@@ -62,6 +62,7 @@ Release History
 **v1.0 beta 20**<br />
 - Multilanguage support implemented
 - Check updates in this github repository
+- Fix vmulti drivers installation issued
   
 **v1.0 beta 17**<br />
 - Added new advanced configuration window for all Suegrini's new parameters
@@ -71,6 +72,7 @@ Release History
 - Improved 4 IR Leds diamond arrange support
 - Performance improvements, thanks to all developers
 - Spanish translation (sorry I'll work on multilanguage support soon)
+- Multicommand support in Arcadehook
   
 **v1.0 beta 15**<br />
 - Fix touch input on Windows 10
