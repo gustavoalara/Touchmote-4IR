@@ -287,7 +287,7 @@ namespace WiiTUIO.Provider
                 {
                     CursorPos err = lastPos;
                     err.OutOfReach = true;
-                    err.OffScreen = true;
+                    //err.OffScreen = true;
                     leftPoint = -1;
                     lastIrPoint1 = -1;
                     lastIrPoint2 = -1;
@@ -295,6 +295,9 @@ namespace WiiTUIO.Provider
                     return err;
                 }
 
+				median.X = 1 - median.X;
+				
+				
                 if (Properties.Settings.Default.pointer_sensorBarPos == "top")
                 {
                     offsetY = -SBPositionOffset;
@@ -308,140 +311,19 @@ namespace WiiTUIO.Provider
 
                 resultPos = median;
             }
-            else if (Settings.Default.pointer_4IRMode == "diamond")
-            {
-                byte seenFlags = 0;
-                double Roll = Math.Atan2(wiimoteState.AccelState.Values.X, wiimoteState.AccelState.Values.Z);
-
-                PointF[] position = new PointF[4];
-
-                for (int i = 0; i < 4; i++)
-                {
-                    if (irState.IRSensors[i].Found)
-                    {
-                        position[i] = irState.IRSensors[i].Position;
-                        see[i] = (see[i] << 1) | 1;
-                        seenFlags |= (byte)(1 << i);
-                    }
-                    else
-                    {
-                        see[i] = 0;
-                    }
-                }
-
-                yMin = yMax = xMin = xMax = -1;
-                for (int i = 0; i < 4; i++)
-                {
-                    if ((seenFlags & (1 << i)) == 0) continue;
-                    if (yMin == -1 || position[i].Y < position[yMin].Y) yMin = i;
-                    if (yMax == -1 || position[i].Y > position[yMax].Y) yMax = i;
-                    if (xMin == -1 || position[i].X < position[xMin].X) xMin = i;
-                    if (xMax == -1 || position[i].X > position[xMax].X) xMax = i;
-                }
-
-                if (yMin >= 0) finalPos[0] = position[yMin];
-                if (xMax >= 0) finalPos[1] = position[xMax];
-                if (yMax >= 0) finalPos[2] = position[yMax];
-                if (xMin >= 0) finalPos[3] = position[xMin];
-
-                if ((seenFlags & 0x0F) == 0x0F)
-                {
-                    median.X = (finalPos[0].X + finalPos[1].X + finalPos[2].X + finalPos[3].X) / 4f;
-                    median.Y = (finalPos[0].Y + finalPos[1].Y + finalPos[2].Y + finalPos[3].Y) / 4f;
-
-                    float height2 = finalPos[2].Y - finalPos[0].Y;
-                    float width2 = finalPos[1].X - finalPos[3].X;
-                    height = MathF.Hypot(finalPos[0].Y - finalPos[2].Y, finalPos[0].X - finalPos[2].X);
-                    width = MathF.Hypot(finalPos[1].Y - finalPos[3].Y, finalPos[1].X - finalPos[3].X);
-                    float angle2 = MathF.Atan2(finalPos[3].Y - finalPos[1].Y, finalPos[1].X - finalPos[3].X);
-
-                    offsetTR = angleTR - angle2;
-                    offsetBR = angleBR - angle2;
-                    offsetBL = angleBL - angle2;
-                    offsetTL = angleTL - angle2;
-                }
-                else
-                {
-                    if ((1 << 5 & see[0] & see[1]) != 0)
-                    {
-                        angleTR = MathF.Atan2(finalPos[0].Y - finalPos[1].Y, finalPos[1].X - finalPos[0].X);
-                        DistTR = MathF.Hypot(finalPos[0].Y - finalPos[1].Y, finalPos[0].X - finalPos[1].X);
-                        angle = offsetTR - angleTR;
-                    }
-                    if ((1 << 5 & see[1] & see[2]) != 0)
-                    {
-                        angleBR = MathF.Atan2(finalPos[1].Y - finalPos[2].Y, finalPos[2].X - finalPos[1].X);
-                        DistBR = MathF.Hypot(finalPos[1].Y - finalPos[2].Y, finalPos[1].X - finalPos[2].X);
-                        angle = offsetBR - angleBR;
-                    }
-                    if ((1 << 5 & see[2] & see[3]) != 0)
-                    {
-                        angleBL = MathF.Atan2(finalPos[2].Y - finalPos[3].Y, finalPos[3].X - finalPos[2].X);
-                        DistBL = MathF.Hypot(finalPos[2].Y - finalPos[3].Y, finalPos[2].X - finalPos[3].X);
-                        angle = offsetBL - angleBL;
-                    }
-                    if ((1 << 5 & see[3] & see[0]) != 0)
-                    {
-                        angleTL = MathF.Atan2(finalPos[3].Y - finalPos[0].Y, finalPos[0].X - finalPos[3].X);
-                        DistTL = MathF.Hypot(finalPos[3].Y - finalPos[0].Y, finalPos[3].X - finalPos[0].X);
-                        angle = offsetTL - angleTL;
-                    }
-                }
-
-                for (int i = 0; i < 4; i++)
-                {
-                    if ((seenFlags & (1 << i)) == 0)
-                    {
-                        float f = (float)angle;
-                        float offset = 0;
-                        float dist = 0;
-                        int refIndex = -1;
-
-                        switch (i)
-                        {
-                            case 0: offset = offsetTL; dist = DistTL; refIndex = 3; break;
-                            case 1: offset = offsetTR; dist = DistTR; refIndex = 0; break;
-                            case 2: offset = offsetBR; dist = DistBR; refIndex = 1; break;
-                            case 3: offset = offsetBL; dist = DistBL; refIndex = 2; break;
-                        }
-
-                        if ((seenFlags & (1 << refIndex)) != 0)
-                        {
-                            finalPos[i].X = finalPos[refIndex].X + dist * MathF.Cos(offset - f);
-                            finalPos[i].Y = finalPos[refIndex].Y + dist * -MathF.Sin(offset - f);
-                        }
-                    }
-                }
-
-                pWarper.setSource(
-                        finalPos[1].X, finalPos[1].Y, // Right
-                        finalPos[2].X, finalPos[2].Y, // Bottom
-                        finalPos[3].X, finalPos[3].Y, // Left
-                        finalPos[0].X, finalPos[0].Y  // Top
-                    );
-
-                float[] fWarped = pWarper.warp();
-                resultPos.X = Math.Min(Math.Max(fWarped[0], 0), 1);
-                resultPos.Y = Math.Min(Math.Max(fWarped[1], 0), 1);
-
-                angle = -(MathF.Atan2(finalPos[0].Y - finalPos[1].Y, finalPos[1].X - finalPos[0].X) +
-                          MathF.Atan2(finalPos[2].Y - finalPos[3].Y, finalPos[3].X - finalPos[2].X)) / 2;
-
-                if (angle < 0) angle += MathF.PI * 2;
-
-                if (see.Count(seen => seen == 0) >= 3 || double.IsNaN(resultPos.X) || double.IsNaN(resultPos.Y))
-                {
-                    CursorPos err = lastPos;
-                    err.OutOfReach = true;
-                    err.OffScreen = true;
-                    return err;
-                }
-            }
-
             else if (Settings.Default.pointer_4IRMode == "square")
             {
                 byte seenFlags = 0;
                 double Roll = Math.Atan2(wiimoteState.AccelState.Values.X, wiimoteState.AccelState.Values.Z);
+				bool fourPtsFound = irState.IRSensors[0].Found == true &&
+                    irState.IRSensors[1].Found == true &&
+                    irState.IRSensors[2].Found == true && irState.IRSensors[3].Found == true;
+
+                if (fourPtsFound)
+                {
+                    median.Y = (irState.IRSensors[0].Position.Y + irState.IRSensors[1].Position.Y + irState.IRSensors[2].Position.Y + irState.IRSensors[3].Position.Y + 0.002f) / 4;
+                    median.X = (irState.IRSensors[0].Position.X + irState.IRSensors[1].Position.X + irState.IRSensors[2].Position.X + irState.IRSensors[3].Position.X + 0.002f) / 4;
+                }
                 for (int i = 0; i < 4; i++)
                 {
                     if (irState.IRSensors[i].Found)
@@ -459,6 +341,17 @@ namespace WiiTUIO.Provider
                         see[i] = 0;
                 }
 
+
+
+
+				if (see.Count(seen => seen == 0) >= 2)
+                {
+                    CursorPos err = lastPos;
+                    err.OutOfReach = true;
+                    //err.OffScreen = true;
+
+                    return err;
+                }
                 while ((seenFlags & 15) != 0 && (seenFlags & 15) != 15)
                 {
                     for (int i = 0; i < 4; i++)
@@ -534,18 +427,147 @@ namespace WiiTUIO.Provider
                     }
                     if ((seenFlags & 15) == 15) break;
                 }
+				else if (Settings.Default.pointer_4IRMode == "diamond")
+				{
+					byte seenFlags = 0;
+					double Roll = Math.Atan2(wiimoteState.AccelState.Values.X, wiimoteState.AccelState.Values.Z);
 
+					PointF[] position = new PointF[4];
+
+					for (int i = 0; i < 4; i++)
+					{
+						if (irState.IRSensors[i].Found)
+						{
+							position[i] = irState.IRSensors[i].Position;
+							see[i] = (see[i] << 1) | 1;
+							seenFlags |= (byte)(1 << i);
+						}
+						else
+						{
+							see[i] = 0;
+						}
+					}
+
+					yMin = yMax = xMin = xMax = -1;
+					for (int i = 0; i < 4; i++)
+					{
+						if ((seenFlags & (1 << i)) == 0) continue;
+						if (yMin == -1 || position[i].Y < position[yMin].Y) yMin = i;
+						if (yMax == -1 || position[i].Y > position[yMax].Y) yMax = i;
+						if (xMin == -1 || position[i].X < position[xMin].X) xMin = i;
+						if (xMax == -1 || position[i].X > position[xMax].X) xMax = i;
+					}
+
+					if (yMin >= 0) finalPos[0] = position[yMin];
+					if (xMax >= 0) finalPos[1] = position[xMax];
+					if (yMax >= 0) finalPos[2] = position[yMax];
+					if (xMin >= 0) finalPos[3] = position[xMin];
+
+					if ((seenFlags & 0x0F) == 0x0F)
+					{
+						median.X = (finalPos[0].X + finalPos[1].X + finalPos[2].X + finalPos[3].X) / 4f;
+						median.Y = (finalPos[0].Y + finalPos[1].Y + finalPos[2].Y + finalPos[3].Y) / 4f;
+
+						float height2 = finalPos[2].Y - finalPos[0].Y;
+						float width2 = finalPos[1].X - finalPos[3].X;
+						height = MathF.Hypot(finalPos[0].Y - finalPos[2].Y, finalPos[0].X - finalPos[2].X);
+						width = MathF.Hypot(finalPos[1].Y - finalPos[3].Y, finalPos[1].X - finalPos[3].X);
+						float angle2 = MathF.Atan2(finalPos[3].Y - finalPos[1].Y, finalPos[1].X - finalPos[3].X);
+
+						offsetTR = angleTR - angle2;
+						offsetBR = angleBR - angle2;
+						offsetBL = angleBL - angle2;
+						offsetTL = angleTL - angle2;
+					}
+					else
+					{
+						if ((1 << 5 & see[0] & see[1]) != 0)
+						{
+							angleTR = MathF.Atan2(finalPos[0].Y - finalPos[1].Y, finalPos[1].X - finalPos[0].X);
+							DistTR = MathF.Hypot(finalPos[0].Y - finalPos[1].Y, finalPos[0].X - finalPos[1].X);
+							angle = offsetTR - angleTR;
+						}
+						if ((1 << 5 & see[1] & see[2]) != 0)
+						{
+							angleBR = MathF.Atan2(finalPos[1].Y - finalPos[2].Y, finalPos[2].X - finalPos[1].X);
+							DistBR = MathF.Hypot(finalPos[1].Y - finalPos[2].Y, finalPos[1].X - finalPos[2].X);
+							angle = offsetBR - angleBR;
+						}
+						if ((1 << 5 & see[2] & see[3]) != 0)
+						{
+							angleBL = MathF.Atan2(finalPos[2].Y - finalPos[3].Y, finalPos[3].X - finalPos[2].X);
+							DistBL = MathF.Hypot(finalPos[2].Y - finalPos[3].Y, finalPos[2].X - finalPos[3].X);
+							angle = offsetBL - angleBL;
+						}
+						if ((1 << 5 & see[3] & see[0]) != 0)
+						{
+							angleTL = MathF.Atan2(finalPos[3].Y - finalPos[0].Y, finalPos[0].X - finalPos[3].X);
+							DistTL = MathF.Hypot(finalPos[3].Y - finalPos[0].Y, finalPos[3].X - finalPos[0].X);
+							angle = offsetTL - angleTL;
+						}
+					}
+
+					for (int i = 0; i < 4; i++)
+					{
+						if ((seenFlags & (1 << i)) == 0)
+						{
+							float f = (float)angle;
+							float offset = 0;
+							float dist = 0;
+							int refIndex = -1;
+
+							switch (i)
+							{
+								case 0: offset = offsetTL; dist = DistTL; refIndex = 3; break;
+								case 1: offset = offsetTR; dist = DistTR; refIndex = 0; break;
+								case 2: offset = offsetBR; dist = DistBR; refIndex = 1; break;
+								case 3: offset = offsetBL; dist = DistBL; refIndex = 2; break;
+							}
+
+							if ((seenFlags & (1 << refIndex)) != 0)
+							{
+								finalPos[i].X = finalPos[refIndex].X + dist * MathF.Cos(offset - f);
+								finalPos[i].Y = finalPos[refIndex].Y + dist * -MathF.Sin(offset - f);
+							}
+						}
+					}
+
+                pWarper.setSource(
+                        finalPos[1].X, finalPos[1].Y, // Right
+                        finalPos[2].X, finalPos[2].Y, // Bottom
+                        finalPos[3].X, finalPos[3].Y, // Left
+                        finalPos[0].X, finalPos[0].Y  // Top
+                    );
+
+                float[] fWarped = pWarper.warp();
+                resultPos.X = Math.Min(Math.Max(fWarped[0], 0), 1);
+                resultPos.Y = Math.Min(Math.Max(fWarped[1], 0), 1);
+
+                angle = -(MathF.Atan2(finalPos[0].Y - finalPos[1].Y, finalPos[1].X - finalPos[0].X) +
+                          MathF.Atan2(finalPos[2].Y - finalPos[3].Y, finalPos[3].X - finalPos[2].X)) / 2;
+
+                if (angle < 0) angle += MathF.PI * 2;
+
+                if (see.Count(seen => seen == 0) >= 3 || double.IsNaN(resultPos.X) || double.IsNaN(resultPos.Y))
+                {
+                    CursorPos err = lastPos;
+                    err.OutOfReach = true;
+                    err.OffScreen = true;
+                    return err;
+                }
+            }
                 pWarper.setSource(finalPos[0].X, finalPos[0].Y, finalPos[1].X, finalPos[1].Y, finalPos[2].X, finalPos[2].Y, finalPos[3].X, finalPos[3].Y);
                 float[] fWarped = pWarper.warp();
                 resultPos.X = fWarped[0];
                 resultPos.Y = fWarped[1];
 
-                if (irState.IRSensors[0].Found == true && irState.IRSensors[1].Found == true && irState.IRSensors[2].Found == true && irState.IRSensors[3].Found == true)
-                {
+                //if (irState.IRSensors[0].Found == true && irState.IRSensors[1].Found == true && irState.IRSensors[2].Found == true && irState.IRSensors[3].Found == true)
+                if (!fourPtsFound)
+				/*{
                     median.Y = (irState.IRSensors[0].Position.Y + irState.IRSensors[1].Position.Y + irState.IRSensors[2].Position.Y + irState.IRSensors[3].Position.Y + 0.002f) / 4;
                     median.X = (irState.IRSensors[0].Position.X + irState.IRSensors[1].Position.X + irState.IRSensors[2].Position.X + irState.IRSensors[3].Position.X + 0.002f) / 4;
                 }
-                else
+                else */
                 {
                     median.Y = (finalPos[0].Y + finalPos[1].Y + finalPos[2].Y + finalPos[3].Y + 0.002f) / 4;
                     median.X = (finalPos[0].X + finalPos[1].X + finalPos[2].X + finalPos[3].X + 0.002f) / 4;
@@ -588,10 +610,11 @@ namespace WiiTUIO.Provider
                 }
 
                 // Add tilt correction
-                angle = -(MathF.Atan2(finalPos[0].Y - finalPos[1].Y, finalPos[1].X - finalPos[0].X) + MathF.Atan2(finalPos[2].Y - finalPos[3].Y, finalPos[3].X - finalPos[2].X)) / 2;
-                if (angle < 0) angle += MathF.PI * 2;
+                //angle = -(MathF.Atan2(finalPos[0].Y - finalPos[1].Y, finalPos[1].X - finalPos[0].X) + MathF.Atan2(finalPos[2].Y - finalPos[3].Y, finalPos[3].X - finalPos[2].X)) / 2;
+                //if (angle < 0) angle += MathF.PI * 2;
+				angle = Roll;
 
-                if (see.Count(seen => seen == 0) >= 3 || Double.IsNaN(resultPos.X) || Double.IsNaN(resultPos.Y))
+                /*if (see.Count(seen => seen == 0) >= 3 || Double.IsNaN(resultPos.X) || Double.IsNaN(resultPos.Y))
                 {
                     CursorPos err = lastPos;
                     err.OutOfReach = true;
@@ -599,6 +622,7 @@ namespace WiiTUIO.Provider
 
                     return err;
                 }
+				*/
             }
 
             x = Convert.ToInt32((float)maxWidth * (1 - median.X) + minXPos);
@@ -632,7 +656,7 @@ namespace WiiTUIO.Provider
 
             if (lightbarX < 0.0 || lightbarX > 1.0 || lightbarY < 0.0 || lightbarY > 1.0)
             {
-                result.OffScreen = true;
+                //result.OffScreen = true;
                 result.LightbarX = Math.Min(1.0,
                 Math.Max(0.0, lightbarX));
                 result.LightbarY = Math.Min(1.0,
