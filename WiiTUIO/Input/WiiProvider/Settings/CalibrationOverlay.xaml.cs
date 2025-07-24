@@ -286,7 +286,7 @@ namespace WiiTUIO.Provider
                     this.keyMapper.settings.DiamondBottomY = 0.0f; // Valor por defecto
                     this.keyMapper.settings.DiamondLeftX = 0.0f; // Valor por defecto
                     this.keyMapper.settings.DiamondRightX = 1.0f; // Valor por defecto
-                    
+
                     Dispatcher.BeginInvoke(new Action(delegate ()
                     {
                         this.movePoint(0.5, 0.5); // Centro
@@ -385,7 +385,7 @@ namespace WiiTUIO.Provider
             }
             else if (Settings.Default.pointer_4IRMode == "diamond")
             {
-				//this.keyMapper.settings.CenterX = 0.5f;
+                //this.keyMapper.settings.CenterX = 0.5f;
                 //this.keyMapper.settings.CenterY = 0.5f;
 
                 this.keyMapper.settings.CenterX = centerXBackup;
@@ -397,7 +397,7 @@ namespace WiiTUIO.Provider
                 this.keyMapper.settings.DiamondRightX = diamondRightXBackup;
             }
 
-            
+
 
             this.keyMapper.settings.SaveCalibrationData(); // Guarda los valores restaurados
 
@@ -427,7 +427,7 @@ namespace WiiTUIO.Provider
                     // --- LÓGICA DE AVANCE DE PASOS DE CALIBRACIÓN CON IF ANIDADO POR MODO ---
                     switch (step)
                     {
-                        case 0: 
+                        case 0:
                             if (Settings.Default.pointer_4IRMode == "square")
                             {
                                 Dispatcher.BeginInvoke(new Action(delegate ()
@@ -663,7 +663,7 @@ namespace WiiTUIO.Provider
                         this.keyMapper.settings.TLled = (float)(0.5 - ((this.keyMapper.cursorPos.Width / this.keyMapper.cursorPos.Height) / 4));
                         this.keyMapper.settings.TRled = (float)(0.5 + ((this.keyMapper.cursorPos.Width / this.keyMapper.cursorPos.Height) / 4));
                     }
-					else if (Settings.Default.pointer_4IRMode == "diamond")
+                    else if (Settings.Default.pointer_4IRMode == "diamond")
                     {
                         //this.keyMapper.settings.CenterX = 0.5f;
                         //this.keyMapper.settings.CenterY = 0.5f;
@@ -688,7 +688,7 @@ namespace WiiTUIO.Provider
                         }
 
                     }
-                break;
+                    break;
                 case 1: // Captura de Inferior Derecha (None, Square) o Superior (Diamond)
                     if (Settings.Default.pointer_4IRMode == "none")
                     {
@@ -703,7 +703,7 @@ namespace WiiTUIO.Provider
                     else if (Settings.Default.pointer_4IRMode == "diamond")
                     {
 
-                                               
+
                         int topIndex = -1;
                         float topY = float.MaxValue;
 

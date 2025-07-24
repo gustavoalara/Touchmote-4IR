@@ -538,6 +538,15 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Error.
+        /// </summary>
+        internal static string Error_Title_Generic {
+            get {
+                return ResourceManager.GetString("Error_Title_Generic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a FPS Mouse Deadzone:.
         /// </summary>
         internal static string FpsmouseDeadzone {
@@ -871,6 +880,177 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Active Profile:.
+        /// </summary>
+        internal static string Profile_ActiveProfile {
+            get {
+                return ResourceManager.GetString("Profile_ActiveProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Calibration Profiles.
+        /// </summary>
+        internal static string Profile_CalibrationProfiles {
+            get {
+                return ResourceManager.GetString("Profile_CalibrationProfiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cannot delete the &apos;Default Profile&apos; profile..
+        /// </summary>
+        internal static string Profile_CannotDeleteDefault {
+            get {
+                return ResourceManager.GetString("Profile_CannotDeleteDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Are you sure you want to delete the profile &apos;{0}&apos;? This action is irreversible..
+        /// </summary>
+        internal static string Profile_ConfirmDeletion_Message {
+            get {
+                return ResourceManager.GetString("Profile_ConfirmDeletion_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Confirm Deletion.
+        /// </summary>
+        internal static string Profile_ConfirmDeletion_Title {
+            get {
+                return ResourceManager.GetString("Profile_ConfirmDeletion_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Create Profile.
+        /// </summary>
+        internal static string Profile_CreateButton {
+            get {
+                return ResourceManager.GetString("Profile_CreateButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Profile &apos;{0}&apos; created and activated..
+        /// </summary>
+        internal static string Profile_CreatedAndActivated {
+            get {
+                return ResourceManager.GetString("Profile_CreatedAndActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a An error occurred while creating the profile: {0}.
+        /// </summary>
+        internal static string Profile_CreateError_Message {
+            get {
+                return ResourceManager.GetString("Profile_CreateError_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error Creating Profile.
+        /// </summary>
+        internal static string Profile_CreateError_Title {
+            get {
+                return ResourceManager.GetString("Profile_CreateError_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delete Profile.
+        /// </summary>
+        internal static string Profile_DeleteButton {
+            get {
+                return ResourceManager.GetString("Profile_DeleteButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Profile &apos;{0}&apos; deleted..
+        /// </summary>
+        internal static string Profile_Deleted {
+            get {
+                return ResourceManager.GetString("Profile_Deleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a An error occurred while deleting the profile: {0}.
+        /// </summary>
+        internal static string Profile_DeleteError_Message {
+            get {
+                return ResourceManager.GetString("Profile_DeleteError_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error Deleting Profile.
+        /// </summary>
+        internal static string Profile_DeleteError_Title {
+            get {
+                return ResourceManager.GetString("Profile_DeleteError_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The profile &apos;{0}&apos; does not exist..
+        /// </summary>
+        internal static string Profile_DoesNotExist {
+            get {
+                return ResourceManager.GetString("Profile_DoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please enter a name for the new profile..
+        /// </summary>
+        internal static string Profile_EnterName {
+            get {
+                return ResourceManager.GetString("Profile_EnterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The profile &apos;{0}&apos; already exists..
+        /// </summary>
+        internal static string Profile_Exists {
+            get {
+                return ResourceManager.GetString("Profile_Exists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Profile name cannot be empty..
+        /// </summary>
+        internal static string Profile_NameEmpty {
+            get {
+                return ResourceManager.GetString("Profile_NameEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a New Profile:.
+        /// </summary>
+        internal static string Profile_NewProfile {
+            get {
+                return ResourceManager.GetString("Profile_NewProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select a profile to delete..
+        /// </summary>
+        internal static string Profile_SelectToDelete {
+            get {
+                return ResourceManager.GetString("Profile_SelectToDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a  Off Screen.
         /// </summary>
         internal static string rbOffscreen {
@@ -921,6 +1101,24 @@ namespace WiiTUIO.Resources {
         internal static string SaveAndReboot {
             get {
                 return ResourceManager.GetString("SaveAndReboot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Could not save calibration settings. Please check file permissions or restart the application..
+        /// </summary>
+        internal static string SaveError_Message {
+            get {
+                return ResourceManager.GetString("SaveError_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Save Error.
+        /// </summary>
+        internal static string SaveError_Title {
+            get {
+                return ResourceManager.GetString("SaveError_Title", resourceCulture);
             }
         }
         
@@ -1002,6 +1200,15 @@ namespace WiiTUIO.Resources {
         internal static string SoundAndRumbleTitle {
             get {
                 return ResourceManager.GetString("SoundAndRumbleTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Success.
+        /// </summary>
+        internal static string Success_Title {
+            get {
+                return ResourceManager.GetString("Success_Title", resourceCulture);
             }
         }
         

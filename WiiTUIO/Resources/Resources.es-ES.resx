@@ -595,10 +595,10 @@
     <value>Extensión</value>
   </data>
   <data name="tStickLeft" xml:space="preserve">
-    <value>Palo izquierdo</value>
+    <value>Stick izquierdo</value>
   </data>
   <data name="tStickRight" xml:space="preserve">
-    <value>Palo correcto</value>
+    <value>Stick Derecho</value>
   </data>
   <data name="tStickUp" xml:space="preserve">
     <value>Meter</value>
@@ -607,7 +607,7 @@
     <value>Pegar</value>
   </data>
   <data name="tStickRotationPlus" xml:space="preserve">
-    <value>Rotación de palo (+)</value>
+    <value>Rotación de Stick (+)</value>
   </data>
   <data name="tStickRotationMinus" xml:space="preserve">
     <value>Rotación de Stick (-)</value>
@@ -914,5 +914,74 @@
   </data>
   <data name="UpdateCheck_InitialCheckError" xml:space="preserve">
     <value>Error al iniciar la verificación de actualizaciones: {0}</value>
+  </data>
+  <data name="SaveError_Message" xml:space="preserve">
+    <value>No se pudo guardar la configuración de calibración. Por favor, verifique los permisos de archivo o reinicie la aplicación.</value>
+  </data>
+  <data name="SaveError_Title" xml:space="preserve">
+    <value>Error de Guardado</value>
+  </data>
+  <data name="Profile_NameEmpty" xml:space="preserve">
+    <value>El nombre del perfil no puede estar vacío.</value>
+  </data>
+  <data name="Profile_Exists" xml:space="preserve">
+    <value>El perfil '{0}' ya existe.</value>
+  </data>
+  <data name="Profile_CannotDeleteDefault" xml:space="preserve">
+    <value>No se puede eliminar el perfil 'Default Profile'.</value>
+  </data>
+  <data name="Profile_DoesNotExist" xml:space="preserve">
+    <value>El perfil '{0}' no existe.</value>
+  </data>
+  <data name="Error_Title_Generic" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Profile_EnterName" xml:space="preserve">
+    <value>Please enter a name for the new profile.</value>
+  </data>
+  <data name="Profile_CreatedAndActivated" xml:space="preserve">
+    <value>Perfil '{0}' creado y activado.</value>
+  </data>
+  <data name="Success_Title" xml:space="preserve">
+    <value>Hecho</value>
+  </data>
+  <data name="Profile_CreateError_Title" xml:space="preserve">
+    <value>Error al Crear Perfil</value>
+  </data>
+  <data name="Profile_CreateError_Message" xml:space="preserve">
+    <value>Ocurrió un error al crear el perfil: {0}</value>
+  </data>
+  <data name="Profile_SelectToDelete" xml:space="preserve">
+    <value>Por favor, seleccione un perfil para eliminar.</value>
+  </data>
+  <data name="Profile_ConfirmDeletion_Message" xml:space="preserve">
+    <value>¿Está seguro de que desea eliminar el perfil '{0}'? Esta acción es irreversible.</value>
+  </data>
+  <data name="Profile_ConfirmDeletion_Title" xml:space="preserve">
+    <value>Confirmar Eliminación</value>
+  </data>
+  <data name="Profile_Deleted" xml:space="preserve">
+    <value>Perfil '{0}' eliminado.</value>
+  </data>
+  <data name="Profile_DeleteError_Title" xml:space="preserve">
+    <value>Error al Eliminar Perfil</value>
+  </data>
+  <data name="Profile_DeleteError_Message" xml:space="preserve">
+    <value>Ocurrió un error al eliminar el perfil: {0}</value>
+  </data>
+  <data name="Profile_CalibrationProfiles" xml:space="preserve">
+    <value>Perfiles de Calibración</value>
+  </data>
+  <data name="Profile_ActiveProfile" xml:space="preserve">
+    <value>Perfil Activo:</value>
+  </data>
+  <data name="Profile_NewProfile" xml:space="preserve">
+    <value>Nuevo Perfil:</value>
+  </data>
+  <data name="Profile_CreateButton" xml:space="preserve">
+    <value>Crear Perfil</value>
+  </data>
+  <data name="Profile_DeleteButton" xml:space="preserve">
+    <value>Borrar Perfil</value>
   </data>
 </root>

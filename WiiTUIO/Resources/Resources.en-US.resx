@@ -915,4 +915,73 @@
   <data name="UpdateCheck_InitialCheckError" xml:space="preserve">
     <value>Error when starting the update check: {0}</value>
   </data>
+  <data name="SaveError_Message" xml:space="preserve">
+    <value>Could not save calibration settings. Please check file permissions or restart the application.</value>
+  </data>
+  <data name="SaveError_Title" xml:space="preserve">
+    <value>Save Error</value>
+  </data>
+  <data name="Profile_NameEmpty" xml:space="preserve">
+    <value>Profile name cannot be empty.</value>
+  </data>
+  <data name="Profile_Exists" xml:space="preserve">
+    <value>The profile '{0}' already exists.</value>
+  </data>
+  <data name="Profile_CannotDeleteDefault" xml:space="preserve">
+    <value>Cannot delete the 'Default Profile' profile.</value>
+  </data>
+  <data name="Profile_DoesNotExist" xml:space="preserve">
+    <value>The profile '{0}' does not exist.</value>
+  </data>
+  <data name="Error_Title_Generic" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Profile_EnterName" xml:space="preserve">
+    <value>Please enter a name for the new profile.</value>
+  </data>
+  <data name="Profile_CreatedAndActivated" xml:space="preserve">
+    <value>Profile '{0}' created and activated.</value>
+  </data>
+  <data name="Success_Title" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="Profile_CreateError_Title" xml:space="preserve">
+    <value>Error Creating Profile</value>
+  </data>
+  <data name="Profile_CreateError_Message" xml:space="preserve">
+    <value>An error occurred while creating the profile: {0}</value>
+  </data>
+  <data name="Profile_SelectToDelete" xml:space="preserve">
+    <value>Please select a profile to delete.</value>
+  </data>
+  <data name="Profile_ConfirmDeletion_Message" xml:space="preserve">
+    <value>Are you sure you want to delete the profile '{0}'? This action is irreversible.</value>
+  </data>
+  <data name="Profile_ConfirmDeletion_Title" xml:space="preserve">
+    <value>Confirm Deletion</value>
+  </data>
+  <data name="Profile_Deleted" xml:space="preserve">
+    <value>Profile '{0}' deleted.</value>
+  </data>
+  <data name="Profile_DeleteError_Title" xml:space="preserve">
+    <value>Error Deleting Profile</value>
+  </data>
+  <data name="Profile_DeleteError_Message" xml:space="preserve">
+    <value>An error occurred while deleting the profile: {0}</value>
+  </data>
+  <data name="Profile_CalibrationProfiles" xml:space="preserve">
+    <value>Calibration Profiles</value>
+  </data>
+  <data name="Profile_ActiveProfile" xml:space="preserve">
+    <value>Active Profile:</value>
+  </data>
+  <data name="Profile_NewProfile" xml:space="preserve">
+    <value>New Profile:</value>
+  </data>
+  <data name="Profile_CreateButton" xml:space="preserve">
+    <value>Create Profile</value>
+  </data>
+  <data name="Profile_DeleteButton" xml:space="preserve">
+    <value>Delete Profile</value>
+  </data>
 </root>
