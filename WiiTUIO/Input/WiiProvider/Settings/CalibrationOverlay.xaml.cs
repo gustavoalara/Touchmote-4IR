@@ -11,12 +11,12 @@ using WiiTUIO.DeviceUtils;
 using WiiTUIO.Properties;
 using PointF = WiimoteLib.PointF;
 using System.Diagnostics;
-using WiiTUIO.Filters;
 using WiimoteLib;
-using static System.Windows.Forms.AxHost;
+using System.Windows.Shapes; // Necesario para Line y Polygon
+using System.ComponentModel; // Necesario para PropertyChangedEventArgs en SettingsChanged
 using System.Windows.Media.Media3D;
-using System.Globalization;
-
+using System.Globalization;						   
+using WiiTUIO.Filters;
 using static WiiTUIO.Resources.Resources;
 using System.Windows.Documents;
 
@@ -71,6 +71,9 @@ namespace WiiTUIO.Provider
 
         Wiimote Wiimote;
 
+        // Constante para el tamaño del lado del triángulo
+        private const double TRIANGLE_SIDE_LENGTH = 20.0;
+
 
         /// <summary>
         /// An event which is raised once calibration is finished.
@@ -113,6 +116,8 @@ namespace WiiTUIO.Provider
 
                 //Prevent OverlayWindow from showing up in alt+tab menu.
                 UIHelpers.HideFromAltTab(this);
+                // LLAMADA AÑADIDA: Actualizar líneas y triángulos al cargar la ventana
+                UpdateCalibrationLinesAndTrianglesVisibility();
             };
         }
 
@@ -136,6 +141,8 @@ namespace WiiTUIO.Provider
             this.CalibrationCanvas.Width = this.Width;
             this.CalibrationCanvas.Height = this.Height;
             UIHelpers.TopmostFix(this);
+            // LLAMADA AÑADIDA: Actualizar líneas y triángulos después de que el tamaño del canvas se actualice
+            UpdateCalibrationLinesAndTrianglesVisibility();
         }
 
         private void SettingsChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -148,7 +155,180 @@ namespace WiiTUIO.Provider
                     this.updateWindowToScreen(primaryScreen);
                 }));
             }
+            // LLAMADA AÑADIDA: Si el modo 4IR cambia, también necesitamos actualizar la visibilidad de las líneas y triángulos
+            else if (e.PropertyName == "pointer_4IRMode")
+            {
+                UpdateCalibrationLinesAndTrianglesVisibility();
+            }
         }
+
+        // NUEVO MÉTODO AÑADIDO: Para actualizar la visibilidad y posición de las líneas y triángulos de calibración
+        private void UpdateCalibrationLinesAndTrianglesVisibility(SolidColorBrush brush = null)
+        {
+            Dispatcher.BeginInvoke(new Action(delegate ()
+            {
+                // Ocultar todas las líneas y triángulos inicialmente
+                VerticalLineLeft.Visibility = Visibility.Hidden;
+                VerticalLineRight.Visibility = Visibility.Hidden;
+                HorizontalLineCenter.Visibility = Visibility.Hidden;
+                VerticalLineCenter.Visibility = Visibility.Hidden;
+
+                TriangleLeftTop.Visibility = Visibility.Hidden;
+                TriangleLeftBottom.Visibility = Visibility.Hidden;
+                TriangleRightTop.Visibility = Visibility.Hidden;
+                TriangleRightBottom.Visibility = Visibility.Hidden;
+                TriangleCenterTop.Visibility = Visibility.Hidden;
+                TriangleCenterBottom.Visibility = Visibility.Hidden;
+                TriangleCenterLeft.Visibility = Visibility.Hidden;
+                TriangleCenterRight.Visibility = Visibility.Hidden;
+
+                SolidColorBrush currentBrush = new SolidColorBrush(Colors.Green); // Color verde por defecto
+
+                // Si keyMapper está disponible, usar su color para mayor consistencia
+                if (keyMapper != null)
+                {
+                    Color pointColor = IDColor.getColor(keyMapper.WiimoteID);
+                    pointColor.R = (byte)(pointColor.R * 0.8);
+                    pointColor.G = (byte)(pointColor.G * 0.8);
+                    pointColor.B = (byte)(pointColor.B * 0.8);
+                    currentBrush = new SolidColorBrush(pointColor);
+                }
+
+                // Calcular la altura de un triángulo equilátero (distancia del vértice a la base)
+                double triangleHeight = TRIANGLE_SIDE_LENGTH * Math.Sqrt(3) / 2;
+                // La mitad de la base del triángulo
+                double halfBase = TRIANGLE_SIDE_LENGTH / 2;
+
+
+                if (Settings.Default.pointer_4IRMode == "none" || Settings.Default.pointer_4IRMode == "square")
+                {
+                    // Lógica para el modo "none" o "square" (líneas verticales existentes)
+                    double squareSide = this.ActualHeight;
+                    double centerX = this.ActualWidth / 2;
+                    double leftLineX = centerX - (squareSide / 2);
+                    double rightLineX = centerX + (squareSide / 2);
+
+                    VerticalLineLeft.X1 = leftLineX;
+                    VerticalLineLeft.Y1 = 0;
+                    VerticalLineLeft.X2 = leftLineX;
+                    VerticalLineLeft.Y2 = this.ActualHeight;
+                    VerticalLineLeft.Stroke = currentBrush;
+                    VerticalLineLeft.Visibility = Visibility.Visible;
+
+                    VerticalLineRight.X1 = rightLineX;
+                    VerticalLineRight.Y1 = 0;
+                    VerticalLineRight.X2 = rightLineX;
+                    VerticalLineRight.Y2 = this.ActualHeight;
+                    VerticalLineRight.Stroke = currentBrush;
+                    VerticalLineRight.Visibility = Visibility.Visible;
+
+                    // Triángulos para líneas verticales (none/square)
+                    // Triángulo Superior Izquierdo (base en Y=0, vértice en leftLineX, apunta hacia abajo)
+                    TriangleLeftTop.Points = new PointCollection
+                    {
+                        new System.Windows.Point(leftLineX, triangleHeight),
+                        new System.Windows.Point(leftLineX - halfBase, 0),
+                        new System.Windows.Point(leftLineX + halfBase, 0)
+                    };
+                    TriangleLeftTop.Fill = currentBrush;
+                    TriangleLeftTop.Visibility = Visibility.Visible;
+
+                    // Triángulo Inferior Izquierdo (base en Y=ActualHeight, vértice en leftLineX, apunta hacia arriba)
+                    TriangleLeftBottom.Points = new PointCollection
+                    {
+                        new System.Windows.Point(leftLineX, this.ActualHeight - triangleHeight),
+                        new System.Windows.Point(leftLineX - halfBase, this.ActualHeight),
+                        new System.Windows.Point(leftLineX + halfBase, this.ActualHeight)
+                    };
+                    TriangleLeftBottom.Fill = currentBrush;
+                    TriangleLeftBottom.Visibility = Visibility.Visible;
+
+                    // Triángulo Superior Derecho (base en Y=0, vértice en rightLineX, apunta hacia abajo)
+                    TriangleRightTop.Points = new PointCollection
+                    {
+                        new System.Windows.Point(rightLineX, triangleHeight),
+                        new System.Windows.Point(rightLineX + halfBase, 0),
+                        new System.Windows.Point(rightLineX - halfBase, 0)
+                    };
+                    TriangleRightTop.Fill = currentBrush;
+                    TriangleRightTop.Visibility = Visibility.Visible;
+
+                    // Triángulo Inferior Derecho (base en Y=ActualHeight, vértice en rightLineX, apunta hacia arriba)
+                    TriangleRightBottom.Points = new PointCollection
+                    {
+                        new System.Windows.Point(rightLineX, this.ActualHeight - triangleHeight),
+                        new System.Windows.Point(rightLineX + halfBase, this.ActualHeight),
+                        new System.Windows.Point(rightLineX - halfBase, this.ActualHeight)
+                    };
+                    TriangleRightBottom.Fill = currentBrush;
+                    TriangleRightBottom.Visibility = Visibility.Visible;
+                }
+                else if (Settings.Default.pointer_4IRMode == "diamond")
+                {
+                    // Lógica para el modo "diamond" (líneas de cruz)
+                    double centerX = this.ActualWidth / 2;
+                    double centerY = this.ActualHeight / 2;
+
+                    // Línea horizontal del centro del lateral derecho hacia el izquierdo
+                    HorizontalLineCenter.X1 = this.ActualWidth;
+                    HorizontalLineCenter.Y1 = centerY;
+                    HorizontalLineCenter.X2 = 0;
+                    HorizontalLineCenter.Y2 = centerY;
+                    HorizontalLineCenter.Stroke = currentBrush;
+                    HorizontalLineCenter.Visibility = Visibility.Visible;
+
+                    // Línea vertical del centro del lateral superior al inferior
+                    VerticalLineCenter.X1 = centerX;
+                    VerticalLineCenter.Y1 = 0;
+                    VerticalLineCenter.X2 = centerX;
+                    VerticalLineCenter.Y2 = this.ActualHeight;
+                    VerticalLineCenter.Stroke = currentBrush;
+                    VerticalLineCenter.Visibility = Visibility.Visible;
+
+                    // Triángulos para líneas centrales (diamond)
+                    // Triángulo Superior Central (base en X=centerX, Y=0, apunta hacia abajo)
+                    TriangleCenterTop.Points = new PointCollection
+                    {
+                        new System.Windows.Point(centerX, triangleHeight),
+                        new System.Windows.Point(centerX - halfBase, 0),
+                        new System.Windows.Point(centerX + halfBase, 0)
+                    };
+                    TriangleCenterTop.Fill = currentBrush;
+                    TriangleCenterTop.Visibility = Visibility.Visible;
+
+                    // Triángulo Inferior Central (base en X=centerX, Y=ActualHeight, apunta hacia arriba)
+                    TriangleCenterBottom.Points = new PointCollection
+                    {
+                        new System.Windows.Point(centerX, this.ActualHeight - triangleHeight),
+                        new System.Windows.Point(centerX - halfBase, this.ActualHeight),
+                        new System.Windows.Point(centerX + halfBase, this.ActualHeight)
+                    };
+                    TriangleCenterBottom.Fill = currentBrush;
+                    TriangleCenterBottom.Visibility = Visibility.Visible;
+
+                    // Triángulo Izquierdo Central (base en Y=centerY, X=0, apunta hacia la derecha)
+                    TriangleCenterLeft.Points = new PointCollection
+                    {
+                        new System.Windows.Point(triangleHeight, centerY),
+                        new System.Windows.Point(0, centerY - halfBase),
+                        new System.Windows.Point(0, centerY + halfBase)
+                    };
+                    TriangleCenterLeft.Fill = currentBrush;
+                    TriangleCenterLeft.Visibility = Visibility.Visible;
+
+                    // Triángulo Derecho Central (base en Y=centerY, X=ActualWidth, apunta hacia la izquierda)
+                    TriangleCenterRight.Points = new PointCollection
+                    {
+                        new System.Windows.Point(this.ActualWidth - triangleHeight, centerY),
+                        new System.Windows.Point(this.ActualWidth, centerY - halfBase),
+                        new System.Windows.Point(this.ActualWidth, centerY + halfBase)
+                    };
+                    TriangleCenterRight.Fill = currentBrush;
+                    TriangleCenterRight.Visibility = Visibility.Visible;
+                }
+            }), null);
+        }
+
 
         public void StartCalibration(WiiKeyMapper keyMapper)
         {
@@ -191,6 +371,12 @@ namespace WiiTUIO.Provider
                     this.elipse.Fill = new SolidColorBrush(Colors.Black);
                     this.elipse.Fill.Opacity = 0.9;
 
+                    // Establecer el trazo inicial para las líneas
+                    VerticalLineLeft.Stroke = brush;
+                    VerticalLineRight.Stroke = brush;
+                    HorizontalLineCenter.Stroke = brush; // Para modo diamond
+                    VerticalLineCenter.Stroke = brush;   // Para modo diamond
+
                     DoubleAnimation animation = UIHelpers.createDoubleAnimation(1.0, 200, false);
                     animation.FillBehavior = FillBehavior.HoldEnd;
                     animation.Completed += delegate (object sender, EventArgs pEvent)
@@ -198,6 +384,9 @@ namespace WiiTUIO.Provider
                         // Animation completed, ready for first step
                     };
                     this.CalibrationCanvas.BeginAnimation(FrameworkElement.OpacityProperty, animation, HandoffBehavior.SnapshotAndReplace);
+
+                    // Llamar aquí para asegurar que las líneas y triángulos se actualicen con el color y la visibilidad correctos después de que keyMapper esté configurado
+                    UpdateCalibrationLinesAndTrianglesVisibility(brush);
                 }), null);
 
                 // --- BACKUP DE VALORES ACTUALES Y PREPARACIÓN PARA CADA MODO ---
@@ -334,7 +523,7 @@ namespace WiiTUIO.Provider
                     animation.Completed += delegate (object sender, EventArgs pEvent)
                     {
                         this.CalibrationCanvas.Visibility = Visibility.Hidden;
-
+                        UpdateCalibrationLinesAndTrianglesVisibility(); // Ocultar líneas y triángulos cuando la superposición está oculta
                     };
                     this.CalibrationCanvas.BeginAnimation(FrameworkElement.OpacityProperty, animation, HandoffBehavior.SnapshotAndReplace);
                 }), null);
@@ -357,6 +546,7 @@ namespace WiiTUIO.Provider
             this.keyMapper.settings.SaveCalibrationData(); // Guarda la calibración del Wiimote
 
             this.HideOverlay();
+            UpdateCalibrationLinesAndTrianglesVisibility(); // Asegurarse de que las líneas y triángulos se oculten después de finalizar la calibración
         }
 
         public void CancelCalibration()
@@ -402,6 +592,7 @@ namespace WiiTUIO.Provider
             this.keyMapper.settings.SaveCalibrationData(); // Guarda los valores restaurados
 
             this.HideOverlay();
+            UpdateCalibrationLinesAndTrianglesVisibility(); // Asegurarse de que las líneas y triángulos se oculten después de cancelar la calibración
         }
 
         private void keyMapper_OnButtonUp(WiiButtonEvent e)

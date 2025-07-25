@@ -451,33 +451,19 @@ namespace WiiTUIO.Provider
         private void LoadCalibrationValues()
         {
             JObject currentProfile = GetOrCreateCurrentProfileJObject();
-            JObject wiimoteData = (JObject)currentProfile[_wiimoteID];
+            JObject wiimoteData = (JObject)currentProfile[_wiimoteID]; // Intenta obtener los datos del Wiimote específico
 
-            // Si el ID específico del Wiimote no se encuentra en el perfil activo, intentar cargar desde "1"
+            // Si no se encuentran datos para el Wiimote específico,
+            // se inicializará con los valores por defecto de C# y se creará una nueva entrada en el JSON.
             if (wiimoteData == null)
             {
-                Console.WriteLine($"Wiimote ID '{_wiimoteID}' not found in active profile '{_staticActiveProfileName}'. Attempting to load from default ID '1'."); // Reverted to non-localized
-                wiimoteData = (JObject)currentProfile["1"];
-                if (wiimoteData == null)
-                {
-                    Console.WriteLine($"Default ID '1' not found in active profile '{_staticActiveProfileName}'. Initializing with default C# values."); // Reverted to non-localized
-                    // Si "1" tampoco existe, las propiedades tomarán sus valores por defecto de C#.
-                    // Aún así, necesitamos crear una entrada para el _wiimoteID real para futuras guardadas.
-                    currentProfile[_wiimoteID] = new JObject(); // Crea un JObject vacío para este Wiimote específico
-                    wiimoteData = (JObject)currentProfile[_wiimoteID]; // Apunta wiimoteData al objeto vacío recién creado
-                }
-                else
-                {
-                    // Si se encontró y cargó "1", también debemos asegurar que el _wiimoteID real tenga una entrada
-                    // para que los cambios futuros se guarden en su ID específico, sin sobrescribir "1".
-                    Console.WriteLine($"Loaded calibration data from default ID '1' for Wiimote ID '{_wiimoteID}'."); // Reverted to non-localized
-                    currentProfile[_wiimoteID] = wiimoteData.DeepClone(); // Clona los datos de "1" al ID real del Wiimote
-                    wiimoteData = (JObject)currentProfile[_wiimoteID];
-                }
+                Console.WriteLine($"Wiimote ID '{_wiimoteID}' not found in active profile '{_staticActiveProfileName}'. Initializing with default C# values.");
+                currentProfile[_wiimoteID] = new JObject(); // Crea un JObject vacío para este Wiimote específico
+                wiimoteData = (JObject)currentProfile[_wiimoteID]; // Apunta wiimoteData al objeto vacío recién creado
             }
             else
             {
-                Console.WriteLine($"Loaded calibration data for Wiimote ID '{_wiimoteID}' from active profile '{_staticActiveProfileName}'."); // Reverted to non-localized
+                Console.WriteLine($"Loaded calibration data for Wiimote ID '{_wiimoteID}' from active profile '{_staticActiveProfileName}'.");
             }
 
             var propertiesToLoad = new List<string>
@@ -492,6 +478,7 @@ namespace WiiTUIO.Provider
                 var propertyInfo = GetType().GetProperty(propertyName);
                 if (propertyInfo != null)
                 {
+                    // Si el valor existe en el JSON para esta propiedad, cárgalo.
                     if (wiimoteData[propertyName] != null)
                     {
                         var value = wiimoteData[propertyName].ToObject(propertyInfo.PropertyType);
@@ -499,10 +486,11 @@ namespace WiiTUIO.Provider
                     }
                     else
                     {
-                        // Si una propiedad específica falta incluso en los datos cargados (ya sea del ID específico o de "1"),
-                        // inicializarla con su valor por defecto de C#.
+                        // Si la propiedad no existe en el JSON (o es un nuevo Wiimote),
+                        // se usará el valor por defecto de C# y se añadirá al JObject para futuras guardadas.
                         var defaultValue = propertyInfo.GetValue(this);
                         wiimoteData[propertyName] = JToken.FromObject(defaultValue);
+                        Console.WriteLine($"Property '{propertyName}' not found for Wiimote ID '{_wiimoteID}'. Using C# default and adding to JSON.");
                     }
                 }
             }

@@ -17,6 +17,8 @@ using WiiTUIO.Output;
 using WiiTUIO.Properties;
 using System.ComponentModel; // Added for INotifyPropertyChanged
 using System.Windows.Threading; // Added for Dispatcher
+using System.Diagnostics; // Added for Process.Start
+using System.Threading; // Added for Thread.Sleep
 
 using static WiiTUIO.Resources.Resources; // Importa la clase Resources para acceso directo a las cadenas
 
@@ -30,6 +32,7 @@ namespace WiiTUIO.Provider
         public event PropertyChangedEventHandler PropertyChanged;
 
         bool initializing = true;
+        private string _previousSensorModeSelection = ""; // Para almacenar la selección previa del modo del sensor
 
         private string _newProfileName;
         public string NewProfileName
@@ -53,18 +56,22 @@ namespace WiiTUIO.Provider
 
             CalibrationSettings.StaticPropertyChanged += CalibrationSettings_StaticPropertyChanged;
 
+            // Inicializar _previousSensorModeSelection basado en la configuración actual
             if (Settings.Default.pointer_4IRMode == "none")
             {
                 switch (Settings.Default.pointer_sensorBarPos)
                 {
                     case "top":
                         this.cbiTop.IsSelected = true;
+                        _previousSensorModeSelection = "top";
                         break;
                     case "bottom":
                         this.cbiBottom.IsSelected = true;
+                        _previousSensorModeSelection = "bottom";
                         break;
                     default:
                         this.cbiCenter.IsSelected = true;
+                        _previousSensorModeSelection = "center";
                         break;
                 }
             }
@@ -74,12 +81,15 @@ namespace WiiTUIO.Provider
                 {
                     case "square":
                         this.cbiSquare.IsSelected = true;
+                        _previousSensorModeSelection = "square";
                         break;
                     case "diamond":
                         this.cbiDiamond.IsSelected = true;
+                        _previousSensorModeSelection = "diamond";
                         break;
                     default:
-                        this.cbiCenter.IsSelected = true;
+                        this.cbiCenter.IsSelected = true; // Fallback, aunque debería estar cubierto por otros casos
+                        _previousSensorModeSelection = "center";
                         break;
                 }
             }
@@ -116,30 +126,98 @@ namespace WiiTUIO.Provider
         {
             if (!this.initializing)
             {
+                string currentSelectionMode = "";
+                string currentSensorBarPos = "";
+
                 if (this.cbiTop.IsSelected)
                 {
-                    Settings.Default.pointer_4IRMode = "none";
-                    Settings.Default.pointer_sensorBarPos = "top";
+                    currentSelectionMode = "none";
+                    currentSensorBarPos = "top";
                 }
                 else if (this.cbiBottom.IsSelected)
                 {
-                    Settings.Default.pointer_4IRMode = "none";
-                    Settings.Default.pointer_sensorBarPos = "bottom";
+                    currentSelectionMode = "none";
+                    currentSensorBarPos = "bottom";
                 }
                 else if (this.cbiCenter.IsSelected)
                 {
-                    Settings.Default.pointer_4IRMode = "none";
-                    Settings.Default.pointer_sensorBarPos = "center";
+                    currentSelectionMode = "none";
+                    currentSensorBarPos = "center";
                 }
                 else if (this.cbiSquare.IsSelected)
                 {
-                    Settings.Default.pointer_4IRMode = "square";
+                    currentSelectionMode = "square";
                 }
                 else if (this.cbiDiamond.IsSelected)
                 {
-                    Settings.Default.pointer_4IRMode = "diamond";
+                    currentSelectionMode = "diamond";
                 }
-                Settings.Default.Save();
+
+                // Verificar si el modo realmente ha cambiado
+                bool modeChanged = (Settings.Default.pointer_4IRMode != currentSelectionMode) ||
+                                   (currentSelectionMode == "none" && Settings.Default.pointer_sensorBarPos != currentSensorBarPos);
+
+                if (modeChanged)
+                {
+                    // Mostrar ventana de confirmación
+                    MessageBoxResult result = MessageBox.Show(
+                        Arrangement_RestartConfirmation_Message, // Mensaje localizado
+                        Arrangement_RestartConfirmation_Title,   // Título localizado
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question
+                    );
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        Settings.Default.pointer_4IRMode = currentSelectionMode;
+                        Settings.Default.pointer_sensorBarPos = currentSensorBarPos;
+                        Settings.Default.Save();
+
+                        // Reiniciar la aplicación
+                        try
+                        {
+                            string executablePath = System.AppDomain.CurrentDomain.BaseDirectory + System.AppDomain.CurrentDomain.FriendlyName + ".exe";
+                            // En caso de que el .exe no esté en la base del dominio, buscar en el ensamblado de recursos
+                            if (!System.IO.File.Exists(executablePath))
+                            {
+                                executablePath = System.Windows.Application.ResourceAssembly.Location;
+                            }
+
+                            ProcessStartInfo startInfo = new ProcessStartInfo
+                            {
+                                FileName = executablePath,
+                                UseShellExecute = true,
+                                WorkingDirectory = System.IO.Path.GetDirectoryName(executablePath),
+                                Arguments = "--restarting" // Argumento para indicar que es un reinicio
+                            };
+
+                            Process.Start(startInfo);
+                            Thread.Sleep(500); // Pequeño retraso para asegurar que el nuevo proceso arranque
+                            System.Windows.Application.Current.Shutdown(); // Cerrar la aplicación actual
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al reiniciar la aplicación: {ex.Message}", "Error de Reinicio", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    else
+                    {
+                        // Si el usuario cancela, revertir la selección en el ComboBox a la anterior
+                        this.initializing = true; // Evitar que el SelectionChanged se dispare de nuevo al revertir
+                        // Encontrar el ComboBoxItem que corresponde a _previousSensorModeSelection
+                        foreach (ComboBoxItem item in SBPositionComboBox.Items)
+                        {
+                            if (item.Name == "cbiTop" && _previousSensorModeSelection == "top") { item.IsSelected = true; break; }
+                            else if (item.Name == "cbiBottom" && _previousSensorModeSelection == "bottom") { item.IsSelected = true; break; }
+                            else if (item.Name == "cbiCenter" && _previousSensorModeSelection == "center") { item.IsSelected = true; break; }
+                            else if (item.Name == "cbiSquare" && _previousSensorModeSelection == "square") { item.IsSelected = true; break; }
+                            else if (item.Name == "cbiDiamond" && _previousSensorModeSelection == "diamond") { item.IsSelected = true; break; }
+                        }
+                        this.initializing = false;
+                    }
+                }
+                // Actualizar _previousSensorModeSelection para el siguiente cambio
+                _previousSensorModeSelection = currentSelectionMode == "none" ? currentSensorBarPos : currentSelectionMode;
             }
         }
 
@@ -150,6 +228,7 @@ namespace WiiTUIO.Provider
         {
             if (!this.initializing && ProfileComboBox.SelectedItem != null)
             {
+                // No hay reinicio de aplicación aquí, solo se cambia el perfil activo.
                 CalibrationSettings.ActiveProfileName = ProfileComboBox.SelectedItem.ToString();
             }
         }

@@ -984,4 +984,10 @@
   <data name="Profile_DeleteButton" xml:space="preserve">
     <value>Borrar Perfil</value>
   </data>
+  <data name="Arrangement_RestartConfirmation_Message" xml:space="preserve">
+    <value>Has cambiado de disposición IR, es necesario reiniciar Touchmote. ¿Deseas reiniciar ahora?</value>
+  </data>
+  <data name="Arrangement_RestartConfirmation_Title" xml:space="preserve">
+    <value>Reiniciar Aplicación</value>
+  </data>
 </root>

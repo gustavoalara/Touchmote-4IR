@@ -984,4 +984,10 @@
   <data name="Profile_DeleteButton" xml:space="preserve">
     <value>Delete Profile</value>
   </data>
+  <data name="Arrangement_RestartConfirmation_Message" xml:space="preserve">
+    <value>You have changed IR arrangement, it is necessary to restart Touchmote. Do you want to restart now?</value>
+  </data>
+  <data name="Arrangement_RestartConfirmation_Title" xml:space="preserve">
+    <value>Restart Application</value>
+  </data>
 </root>

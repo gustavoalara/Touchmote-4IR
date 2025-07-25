@@ -232,6 +232,24 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a You have changed IR arrangement, it is necessary to restart Touchmote. Do you want to restart now?.
+        /// </summary>
+        internal static string Arrangement_RestartConfirmation_Message {
+            get {
+                return ResourceManager.GetString("Arrangement_RestartConfirmation_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Restart Application.
+        /// </summary>
+        internal static string Arrangement_RestartConfirmation_Title {
+            get {
+                return ResourceManager.GetString("Arrangement_RestartConfirmation_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Auto Disconnect Timeout (ms):.
         /// </summary>
         internal static string AutoDisconnectTimeout {
