@@ -11,7 +11,7 @@
     Background="Transparent"
     ShowInTaskbar="False"
     WindowStartupLocation="Manual">
-    <Canvas Name="CalibrationCanvas" Background="#CC000000">
+    <Canvas Name="CalibrationCanvas" Background="#88000000">
         <Border Name="TextBorder" Background="#00FFFFFF" BorderThickness="0" BorderBrush="Transparent" Margin="0,0,0,10">
             <TextBlock Name="TextBlock" FontSize="30" FontFamily="Segoe UI Semilight" Foreground="White" Margin="10" TextAlignment="Center">
                     <Run Name="wiimoteNo" Text="Wiimote" Foreground="Gray"/><Run Name="insText2" Text="{loc:Localization insText2}" Foreground="White"/>
@@ -22,6 +22,19 @@
             <Line Name="lineX" Stroke="Black" StrokeThickness="2" X1="0" Y1="50" X2="100" Y2="50"/>
             <Line Name="lineY" Stroke="Black" StrokeThickness="2" X1="50" Y1="0" X2="50" Y2="100"/>
         </Canvas>
+
+        <!-- Líneas de cuadrícula para los modos "none" o "square" -->
+        <Line Name="GridLineV1" Stroke="LightGreen" StrokeThickness="1" Visibility="Hidden" />
+        <Line Name="GridLineV2" Stroke="LightGreen" StrokeThickness="1" Visibility="Hidden" />
+        <Line Name="GridLineV3" Stroke="LightGreen" StrokeThickness="1" Visibility="Hidden" />
+        <Line Name="GridLineV4" Stroke="LightGreen" StrokeThickness="1" Visibility="Hidden" />
+        <Line Name="GridLineV5" Stroke="LightGreen" StrokeThickness="1" Visibility="Hidden" />
+
+        <Line Name="GridLineH1" Stroke="LightGreen" StrokeThickness="1" Visibility="Hidden" />
+        <Line Name="GridLineH2" Stroke="LightGreen" StrokeThickness="1" Visibility="Hidden" />
+        <Line Name="GridLineH3" Stroke="LightGreen" StrokeThickness="1" Visibility="Hidden" />
+        <Line Name="GridLineH4" Stroke="LightGreen" StrokeThickness="1" Visibility="Hidden" />
+        <Line Name="GridLineH5" Stroke="LightGreen" StrokeThickness="1" Visibility="Hidden" />
 
         <!-- Líneas verticales para el modo de calibración "none" o "square" -->
         <Line Name="VerticalLineLeft" Stroke="Green" StrokeThickness="2" Visibility="Hidden" />

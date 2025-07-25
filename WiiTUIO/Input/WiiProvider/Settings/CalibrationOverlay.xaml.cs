@@ -12,13 +12,14 @@ using WiiTUIO.Properties;
 using PointF = WiimoteLib.PointF;
 using System.Diagnostics;
 using WiimoteLib;
-using System.Windows.Shapes; // Necesario para Line y Polygon
-using System.ComponentModel; // Necesario para PropertyChangedEventArgs en SettingsChanged
+using System.Windows.Shapes; // Required for Line and Polygon
+using System.ComponentModel; // Required for PropertyChangedEventArgs in SettingsChanged
 using System.Windows.Media.Media3D;
-using System.Globalization;						   
+using System.Globalization;
 using WiiTUIO.Filters;
-using static WiiTUIO.Resources.Resources;
+using static WiiTUIO.Resources.Resources; // Assumed to contain localized strings
 using System.Windows.Documents;
+using System.Linq; // Added for .Any() and .FirstOrDefault()
 
 namespace WiiTUIO.Provider
 {
@@ -38,14 +39,14 @@ namespace WiiTUIO.Provider
         private bool hidden = true;
         private bool timerElapsed = false;
 
-        private int step = 0; // Paso actual de la calibración
+        private int step = 0; // Current calibration step
 
         private float topOffset;
         private float bottomOffset;
         private float leftOffset;
         private float rightOffset;
 
-        // Propiedades para hacer un backup de los valores actuales antes de calibrar
+        // Properties to backup current values before calibration
         private float topBackup;
         private float bottomBackup;
         private float leftBackup;
@@ -55,12 +56,12 @@ namespace WiiTUIO.Provider
         private float centerXBackup;
         private float centerYBackup;
 
-        // --- BACKUPS PARA EL MODO DIAMANTE ---
+        // --- BACKUPS FOR DIAMOND MODE ---
         private float diamondTopYBackup;
         private float diamondBottomYBackup;
         private float diamondLeftXBackup;
         private float diamondRightXBackup;
-        // --- FIN BACKUPS PARA EL MODO DIAMANTE ---
+        // --- END BACKUPS FOR DIAMOND MODE ---
 
         private double marginXBackup;
         private double marginYBackup;
@@ -71,12 +72,12 @@ namespace WiiTUIO.Provider
 
         Wiimote Wiimote;
 
-        // Constante para el tamaño del lado del triángulo
+        // Constant for the side length of the triangle
         private const double TRIANGLE_SIDE_LENGTH = 20.0;
 
 
         /// <summary>
-        /// An event which is raised once calibration is finished.
+        /// An event that fires once calibration has finished.
         /// </summary>
         public event Action OnCalibrationFinished;
 
@@ -108,15 +109,14 @@ namespace WiiTUIO.Provider
             buttonTimer.AutoReset = true;
             buttonTimer.Elapsed += buttonTimer_Elapsed;
 
-            //Compensate for DPI settings
-
+            // Compensate for DPI settings
             Loaded += (o, e) =>
             {
                 this.updateWindowToScreen(primaryScreen);
 
-                //Prevent OverlayWindow from showing up in alt+tab menu.
+                // Prevent OverlayWindow from appearing in the alt+tab menu.
                 UIHelpers.HideFromAltTab(this);
-                // LLAMADA AÑADIDA: Actualizar líneas y triángulos al cargar la ventana
+                // ADDED CALL: Update lines and triangles when window loads
                 UpdateCalibrationLinesAndTrianglesVisibility();
             };
         }
@@ -141,7 +141,7 @@ namespace WiiTUIO.Provider
             this.CalibrationCanvas.Width = this.Width;
             this.CalibrationCanvas.Height = this.Height;
             UIHelpers.TopmostFix(this);
-            // LLAMADA AÑADIDA: Actualizar líneas y triángulos después de que el tamaño del canvas se actualice
+            // ADDED CALL: Update lines and triangles after canvas size is updated
             UpdateCalibrationLinesAndTrianglesVisibility();
         }
 
@@ -155,19 +155,19 @@ namespace WiiTUIO.Provider
                     this.updateWindowToScreen(primaryScreen);
                 }));
             }
-            // LLAMADA AÑADIDA: Si el modo 4IR cambia, también necesitamos actualizar la visibilidad de las líneas y triángulos
+            // ADDED CALL: If 4IR mode changes, we also need to update line and triangle visibility
             else if (e.PropertyName == "pointer_4IRMode")
             {
                 UpdateCalibrationLinesAndTrianglesVisibility();
             }
         }
 
-        // NUEVO MÉTODO AÑADIDO: Para actualizar la visibilidad y posición de las líneas y triángulos de calibración
+        // NEWLY ADDED METHOD: To update the visibility and position of calibration lines and triangles
         private void UpdateCalibrationLinesAndTrianglesVisibility(SolidColorBrush brush = null)
         {
             Dispatcher.BeginInvoke(new Action(delegate ()
             {
-                // Ocultar todas las líneas y triángulos inicialmente
+                // Hide all lines and triangles initially
                 VerticalLineLeft.Visibility = Visibility.Hidden;
                 VerticalLineRight.Visibility = Visibility.Hidden;
                 HorizontalLineCenter.Visibility = Visibility.Hidden;
@@ -182,9 +182,22 @@ namespace WiiTUIO.Provider
                 TriangleCenterLeft.Visibility = Visibility.Hidden;
                 TriangleCenterRight.Visibility = Visibility.Hidden;
 
-                SolidColorBrush currentBrush = new SolidColorBrush(Colors.Green); // Color verde por defecto
+                // Hide all grid lines by default
+                GridLineV1.Visibility = Visibility.Hidden;
+                GridLineV2.Visibility = Visibility.Hidden;
+                GridLineV3.Visibility = Visibility.Hidden;
+                GridLineV4.Visibility = Visibility.Hidden;
+                GridLineV5.Visibility = Visibility.Hidden;
+                GridLineH1.Visibility = Visibility.Hidden;
+                GridLineH2.Visibility = Visibility.Hidden;
+                GridLineH3.Visibility = Visibility.Hidden;
+                GridLineH4.Visibility = Visibility.Hidden;
+                GridLineH5.Visibility = Visibility.Hidden;
 
-                // Si keyMapper está disponible, usar su color para mayor consistencia
+
+                SolidColorBrush currentBrush = new SolidColorBrush(Colors.Green); // Default green color
+
+                // If keyMapper is available, use its color for consistency
                 if (keyMapper != null)
                 {
                     Color pointColor = IDColor.getColor(keyMapper.WiimoteID);
@@ -194,17 +207,30 @@ namespace WiiTUIO.Provider
                     currentBrush = new SolidColorBrush(pointColor);
                 }
 
-                // Calcular la altura de un triángulo equilátero (distancia del vértice a la base)
+                // Calculate a lighter green color for the grid (even lighter)
+                Color lighterGreen = Color.FromArgb(
+                    128,
+                    (byte)Math.Min(255, currentBrush.Color.R + 100), // Increased brightness
+                    (byte)Math.Min(255, currentBrush.Color.G + 100), // Increased brightness
+                    (byte)Math.Min(255, currentBrush.Color.B + 100)  // Increased brightness
+                );
+                SolidColorBrush lighterBrush = new SolidColorBrush(lighterGreen);
+
+
+                // Calculate the height of an equilateral triangle (distance from vertex to base)
                 double triangleHeight = TRIANGLE_SIDE_LENGTH * Math.Sqrt(3) / 2;
-                // La mitad de la base del triángulo
+                // Half the base of the triangle
                 double halfBase = TRIANGLE_SIDE_LENGTH / 2;
+
+                double centerX = this.ActualWidth / 2; // Defined here for use in both modes
+                double centerY = this.ActualHeight / 2; // Defined here for use in both modes
 
 
                 if (Settings.Default.pointer_4IRMode == "none" || Settings.Default.pointer_4IRMode == "square")
                 {
-                    // Lógica para el modo "none" o "square" (líneas verticales existentes)
-                    double squareSide = this.ActualHeight;
-                    double centerX = this.ActualWidth / 2;
+                    // Logic for "none" or "square" mode (existing vertical lines)
+                    double squareSide = this.ActualHeight; // Assuming the "square" is based on height
+                    // Vertical lines extend across the entire height
                     double leftLineX = centerX - (squareSide / 2);
                     double rightLineX = centerX + (squareSide / 2);
 
@@ -222,8 +248,8 @@ namespace WiiTUIO.Provider
                     VerticalLineRight.Stroke = currentBrush;
                     VerticalLineRight.Visibility = Visibility.Visible;
 
-                    // Triángulos para líneas verticales (none/square)
-                    // Triángulo Superior Izquierdo (base en Y=0, vértice en leftLineX, apunta hacia abajo)
+                    // Triangles for vertical lines (none/square)
+                    // Top Left Triangle (base at Y=0, vertex at leftLineX, points downwards)
                     TriangleLeftTop.Points = new PointCollection
                     {
                         new System.Windows.Point(leftLineX, triangleHeight),
@@ -233,7 +259,7 @@ namespace WiiTUIO.Provider
                     TriangleLeftTop.Fill = currentBrush;
                     TriangleLeftTop.Visibility = Visibility.Visible;
 
-                    // Triángulo Inferior Izquierdo (base en Y=ActualHeight, vértice en leftLineX, apunta hacia arriba)
+                    // Bottom Left Triangle (base at Y=ActualHeight, vertex at leftLineX, points upwards)
                     TriangleLeftBottom.Points = new PointCollection
                     {
                         new System.Windows.Point(leftLineX, this.ActualHeight - triangleHeight),
@@ -243,7 +269,7 @@ namespace WiiTUIO.Provider
                     TriangleLeftBottom.Fill = currentBrush;
                     TriangleLeftBottom.Visibility = Visibility.Visible;
 
-                    // Triángulo Superior Derecho (base en Y=0, vértice en rightLineX, apunta hacia abajo)
+                    // Top Right Triangle (base at Y=0, vertex at rightLineX, points downwards)
                     TriangleRightTop.Points = new PointCollection
                     {
                         new System.Windows.Point(rightLineX, triangleHeight),
@@ -253,7 +279,7 @@ namespace WiiTUIO.Provider
                     TriangleRightTop.Fill = currentBrush;
                     TriangleRightTop.Visibility = Visibility.Visible;
 
-                    // Triángulo Inferior Derecho (base en Y=ActualHeight, vértice en rightLineX, apunta hacia arriba)
+                    // Bottom Right Triangle (base at Y=ActualHeight, vertex at rightLineX, points upwards)
                     TriangleRightBottom.Points = new PointCollection
                     {
                         new System.Windows.Point(rightLineX, this.ActualHeight - triangleHeight),
@@ -262,14 +288,40 @@ namespace WiiTUIO.Provider
                     };
                     TriangleRightBottom.Fill = currentBrush;
                     TriangleRightBottom.Visibility = Visibility.Visible;
+
+                    // --- Logic for the grid ---
+                    // The grid will have 5 vertical and 5 horizontal lines, creating 4x4 sections.
+                    // The first vertical and horizontal lines will be centered.
+                    double gridSpacingX = this.ActualWidth / 6; // For 5 vertical lines (6 sections)
+                    double gridSpacingY = this.ActualHeight / 6; // For 5 horizontal lines (6 sections)
+
+                    // Define the dash array for dashed lines
+                    DoubleCollection dashArray = new DoubleCollection { 2, 2 }; // 2 units on, 2 units off
+
+                    // Vertical grid lines
+                    // The central line (GridLineV3) is already at centerX
+                    GridLineV1.X1 = centerX - 2 * gridSpacingX; GridLineV1.Y1 = 0; GridLineV1.X2 = centerX - 2 * gridSpacingX; GridLineV1.Y2 = this.ActualHeight; GridLineV1.Stroke = lighterBrush; GridLineV1.StrokeDashArray = dashArray; GridLineV1.Visibility = Visibility.Visible;
+                    GridLineV2.X1 = centerX - gridSpacingX; GridLineV2.Y1 = 0; GridLineV2.X2 = centerX - gridSpacingX; GridLineV2.Y2 = this.ActualHeight; GridLineV2.Stroke = lighterBrush; GridLineV2.StrokeDashArray = dashArray; GridLineV2.Visibility = Visibility.Visible;
+                    GridLineV3.X1 = centerX; GridLineV3.Y1 = 0; GridLineV3.X2 = centerX; GridLineV3.Y2 = this.ActualHeight; GridLineV3.Stroke = lighterBrush; GridLineV3.StrokeDashArray = dashArray; GridLineV3.Visibility = Visibility.Visible; // Central vertical line
+                    GridLineV4.X1 = centerX + gridSpacingX; GridLineV4.Y1 = 0; GridLineV4.X2 = centerX + gridSpacingX; GridLineV4.Y2 = this.ActualHeight; GridLineV4.Stroke = lighterBrush; GridLineV4.StrokeDashArray = dashArray; GridLineV4.Visibility = Visibility.Visible;
+                    GridLineV5.X1 = centerX + 2 * gridSpacingX; GridLineV5.Y1 = 0; GridLineV5.X2 = centerX + 2 * gridSpacingX; GridLineV5.Y2 = this.ActualHeight; GridLineV5.Stroke = lighterBrush; GridLineV5.StrokeDashArray = dashArray; GridLineV5.Visibility = Visibility.Visible;
+
+                    // Horizontal grid lines
+                    // The central line (GridLineH3) is already at centerY
+                    GridLineH1.X1 = 0; GridLineH1.Y1 = centerY - 2 * gridSpacingY; GridLineH1.X2 = this.ActualWidth; GridLineH1.Y2 = centerY - 2 * gridSpacingY; GridLineH1.Stroke = lighterBrush; GridLineH1.StrokeDashArray = dashArray; GridLineH1.Visibility = Visibility.Visible;
+                    GridLineH2.X1 = 0; GridLineH2.Y1 = centerY - gridSpacingY; GridLineH2.X2 = this.ActualWidth; GridLineH2.Y2 = centerY - gridSpacingY; GridLineH2.Stroke = lighterBrush; GridLineH2.StrokeDashArray = dashArray; GridLineH2.Visibility = Visibility.Visible;
+                    GridLineH3.X1 = 0; GridLineH3.Y1 = centerY; GridLineH3.X2 = this.ActualWidth; GridLineH3.Y2 = centerY; GridLineH3.Stroke = lighterBrush; GridLineH3.StrokeDashArray = dashArray; GridLineH3.Visibility = Visibility.Visible; // Central horizontal line
+                    GridLineH4.X1 = 0; GridLineH4.Y1 = centerY + gridSpacingY; GridLineH4.X2 = this.ActualWidth; GridLineH4.Y2 = centerY + gridSpacingY; GridLineH4.Stroke = lighterBrush; GridLineH4.StrokeDashArray = dashArray; GridLineH4.Visibility = Visibility.Visible;
+                    GridLineH5.X1 = 0; GridLineH5.Y1 = centerY + 2 * gridSpacingY; GridLineH5.X2 = this.ActualWidth; GridLineH5.Y2 = centerY + 2 * gridSpacingY; GridLineH5.Stroke = lighterBrush; GridLineH5.StrokeDashArray = dashArray; GridLineH5.Visibility = Visibility.Visible;
+
                 }
                 else if (Settings.Default.pointer_4IRMode == "diamond")
                 {
-                    // Lógica para el modo "diamond" (líneas de cruz)
-                    double centerX = this.ActualWidth / 2;
-                    double centerY = this.ActualHeight / 2;
+                    // Logic for "diamond" mode (cross lines)
+                    // double centerX = this.ActualWidth / 2; // Already defined above
+                    // double centerY = this.ActualHeight / 2; // Already defined above
 
-                    // Línea horizontal del centro del lateral derecho hacia el izquierdo
+                    // Horizontal line from right center to left
                     HorizontalLineCenter.X1 = this.ActualWidth;
                     HorizontalLineCenter.Y1 = centerY;
                     HorizontalLineCenter.X2 = 0;
@@ -277,7 +329,7 @@ namespace WiiTUIO.Provider
                     HorizontalLineCenter.Stroke = currentBrush;
                     HorizontalLineCenter.Visibility = Visibility.Visible;
 
-                    // Línea vertical del centro del lateral superior al inferior
+                    // Vertical line from top center to bottom
                     VerticalLineCenter.X1 = centerX;
                     VerticalLineCenter.Y1 = 0;
                     VerticalLineCenter.X2 = centerX;
@@ -285,8 +337,8 @@ namespace WiiTUIO.Provider
                     VerticalLineCenter.Stroke = currentBrush;
                     VerticalLineCenter.Visibility = Visibility.Visible;
 
-                    // Triángulos para líneas centrales (diamond)
-                    // Triángulo Superior Central (base en X=centerX, Y=0, apunta hacia abajo)
+                    // Triangles for central lines (diamond)
+                    // Top Center Triangle (base at X=centerX, Y=0, points downwards)
                     TriangleCenterTop.Points = new PointCollection
                     {
                         new System.Windows.Point(centerX, triangleHeight),
@@ -296,7 +348,7 @@ namespace WiiTUIO.Provider
                     TriangleCenterTop.Fill = currentBrush;
                     TriangleCenterTop.Visibility = Visibility.Visible;
 
-                    // Triángulo Inferior Central (base en X=centerX, Y=ActualHeight, apunta hacia arriba)
+                    // Bottom Center Triangle (base at X=centerX, Y=ActualHeight, points upwards)
                     TriangleCenterBottom.Points = new PointCollection
                     {
                         new System.Windows.Point(centerX, this.ActualHeight - triangleHeight),
@@ -306,7 +358,7 @@ namespace WiiTUIO.Provider
                     TriangleCenterBottom.Fill = currentBrush;
                     TriangleCenterBottom.Visibility = Visibility.Visible;
 
-                    // Triángulo Izquierdo Central (base en Y=centerY, X=0, apunta hacia la derecha)
+                    // Left Center Triangle (base at Y=centerY, X=0, points right)
                     TriangleCenterLeft.Points = new PointCollection
                     {
                         new System.Windows.Point(triangleHeight, centerY),
@@ -316,7 +368,7 @@ namespace WiiTUIO.Provider
                     TriangleCenterLeft.Fill = currentBrush;
                     TriangleCenterLeft.Visibility = Visibility.Visible;
 
-                    // Triángulo Derecho Central (base en Y=centerY, X=ActualWidth, apunta hacia la izquierda)
+                    // Right Center Triangle (base at Y=centerY, X=ActualWidth, points left)
                     TriangleCenterRight.Points = new PointCollection
                     {
                         new System.Windows.Point(this.ActualWidth - triangleHeight, centerY),
@@ -371,53 +423,53 @@ namespace WiiTUIO.Provider
                     this.elipse.Fill = new SolidColorBrush(Colors.Black);
                     this.elipse.Fill.Opacity = 0.9;
 
-                    // Establecer el trazo inicial para las líneas
+                    // Set initial stroke for lines
                     VerticalLineLeft.Stroke = brush;
                     VerticalLineRight.Stroke = brush;
-                    HorizontalLineCenter.Stroke = brush; // Para modo diamond
-                    VerticalLineCenter.Stroke = brush;   // Para modo diamond
+                    HorizontalLineCenter.Stroke = brush; // For diamond mode
+                    VerticalLineCenter.Stroke = brush;   // For diamond mode
 
                     DoubleAnimation animation = UIHelpers.createDoubleAnimation(1.0, 200, false);
                     animation.FillBehavior = FillBehavior.HoldEnd;
                     animation.Completed += delegate (object sender, EventArgs pEvent)
                     {
-                        // Animation completed, ready for first step
+                        // Animation completed, ready for the first step
                     };
                     this.CalibrationCanvas.BeginAnimation(FrameworkElement.OpacityProperty, animation, HandoffBehavior.SnapshotAndReplace);
 
-                    // Llamar aquí para asegurar que las líneas y triángulos se actualicen con el color y la visibilidad correctos después de que keyMapper esté configurado
+                    // Call here to ensure lines and triangles update with correct color and visibility after keyMapper is set
                     UpdateCalibrationLinesAndTrianglesVisibility(brush);
                 }), null);
 
-                // --- BACKUP DE VALORES ACTUALES Y PREPARACIÓN PARA CADA MODO ---
-                // Siempre hacemos backup de los settings básicos de top, bottom, left, right
+                // --- BACKUP CURRENT VALUES AND PREPARE FOR EACH MODE ---
+                // Always backup basic top, bottom, left, right settings
                 topBackup = this.keyMapper.settings.Top;
                 bottomBackup = this.keyMapper.settings.Bottom;
                 leftBackup = this.keyMapper.settings.Left;
                 rightBackup = this.keyMapper.settings.Right;
 
-                // Capturamos el backup de los márgenes aquí, ya que se usan en "none" y se restauran en "square" si se cancela.
+                // Capture backup of margins here, as they are used in "none" and restored in "square" if canceled.
                 marginXBackup = Settings.Default.CalibrationMarginX;
                 marginYBackup = Settings.Default.CalibrationMarginY;
 
-                // BACKUP para modo SQUARE
+                // BACKUP for SQUARE mode
                 centerXBackup = this.keyMapper.settings.CenterX;
                 centerYBackup = this.keyMapper.settings.CenterY;
                 tlBackup = this.keyMapper.settings.TLled;
-                trBackup = this.keyMapper.settings.TRled; // Corregido
+                trBackup = this.keyMapper.settings.TRled; // Corrected
 
-                // BACKUP para modo DIAMANTE
+                // BACKUP for DIAMOND mode
                 diamondTopYBackup = this.keyMapper.settings.DiamondTopY;
                 diamondBottomYBackup = this.keyMapper.settings.DiamondBottomY;
                 diamondLeftXBackup = this.keyMapper.settings.DiamondLeftX;
                 diamondRightXBackup = this.keyMapper.settings.DiamondRightX;
 
-                // Inicialización del primer paso según el modo
+                // Initialize the first step based on the mode
                 if (Settings.Default.pointer_4IRMode == "none")
                 {
                     Dispatcher.BeginInvoke(new Action(delegate ()
                     {
-                        this.movePoint(1 - marginXBackup, 1 - marginYBackup); // Esquina Inferior Derecha
+                        this.movePoint(1 - marginXBackup, 1 - marginYBackup); // Bottom Right Corner
                         this.insText2.Text = AimButtomRight;
                         this.TextBorder.UpdateLayout();
                         this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
@@ -447,17 +499,17 @@ namespace WiiTUIO.Provider
                     rightOffset = 1;
                     Dispatcher.BeginInvoke(new Action(delegate ()
                     {
-                        this.movePoint(0.5, 0.5); // Centro
+                        this.movePoint(0.5, 0.5); // Center
                         this.insText2.Text = AimCenter;
                         this.TextBorder.UpdateLayout();
                         this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                         this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
                     }), null);
-                    step = 0; // Paso 0 para el centro
+                    step = 0; // Step 0 for center
                 }
                 else if (Settings.Default.pointer_4IRMode == "diamond")
                 {
-                    Settings.Default.CalibrationMarginX = 0; // No usamos los márgenes estándar
+                    Settings.Default.CalibrationMarginX = 0; // Don't use standard margins
                     Settings.Default.CalibrationMarginY = 0;
 
                     //this.keyMapper.settings.CenterX = 0.5f;
@@ -466,25 +518,25 @@ namespace WiiTUIO.Provider
                     centerXBackup = this.keyMapper.settings.CenterX;
                     centerYBackup = this.keyMapper.settings.CenterY;
 
-                    this.keyMapper.settings.Top = 0; // Restaurar valores predeterminados para la calibración
+                    this.keyMapper.settings.Top = 0; // Restore default values for calibration
                     this.keyMapper.settings.Bottom = 1;
                     this.keyMapper.settings.Left = 0;
                     this.keyMapper.settings.Right = 1;
 
-                    this.keyMapper.settings.DiamondTopY = 1.0f; // Valor por defecto
-                    this.keyMapper.settings.DiamondBottomY = 0.0f; // Valor por defecto
-                    this.keyMapper.settings.DiamondLeftX = 0.0f; // Valor por defecto
-                    this.keyMapper.settings.DiamondRightX = 1.0f; // Valor por defecto
+                    this.keyMapper.settings.DiamondTopY = 1.0f; // Default value
+                    this.keyMapper.settings.DiamondBottomY = 0.0f; // Default value
+                    this.keyMapper.settings.DiamondLeftX = 0.0f; // Default value
+                    this.keyMapper.settings.DiamondRightX = 1.0f; // Default value
 
                     Dispatcher.BeginInvoke(new Action(delegate ()
                     {
-                        this.movePoint(0.5, 0.5); // Centro
+                        this.movePoint(0.5, 0.5); // Center
                         this.insText2.Text = AimCenter;
                         this.TextBorder.UpdateLayout();
                         this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                         this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
                     }), null);
-                    step = 0; // Paso 0 para el centro
+                    step = 0; // Step 0 for center
                 }
             }
         }
@@ -523,35 +575,37 @@ namespace WiiTUIO.Provider
                     animation.Completed += delegate (object sender, EventArgs pEvent)
                     {
                         this.CalibrationCanvas.Visibility = Visibility.Hidden;
-                        UpdateCalibrationLinesAndTrianglesVisibility(); // Ocultar líneas y triángulos cuando la superposición está oculta
+                        // Ensure lines and triangles are hidden when overlay is hidden
+                        UpdateCalibrationLinesAndTrianglesVisibility();
                     };
                     this.CalibrationCanvas.BeginAnimation(FrameworkElement.OpacityProperty, animation, HandoffBehavior.SnapshotAndReplace);
                 }), null);
-                step = 0; // Reiniciar el contador de pasos al ocultar
+                step = 0; // Reset step counter when hiding
             }
         }
 
         private void finishedCalibration()
         {
-            // Solo guardamos Settings.Default si el modo no es "none", ya que solo 4IRMode las modifica
+            // Only save Settings.Default if mode is not "none", as only 4IRMode modifies them
             if (Settings.Default.pointer_4IRMode != "none")
             {
-                // Si square, guardamos los Settings para que persistan los cambios de CenterX, CenterY, TLled, TRled
-                // y los márgenes de calibración restaurados.
+                // If square, save Settings so CenterX, CenterY, TLled, TRled changes persist
+                // and restored calibration margins.
                 Settings.Default.Save();
             }
-            // Los modos none y diamond no necesitan Settings.Default.Save() aquí
-            // ya que sus propiedades relevantes se guardan en el WiimoteSettings.SaveCalibrationData()
+            // None and diamond modes don't need Settings.Default.Save() here
+            // as their relevant properties are saved in WiimoteSettings.SaveCalibrationData()
 
-            this.keyMapper.settings.SaveCalibrationData(); // Guarda la calibración del Wiimote
+            this.keyMapper.settings.SaveCalibrationData(); // Saves Wiimote calibration
 
             this.HideOverlay();
-            UpdateCalibrationLinesAndTrianglesVisibility(); // Asegurarse de que las líneas y triángulos se oculten después de finalizar la calibración
+            // Ensure lines and triangles are hidden after calibration finishes
+            UpdateCalibrationLinesAndTrianglesVisibility();
         }
 
         public void CancelCalibration()
         {
-            // Restaurar los valores de backup según el modo
+            // Restore backup values based on mode
             this.keyMapper.settings.Top = topBackup;
             this.keyMapper.settings.Bottom = bottomBackup;
             this.keyMapper.settings.Left = leftBackup;
@@ -562,10 +616,10 @@ namespace WiiTUIO.Provider
                 this.keyMapper.settings.CenterX = centerXBackup;
                 this.keyMapper.settings.CenterY = centerYBackup;
                 this.keyMapper.settings.TLled = tlBackup;
-                this.keyMapper.settings.TRled = trBackup; // Restaurar TRled también
+                this.keyMapper.settings.TRled = trBackup; // Restore TRled too
 
-                // Asegurarse de restaurar también los márgenes de calibración para el modo square
-                // ya que se resetean a 0 al iniciar la calibración en square.
+                // Make sure to also restore calibration margins for square mode
+                // as they are reset to 0 when calibration starts in square.
                 Settings.Default.CalibrationMarginX = marginXBackup;
                 Settings.Default.CalibrationMarginY = marginYBackup;
 
@@ -588,11 +642,11 @@ namespace WiiTUIO.Provider
             }
 
 
-
-            this.keyMapper.settings.SaveCalibrationData(); // Guarda los valores restaurados
+            this.keyMapper.settings.SaveCalibrationData(); // Saves restored values
 
             this.HideOverlay();
-            UpdateCalibrationLinesAndTrianglesVisibility(); // Asegurarse de que las líneas y triángulos se oculten después de cancelar la calibración
+            // Ensure lines and triangles are hidden after calibration is canceled
+            UpdateCalibrationLinesAndTrianglesVisibility();
         }
 
         private void keyMapper_OnButtonUp(WiiButtonEvent e)
@@ -605,7 +659,7 @@ namespace WiiTUIO.Provider
                 Dispatcher.BeginInvoke(new Action(delegate ()
                 {
                     this.wiimoteNo.Text = "Wiimote " + keyMapper.WiimoteID + ":";
-                    // Resetear la instrucción general
+                    // Reset general instruction
                     this.insText2.Text = AimTargets;
 
                     this.TextBorder.UpdateLayout();
@@ -615,7 +669,7 @@ namespace WiiTUIO.Provider
 
                 if (this.timerElapsed)
                 {
-                    // --- LÓGICA DE AVANCE DE PASOS DE CALIBRACIÓN CON IF ANIDADO POR MODO ---
+                    // --- CALIBRATION STEP ADVANCE LOGIC WITH NESTED IF BY MODE ---
                     switch (step)
                     {
                         case 0:
@@ -623,7 +677,7 @@ namespace WiiTUIO.Provider
                             {
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
-                                    this.movePoint(1 - marginXBackup, 1 - marginYBackup); // Esquina Inferior Derecha
+                                    this.movePoint(1 - marginXBackup, 1 - marginYBackup); // Bottom Right Corner
                                     this.insText2.Text = AimButtomRight;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
@@ -635,7 +689,7 @@ namespace WiiTUIO.Provider
                             {
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
-                                    this.movePoint(0.5, 0); // Arriba-Centro
+                                    this.movePoint(0.5, 0); // Top-Center
                                     this.insText2.Text = AimTopCenter;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
@@ -661,7 +715,7 @@ namespace WiiTUIO.Provider
                             {
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
-                                    this.movePoint(0.5, 1); // Abajo-Centro
+                                    this.movePoint(0.5, 1); // Bottom-Center
                                     this.insText2.Text = AimButtomCenter;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
@@ -671,38 +725,38 @@ namespace WiiTUIO.Provider
                             }
                             break;
                         case 2:
-                            // Este es el último punto de calibración para "none" y "square"
+                            // This is the last calibration point for "none" and "square"
                             if (Settings.Default.pointer_4IRMode == "none" || Settings.Default.pointer_4IRMode == "square")
                             {
-                                // Lógica de asignación final para square (ya que Top, Bottom, Left, Right se asignan en buttonTimer_Elapsed)
+                                // Final assignment logic for square (since Top, Bottom, Left, Right are assigned in buttonTimer_Elapsed)
                                 if (Settings.Default.pointer_4IRMode == "square")
                                 {
                                     this.keyMapper.settings.Top = topOffset;
                                     this.keyMapper.settings.Bottom = bottomOffset;
                                     this.keyMapper.settings.Left = leftOffset;
                                     this.keyMapper.settings.Right = rightOffset;
-                                    // Los valores CenterX, CenterY, TLled y TRled se capturaron en el paso 0
-                                    // Y Top, Bottom, Left, Right en pasos 1 y 2
-                                    Settings.Default.CalibrationMarginX = marginXBackup; // Restaurar márgenes
+                                    // CenterX, CenterY, TLled and TRled values were captured in step 0
+                                    // And Top, Bottom, Left, Right in steps 1 and 2
+                                    Settings.Default.CalibrationMarginX = marginXBackup; // Restore margins
                                     Settings.Default.CalibrationMarginY = marginYBackup;
                                 }
 
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
-                                    this.CalibrationPoint.Visibility = Visibility.Hidden; // Oculta el objetivo
+                                    this.CalibrationPoint.Visibility = Visibility.Hidden; // Hide target
                                     this.wiimoteNo.Text = null;
                                     this.insText2.Text = AimConfirm;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                                     this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
                                 }), null);
-                                step = 5; // Ir directamente al paso de confirmación unificado
+                                step = 5; // Go directly to unified confirmation step
                             }
                             else if (Settings.Default.pointer_4IRMode == "diamond")
                             {
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
-                                    this.movePoint(0, 0.5); // Izquierda-Centro
+                                    this.movePoint(0, 0.5); // Left-Center
                                     this.insText2.Text = AimLeftCenter;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
@@ -712,12 +766,12 @@ namespace WiiTUIO.Provider
                             }
                             break;
                         case 3:
-                            // Este paso solo se alcanza en "diamond" para derecha-centro
+                            // This step is only reached in "diamond" for right-center
                             if (Settings.Default.pointer_4IRMode == "diamond")
                             {
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
-                                    this.movePoint(1, 0.5); // Derecha-Centro
+                                    this.movePoint(1, 0.5); // Right-Center
                                     this.insText2.Text = AimRightCenter;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
@@ -727,23 +781,23 @@ namespace WiiTUIO.Provider
                             }
                             break;
                         case 4:
-                            // Este es el último punto de calibración para "diamond"
+                            // This is the last calibration point for "diamond"
                             if (Settings.Default.pointer_4IRMode == "diamond")
                             {
-                                // No se necesita lógica de asignación aquí, ya que DiamondTopY, BottomY, LeftX, RightX
-                                // se asignan directamente en buttonTimer_Elapsed en sus respectivos pasos.
-                                // Tampoco hay márgenes de calibración de Settings.Default que restaurar para este modo.
+                                // No assignment logic needed here, as DiamondTopY, BottomY, LeftX, RightX
+                                // are assigned directly in buttonTimer_Elapsed in their respective steps.
+                                // Also no Settings.Default calibration margins to restore for this mode.
 
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
-                                    this.CalibrationPoint.Visibility = Visibility.Hidden; // Oculta el objetivo
+                                    this.CalibrationPoint.Visibility = Visibility.Hidden; // Hide target
                                     this.wiimoteNo.Text = null;
                                     this.insText2.Text = AimConfirm;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                                     this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
                                 }), null);
-                                step = 5; // Ir directamente al paso de confirmación unificado
+                                step = 5; // Go directly to unified confirmation step
                             }
                             break;
                         default: break;
@@ -756,7 +810,7 @@ namespace WiiTUIO.Provider
         private void keyMapper_OnButtonDown(WiiButtonEvent e)
         {
             e.Button = e.Button.Replace("OffScreen.", "");
-            // Lógica de confirmación o reinicio de calibración
+            // Calibration confirmation or reset logic
             bool isConfirmStep = (step == 5);
 
             if (isConfirmStep)
@@ -767,12 +821,12 @@ namespace WiiTUIO.Provider
                 }
                 else if (e.Button.ToLower().Equals("b"))
                 {
-                    // Reiniciar la calibración según el modo
+                    // Restart calibration based on mode
                     if (Settings.Default.pointer_4IRMode == "none")
                     {
                         Dispatcher.BeginInvoke(new Action(delegate ()
                         {
-                            this.movePoint(1 - marginXBackup, 1 - marginYBackup); // Vuelve al primer punto del modo 'none'
+                            this.movePoint(1 - marginXBackup, 1 - marginYBackup); // Return to first point of 'none' mode
                             this.insText2.Text = AimButtomRight;
                             this.TextBorder.UpdateLayout();
                             this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
@@ -784,7 +838,7 @@ namespace WiiTUIO.Provider
                     {
                         Dispatcher.BeginInvoke(new Action(delegate ()
                         {
-                            this.movePoint(0.5, 0.5); // Vuelve al centro
+                            this.movePoint(0.5, 0.5); // Return to center
                             this.insText2.Text = AimCenter;
                             this.TextBorder.UpdateLayout();
                             this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
@@ -794,7 +848,7 @@ namespace WiiTUIO.Provider
                     }
                 }
             }
-            // Lógica para iniciar la captura de un punto de calibración
+            // Logic to start capturing a calibration point
             else if (e.Button.ToLower().Equals("a") || e.Button.ToLower().Equals("b"))
             {
                 if (!this.keyMapper.cursorPos.OutOfReach)
@@ -843,10 +897,10 @@ namespace WiiTUIO.Provider
                 this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
             }), null);
 
-            // --- CAPTURA DE COORDENADAS IR SEGÚN EL PASO Y EL MODO CON IF ANIDADO ---
+            // --- CAPTURE IR COORDINATES BASED ON STEP AND MODE WITH NESTED IF ---
             switch (step)
             {
-                case 0: // Captura del Centro (Square, Diamond)
+                case 0: // Center Capture (Square, Diamond)
                     if (Settings.Default.pointer_4IRMode == "square")
                     {
                         this.keyMapper.settings.CenterX = (float)((this.keyMapper.cursorPos.RelativeX - 2) * Math.Cos(this.keyMapper.cursorPos.Rotation) - (this.keyMapper.cursorPos.RelativeY - 2) * Math.Sin(this.keyMapper.cursorPos.Rotation) + 2);
@@ -880,7 +934,7 @@ namespace WiiTUIO.Provider
 
                     }
                     break;
-                case 1: // Captura de Inferior Derecha (None, Square) o Superior (Diamond)
+                case 1: // Bottom Right Capture (None, Square) or Top (Diamond)
                     if (Settings.Default.pointer_4IRMode == "none")
                     {
                         this.keyMapper.settings.Bottom = (float)this.keyMapper.cursorPos.RelativeY;
@@ -919,7 +973,7 @@ namespace WiiTUIO.Provider
                         }*/
                     }
                     break;
-                case 2: // Captura de Superior Izquierda (None, Square) o Inferior (Diamond)
+                case 2: // Top Left Capture (None, Square) or Bottom (Diamond)
                     if (Settings.Default.pointer_4IRMode == "none")
                     {
                         this.keyMapper.settings.Top = (float)this.keyMapper.cursorPos.RelativeY;
@@ -956,7 +1010,7 @@ namespace WiiTUIO.Provider
                         }*/
                     }
                     break;
-                case 3: // Captura de Izquierda (Diamond)
+                case 3: // Left Capture (Diamond)
                     if (Settings.Default.pointer_4IRMode == "diamond")
                     {
                         int leftIndex = -1;
@@ -983,7 +1037,7 @@ namespace WiiTUIO.Provider
                         }*/
                     }
                     break;
-                case 4: // Captura de Derecha (Diamond)
+                case 4: // Right Capture (Diamond)
                     if (Settings.Default.pointer_4IRMode == "diamond")
                     {
                         {

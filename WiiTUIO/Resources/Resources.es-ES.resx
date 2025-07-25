@@ -990,4 +990,10 @@
   <data name="Arrangement_RestartConfirmation_Title" xml:space="preserve">
     <value>Reiniciar Aplicación</value>
   </data>
+  <data name="dScale" xml:space="preserve">
+    <value>Escala</value>
+  </data>
+  <data name="dThreshold" xml:space="preserve">
+    <value>Umbral</value>
+  </data>
 </root>
