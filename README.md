@@ -53,12 +53,31 @@ Symphax: https://github.com/simphax/Touchmote<br />
 Ryochan7: https://github.com/Ryochan7/Touchmote <br />
 Suegrini: https://github.com/Suegrini/Touchmote <br />
 
+Translations
+==============
+If you would like to help translate into new languages, there are some Excel files with the strings to be translated in the translations folder. Send me your translation and I will gladly add it.
+
 Release History
 ==============
-**v1.0 beta 21**<br />
+
+**v1.0 beta 25**<br />
+- Fix french language not working
+- Added a grid on 2IR/4IR Square calibration to facilitate the placement of a wii bar
+  
+**v1.0 beta 24**<br />
+- Added French language support thanks to Isma Nc
+  
+**v1.0 beta 23**<br />
+- Fixed some problems in saving calibration data
+- Updated overlay on calibration screen. Now a couple of lines have been added to facilitate the placement of the LEDs in each type of arrangement.
+
+**v1.0 beta 22**<br />
+- Added new calibration profiles creation capability
+
+- **v1.0 beta 21**<br />
 - Multilanguage on updates messages
 - Shows compiled version automatically on about window
-- 
+  
 **v1.0 beta 20**<br />
 - Multilanguage support implemented
 - Check updates in this github repository
