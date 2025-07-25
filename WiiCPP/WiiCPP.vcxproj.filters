@@ -59,5 +59,8 @@
     <EmbeddedResource Include="Resources.en-US.resx">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources.fr-FR.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

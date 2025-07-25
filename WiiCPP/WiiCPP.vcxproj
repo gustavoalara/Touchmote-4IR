@@ -168,9 +168,12 @@
     <Image Include="app.ico" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources.fr-FR.resx" />
     <EmbeddedResource Include="Resources.en-US.resx" />
     <EmbeddedResource Include="Resources.es-ES.resx" />
-    <EmbeddedResource Include="Resources.resx" />
+    <EmbeddedResource Include="Resources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

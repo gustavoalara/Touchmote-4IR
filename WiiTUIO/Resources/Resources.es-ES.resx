@@ -601,10 +601,10 @@
     <value>Stick Derecho</value>
   </data>
   <data name="tStickUp" xml:space="preserve">
-    <value>Meter</value>
+    <value>Stick Arriba</value>
   </data>
   <data name="tStickDown" xml:space="preserve">
-    <value>Pegar</value>
+    <value>Stick aAbajo</value>
   </data>
   <data name="tStickRotationPlus" xml:space="preserve">
     <value>Rotación de Stick (+)</value>
