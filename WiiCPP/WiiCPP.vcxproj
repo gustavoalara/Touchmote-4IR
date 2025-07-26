@@ -168,9 +168,12 @@
     <Image Include="app.ico" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources.ca-ES.resx" />
+    <EmbeddedResource Include="Resources.de-DE.resx" />
     <EmbeddedResource Include="Resources.fr-FR.resx" />
     <EmbeddedResource Include="Resources.en-US.resx" />
     <EmbeddedResource Include="Resources.es-ES.resx" />
+    <EmbeddedResource Include="Resources.it-IT.resx" />
     <EmbeddedResource Include="Resources.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

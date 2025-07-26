@@ -154,6 +154,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Resources\Resources.ca-ES.resx" />
+    <EmbeddedResource Include="Resources\Resources.de-DE.resx" />
     <EmbeddedResource Include="Resources\Resources.es-ES.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.es-ES.Designer.cs</LastGenOutput>
@@ -163,6 +165,7 @@
       <LastGenOutput>Resources.en-US.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resources.fr-FR.resx" />
+    <EmbeddedResource Include="Resources\Resources.it-IT.resx" />
     <EmbeddedResource Include="Resources\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -538,6 +538,24 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Scale.
+        /// </summary>
+        internal static string dScale {
+            get {
+                return ResourceManager.GetString("dScale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Threshold.
+        /// </summary>
+        internal static string dThreshold {
+            get {
+                return ResourceManager.GetString("dThreshold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Wiimote configuration.
         /// </summary>
         internal static string EditKeymaps {

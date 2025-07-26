@@ -59,6 +59,9 @@ If you would like to help translate into new languages, there are some Excel fil
 
 Release History
 ==============
+**v1.0 beta 26**<br />
+- Added Catalan, Italian and German languages
+
 
 **v1.0 beta 25**<br />
 - Fix french language not working
