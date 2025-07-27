@@ -60,6 +60,9 @@ If you would like to help translate into new languages, there are some Excel fil
 Release History
 ==============
 
+**v1.0 beta 2**<br />
+- Fixed bad translation of "Right" key on Spanish and French
+
 **v1.0 beta 27**<br />
 - Improved updating system
 - And sorry, I missed the Catalan translations
