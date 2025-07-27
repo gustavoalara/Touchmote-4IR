@@ -907,7 +907,7 @@
     <value>Unexpected error when checking for updates: {0}</value>
   </data>
   <data name="UpdateCheck_NewVersionAvailable_Message" xml:space="preserve">
-    <value>A new version ({0}) is available, do you want to open the GitHub page to download it?</value>
+    <value>A new version ({0}) is available, do you want to download and install it?</value>
   </data>
   <data name="UpdateCheck_NewVersionAvailable_Title" xml:space="preserve">
     <value>Update Available</value>
@@ -995,5 +995,32 @@
   </data>
   <data name="dThreshold" xml:space="preserve">
     <value>Threshold</value>
+  </data>
+  <data name="UpdateCheck_DownloadingUpdate" xml:space="preserve">
+    <value>Downloading updater: {0}</value>
+  </data>
+  <data name="UpdateCheck_NoInstallerFound" xml:space="preserve">
+    <value>No installer found in the latest GitHub release.</value>
+  </data>
+  <data name="UpdateCheck_DownloadComplete" xml:space="preserve">
+    <value>Download complete at: {0}</value>
+  </data>
+  <data name="UpdateCheck_DownloadError" xml:space="preserve">
+    <value>Error downloading updater: {0}</value>
+  </data>
+  <data name="UpdateCheck_InstallationError" xml:space="preserve">
+    <value>Error launching installer: {0}</value>
+  </data>
+  <data name="UpdateCheck_DownloadCancelled" xml:space="preserve">
+    <value>Updater download cancelled.</value>
+  </data>
+  <data name="UpdateCheck_ConfirmInstallationMessage" xml:space="preserve">
+    <value>The update has been downloaded. Press 'Yes' to close Touchmote Enhanced and continue with the installation, or 'Cancel' if you do not wish to update.</value>
+  </data>
+  <data name="UpdateCheck_ConfirmInstallationTitle" xml:space="preserve">
+    <value>Confirm Installation</value>
+  </data>
+  <data name="UpdateCheck_InstallationCancelled" xml:space="preserve">
+    <value>Update installation cancelled by user.</value>
   </data>
 </root>

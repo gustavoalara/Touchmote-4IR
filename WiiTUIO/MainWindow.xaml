@@ -50,48 +50,46 @@
                 <TextBlock Margin="10,0,10,10" Name="tbInfoMsg" FontSize="12" FontFamily="Segoe UI Semilight" TextWrapping="Wrap">mensaje</TextBlock>
                 <Rectangle Fill="#FF191919" Height="3"/>
             </StackPanel>
+
+            <StackPanel x:Name="downloadProgressPanel" Visibility="Collapsed"
+                        VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="20">
+                <TextBlock x:Name="downloadProgressText" Text="Preparando descarga..."
+                           HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                <ProgressBar x:Name="downloadProgressBar" Height="20" Minimum="0" Maximum="100"/>
+            </StackPanel>
+
             <Canvas Height="64">
                 <Label Name="connectedCount" Content="{loc:Localization connectedCount}" Canvas.Left="15" Canvas.Top="10" FontFamily="Segoe UI Light" FontSize="24"/>
             </Canvas>
             <StackPanel Background="#FF232323">
-
                 <Rectangle Fill="#FF191919" Height="3"/>
                 <StackPanel Name="statusStack">
-                    
                 </StackPanel>
                 <Border BorderBrush="#FF191919" BorderThickness="0,0,0,3">
                     <StackPanel Name="spPairing">
                         <Canvas Name="canvasPairing" Height="87" Background="#FF00A2FF">
-
                             <TextBlock Name="pairWiimoteText" Canvas.Left="98" Canvas.Top="31" FontFamily="Segoe UI Light" FontSize="18" Foreground="White" Width="305" TextAlignment="Left" Text="{loc:Localization pairWiimote}" />
                             <TextBlock Name="pairWiimotePressSync" Canvas.Left="98" TextWrapping="Wrap" Canvas.Top="55" Height="26" Width="305" FontFamily="Segoe UI Semilight" Foreground="White" FontSize="11">
-                            <Run Text="{loc:Localization PressSyncPart1}"/>
-                            <InlineUIContainer>
-                                <Image Height="12" Width="12" Source="Resources/sync.png" Cursor="Hand" Stretch="None"/>
-                            </InlineUIContainer>
-                            <Run Text="{loc:Localization PressSyncPart2}"/>
+                                <Run Text="{loc:Localization PressSyncPart1}"/>
+                                <InlineUIContainer>
+                                    <Image Height="12" Width="12" Source="Resources/sync.png" Cursor="Hand" Stretch="None"/>
+                                </InlineUIContainer>
+                                <Run Text="{loc:Localization PressSyncPart2}"/>
                             </TextBlock>
                             <TextBlock Name="pairWiimoteTryAgain" Visibility="Hidden" Canvas.Left="58" TextWrapping="Wrap" Canvas.Top="61" Height="26" Width="270" FontFamily="Segoe UI Semilight" TextAlignment="Center">
-                            <Hyperlink Click="pairWiimoteTryAgain_Click" Foreground="White"><Run Text="{loc:Localization TryAgain}"/>
-                            </Hyperlink>
+                                <Hyperlink Click="pairWiimoteTryAgain_Click" Foreground="White"><Run Text="{loc:Localization TryAgain}"/>
+                                </Hyperlink>
                             </TextBlock>
-
                             <TextBlock Name="pairWiimoteTRFail" Visibility="Hidden" Foreground="White" Canvas.Left="70" TextWrapping="Wrap" Canvas.Top="7" Height="63" Width="270" FontFamily="Segoe UI Semilight" FontSize="11" TextAlignment="Center">
-                            <Run Text="{loc:Localization WiimoteComp}"/>
-                            <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="http://touchmote.net/wiimotetr" Foreground="White">
-                            <Run Text="{loc:Localization ThisPage}"/>
-                            </Hyperlink>
+                                <Run Text="{loc:Localization WiimoteComp}"/>
+                                <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="http://touchmote.net/wiimotetr" Foreground="White">
+                                <Run Text="{loc:Localization ThisPage}"/>
+                                </Hyperlink>
                             </TextBlock>
                             <Controls:ProgressRing Name="pairProgress" IsActive="True" Foreground="White" Canvas.Left="13" Canvas.Top="14" />
                         </Canvas>
                     </StackPanel>
                 </Border>
-                
-                <!--Canvas Height="40">
-                    <Label Content="Esperando por Wiimotes conectados..." Canvas.Left="15" Canvas.Top="5" FontFamily="Segoe UI Light" FontSize="15" Foreground="White"/>
-                </Canvas>
-
-                <Rectangle Fill="#FF191919" Height="3"/-->
             </StackPanel>
             <TextBlock MouseUp="PairWiimotes_Click" Name="tbPair2" Background="#FF00A2FF" Padding="10" FontSize="24" FontFamily="Segoe UI Light" TextAlignment="Center" Cursor="Hand" Foreground="White">                                
             <Run Text="{loc:Localization PairWiimotes}"/>

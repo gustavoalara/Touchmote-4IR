@@ -2545,6 +2545,24 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The update has been downloaded. Press &apos;Yes&apos; to close Touchmote Enhanced and continue with the installation, or &apos;Cancel&apos; if you do not wish to update..
+        /// </summary>
+        internal static string UpdateCheck_ConfirmInstallationMessage {
+            get {
+                return ResourceManager.GetString("UpdateCheck_ConfirmInstallationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Confirm Installation.
+        /// </summary>
+        internal static string UpdateCheck_ConfirmInstallationTitle {
+            get {
+                return ResourceManager.GetString("UpdateCheck_ConfirmInstallationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Connection error when checking for updates: {0}.
         /// </summary>
         internal static string UpdateCheck_ConnectionError {
@@ -2554,11 +2572,65 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Updater download cancelled..
+        /// </summary>
+        internal static string UpdateCheck_DownloadCancelled {
+            get {
+                return ResourceManager.GetString("UpdateCheck_DownloadCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Download complete at: {0}.
+        /// </summary>
+        internal static string UpdateCheck_DownloadComplete {
+            get {
+                return ResourceManager.GetString("UpdateCheck_DownloadComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error downloading updater: {0}.
+        /// </summary>
+        internal static string UpdateCheck_DownloadError {
+            get {
+                return ResourceManager.GetString("UpdateCheck_DownloadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Downloading updater: {0}.
+        /// </summary>
+        internal static string UpdateCheck_DownloadingUpdate {
+            get {
+                return ResourceManager.GetString("UpdateCheck_DownloadingUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Error when starting the update check: {0}.
         /// </summary>
         internal static string UpdateCheck_InitialCheckError {
             get {
                 return ResourceManager.GetString("UpdateCheck_InitialCheckError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Update installation cancelled by user..
+        /// </summary>
+        internal static string UpdateCheck_InstallationCancelled {
+            get {
+                return ResourceManager.GetString("UpdateCheck_InstallationCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error launching installer: {0}.
+        /// </summary>
+        internal static string UpdateCheck_InstallationError {
+            get {
+                return ResourceManager.GetString("UpdateCheck_InstallationError", resourceCulture);
             }
         }
         
@@ -2581,7 +2653,7 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a A new version ({0}) is available, do you want to open the GitHub page to download it?.
+        ///   Busca una cadena traducida similar a A new version ({0}) is available, do you want to download and install it?.
         /// </summary>
         internal static string UpdateCheck_NewVersionAvailable_Message {
             get {
@@ -2595,6 +2667,15 @@ namespace WiiTUIO.Resources {
         internal static string UpdateCheck_NewVersionAvailable_Title {
             get {
                 return ResourceManager.GetString("UpdateCheck_NewVersionAvailable_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No installer found in the latest GitHub release..
+        /// </summary>
+        internal static string UpdateCheck_NoInstallerFound {
+            get {
+                return ResourceManager.GetString("UpdateCheck_NoInstallerFound", resourceCulture);
             }
         }
         

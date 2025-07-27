@@ -907,7 +907,7 @@
     <value>Error inesperado al verificar actualizaciones: {0}</value>
   </data>
   <data name="UpdateCheck_NewVersionAvailable_Message" xml:space="preserve">
-    <value>Una nueva versión ({0}) está disponible. ¿Deseas abrir la página de GitHub para descargarla?</value>
+    <value>Una nueva versión ({0}) está disponible. ¿Deseas descargarla e instalarla?</value>
   </data>
   <data name="UpdateCheck_NewVersionAvailable_Title" xml:space="preserve">
     <value>Actualización Disponible</value>
@@ -995,5 +995,32 @@
   </data>
   <data name="dThreshold" xml:space="preserve">
     <value>Umbral</value>
+  </data>
+  <data name="UpdateCheck_DownloadingUpdate" xml:space="preserve">
+    <value>Descargando actualizador: {0}</value>
+  </data>
+  <data name="UpdateCheck_NoInstallerFound" xml:space="preserve">
+    <value>No se encontró un instalador en la última versión de GitHub.</value>
+  </data>
+  <data name="UpdateCheck_DownloadComplete" xml:space="preserve">
+    <value>Descarga completada en: {0}</value>
+  </data>
+  <data name="UpdateCheck_DownloadError" xml:space="preserve">
+    <value>Error al descargar el actualizador: {0}</value>
+  </data>
+  <data name="UpdateCheck_InstallationError" xml:space="preserve">
+    <value>Error al lanzar el instalador: {0}</value>
+  </data>
+  <data name="UpdateCheck_DownloadCancelled" xml:space="preserve">
+    <value>Descarga del actualizador cancelada.</value>
+  </data>
+  <data name="UpdateCheck_ConfirmInstallationMessage" xml:space="preserve">
+    <value>Se ha descargado la actualización, pulsa "sí" para cerrar Touchmote Enhanced y continuar con la instalación o Cancelar si no deseas actualizar.</value>
+  </data>
+  <data name="UpdateCheck_ConfirmInstallationTitle" xml:space="preserve">
+    <value>Confirmar Instalación</value>
+  </data>
+  <data name="UpdateCheck_InstallationCancelled" xml:space="preserve">
+    <value>Instalación de la actualización cancelada por el usuario.</value>
   </data>
 </root>

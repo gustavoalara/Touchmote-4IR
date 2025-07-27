@@ -117,740 +117,59 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="2IRBottom" xml:space="preserve">
-    <value>2IR: Basso                                                                                                                          </value>
+  <data name="AdvConfigTitle" xml:space="preserve">
+    <value>Configurazione avanzata                                                                                                             </value>
   </data>
-  <data name="XinputRumbleThresholdSmall" xml:space="preserve">
-    <value>Soglia vibrazione piccola XInput:                                                                                                   </value>
+  <data name="Battery" xml:space="preserve">
+    <value>Batteria:                                                                                                                           </value>
   </data>
-  <data name="XinputRumbleThresholdBig" xml:space="preserve">
-    <value>Soglia vibrazione grande XInput:                                                                                                    </value>
+  <data name="Connected" xml:space="preserve">
+    <value>Connesso                                                                                                                            </value>
   </data>
-  <data name="WindowsStart" xml:space="preserve">
-    <value>Avvia Touchmote con Windows                                                                                                         </value>
-  </data>
-  <data name="WiimotesConnected" xml:space="preserve">
-    <value>Wiimote Connesse                                                                                                                    </value>
-  </data>
-  <data name="WiimoteRumbleTimeShort" xml:space="preserve">
-    <value>Durata vibrazione breve (ms):                                                                                                       </value>
-  </data>
-  <data name="WiimoteRumbleTimeLong" xml:space="preserve">
-    <value>Durata vibrazione lunga (ms):                                                                                                       </value>
-  </data>
-  <data name="WiimoteComp" xml:space="preserve">
-    <value>Almeno uno dei tuoi Wiimote non è compatibile con lo stack Bluetooth Microsoft, usa solo Wiimote prodotti prima di Novembre 2011 o segui le istruzioni su </value>
-  </data>
-  <data name="WiimodeRumbleTimeAlternatingOn" xml:space="preserve">
-    <value>Tempo vibrazione alternata ON (ms):                                                                                                 </value>
-  </data>
-  <data name="WiimodeRumbleTimeAlternatingOff" xml:space="preserve">
-    <value>Tempo vibrazione Wiimote alternata OFF (ms):                                                                                        </value>
-  </data>
-  <data name="WiimodeLoopSoundTime" xml:space="preserve">
-    <value>Tempo suono loop (ms):                                                                                                              </value>
-  </data>
-  <data name="UpdateCheck_UnexpectedError" xml:space="preserve">
-    <value>Errore imprevisto durante il controllo aggiornamenti: {0}                                                                           </value>
-  </data>
-  <data name="UpdateCheck_NewVersionAvailable_Title" xml:space="preserve">
-    <value>Aggiornamento Disponibile                                                                                                           </value>
-  </data>
-  <data name="UpdateCheck_NewVersionAvailable_Message" xml:space="preserve">
-    <value>Una nuova versione ({0}) è disponibile. Vuoi aprire la pagina GitHub per scaricarla?                                                </value>
-  </data>
-  <data name="UpdateCheck_LatestVersion" xml:space="preserve">
-    <value>Stai usando l'ultima versione disponibile.                                                                                          </value>
-  </data>
-  <data name="UpdateCheck_JsonError" xml:space="preserve">
-    <value>Errore nella lettura della risposta JSON da GitHub: {0}                                                                             </value>
-  </data>
-  <data name="UpdateCheck_InitialCheckError" xml:space="preserve">
-    <value>Errore nell'avvio del controllo aggiornamenti: {0}                                                                                  </value>
-  </data>
-  <data name="UpdateCheck_ConnectionError" xml:space="preserve">
-    <value>Errore di connessione durante il controllo aggiornamenti: {0}                                                                       </value>
-  </data>
-  <data name="UpdateCheck_ApiError" xml:space="preserve">
-    <value>Errore API GitHub ({0}): {1}                                                                                                        </value>
-  </data>
-  <data name="tVolumeMute" xml:space="preserve">
-    <value>Silenzia volume                                                                                                                     </value>
-  </data>
-  <data name="tVolumeDown" xml:space="preserve">
-    <value>Volume -                                                                                                                            </value>
-  </data>
-  <data name="tUp" xml:space="preserve">
-    <value>Su                                                                                                                                  </value>
-  </data>
-  <data name="tTwo" xml:space="preserve">
-    <value>Due (2)                                                                                                                             </value>
-  </data>
-  <data name="tTriggerR" xml:space="preserve">
-    <value>Grilletto Destro                                                                                                                    </value>
-  </data>
-  <data name="tTriggerL" xml:space="preserve">
-    <value>Grilletto Sinistro                                                                                                                  </value>
-  </data>
-  <data name="tTiltZPlus" xml:space="preserve">
-    <value>Inclinazione Z +                                                                                                                    </value>
-  </data>
-  <data name="tTiltZMinus" xml:space="preserve">
-    <value>Inclinazione Z -                                                                                                                    </value>
-  </data>
-  <data name="tTiltYPlus" xml:space="preserve">
-    <value>Inclinazione Y +                                                                                                                    </value>
-  </data>
-  <data name="tTiltYMinus" xml:space="preserve">
-    <value>Inclinazione Y -                                                                                                                    </value>
-  </data>
-  <data name="tTiltXPlus" xml:space="preserve">
-    <value>Inclinazione X +                                                                                                                    </value>
-  </data>
-  <data name="tTiltXMinus" xml:space="preserve">
-    <value>Inclinazione X -                                                                                                                    </value>
-  </data>
-  <data name="tSubtract" xml:space="preserve">
-    <value>Sottrai (-)                                                                                                                         </value>
-  </data>
-  <data name="tStop" xml:space="preserve">
-    <value>Stop                                                                                                                                </value>
-  </data>
-  <data name="tStickUp" xml:space="preserve">
-    <value>Stick Su                                                                                                                            </value>
-  </data>
-  <data name="tStickRUp" xml:space="preserve">
-    <value>Stick destro su                                                                                                                     </value>
-  </data>
-  <data name="tStickRRight" xml:space="preserve">
-    <value>Stick destro destra                                                                                                                 </value>
-  </data>
-  <data name="tStickRPress" xml:space="preserve">
-    <value>Premi Stick Destro                                                                                                                  </value>
-  </data>
-  <data name="tStickRotationPlus" xml:space="preserve">
-    <value>Rotazione stick (+)                                                                                                                 </value>
-  </data>
-  <data name="tStickRotationMinus" xml:space="preserve">
-    <value>Rotazione stick (-)                                                                                                                 </value>
-  </data>
-  <data name="tStickRLight43" xml:space="preserve">
-    <value>Stick Destro Lightgun 4:3                                                                                                           </value>
-  </data>
-  <data name="tStickRLight" xml:space="preserve">
-    <value>Stick Destro Lightgun                                                                                                               </value>
-  </data>
-  <data name="tStickRLeft" xml:space="preserve">
-    <value>Stick destro sinistra                                                                                                               </value>
-  </data>
-  <data name="tStickRight" xml:space="preserve">
-    <value>Stick Destro                                                                                                                        </value>
-  </data>
-  <data name="tStickRDown" xml:space="preserve">
-    <value>Stick destro giù                                                                                                                    </value>
-  </data>
-  <data name="tStickRCenter" xml:space="preserve">
-    <value>Stick Destro Centro                                                                                                                 </value>
-  </data>
-  <data name="tStickLUp" xml:space="preserve">
-    <value>Stick sinistro su                                                                                                                   </value>
-  </data>
-  <data name="tStickLRight" xml:space="preserve">
-    <value>Stick sinistro destra                                                                                                               </value>
-  </data>
-  <data name="tStickLPress" xml:space="preserve">
-    <value>Premi Stick sinistro                                                                                                                </value>
-  </data>
-  <data name="tStickLLight43" xml:space="preserve">
-    <value>Stick Sinistro Lightgun 4:3                                                                                                         </value>
-  </data>
-  <data name="tStickLLight" xml:space="preserve">
-    <value>Stick Sinistro Lightgun                                                                                                             </value>
-  </data>
-  <data name="tStickLLeft" xml:space="preserve">
-    <value>Stick sinistro sinistra                                                                                                             </value>
-  </data>
-  <data name="tStickLeft" xml:space="preserve">
-    <value>Stick Sinistro                                                                                                                      </value>
-  </data>
-  <data name="tStickLDown" xml:space="preserve">
-    <value>Stick sinistro giù                                                                                                                  </value>
-  </data>
-  <data name="tStickLCenter" xml:space="preserve">
-    <value>Stick Sinistro Centro                                                                                                               </value>
-  </data>
-  <data name="tStickDown" xml:space="preserve">
-    <value>Stick Giù                                                                                                                           </value>
-  </data>
-  <data name="tStart" xml:space="preserve">
-    <value>Start                                                                                                                               </value>
-  </data>
-  <data name="tSpace" xml:space="preserve">
-    <value>Spazio                                                                                                                              </value>
-  </data>
-  <data name="tSoundLoop" xml:space="preserve">
-    <value>Loop suono                                                                                                                          </value>
-  </data>
-  <data name="tSound2" xml:space="preserve">
-    <value>Suono 2                                                                                                                             </value>
-  </data>
-  <data name="tSound1" xml:space="preserve">
-    <value>Suono 1                                                                                                                             </value>
-  </data>
-  <data name="tShortRumble" xml:space="preserve">
-    <value>Vibrazione breve                                                                                                                    </value>
-  </data>
-  <data name="tShift" xml:space="preserve">
-    <value>Maiusc                                                                                                                              </value>
-  </data>
-  <data name="tShake" xml:space="preserve">
-    <value>Scuoti                                                                                                                              </value>
-  </data>
-  <data name="TryAgain" xml:space="preserve">
-    <value>Riprova amico                                                                                                                       </value>
-  </data>
-  <data name="tRWin" xml:space="preserve">
-    <value>Win Destro                                                                                                                          </value>
-  </data>
-  <data name="tRumbleHold" xml:space="preserve">
-    <value>Mantieni vibrazione                                                                                                                 </value>
-  </data>
-  <data name="tRumbleAlt" xml:space="preserve">
-    <value>Vibrazione alternata                                                                                                                </value>
-  </data>
-  <data name="tRShift" xml:space="preserve">
-    <value>Maiusc Destro                                                                                                                       </value>
-  </data>
-  <data name="tRight" xml:space="preserve">
-    <value>Destra                                                                                                                              </value>
-  </data>
-  <data name="tReturn" xml:space="preserve">
-    <value>Invio                                                                                                                               </value>
-  </data>
-  <data name="tRControl" xml:space="preserve">
-    <value>Ctrl Destro                                                                                                                         </value>
-  </data>
-  <data name="TrayBalloonTip" xml:space="preserve">
-    <value>Premi per modificare i parametri di Touchmote                                                                                       </value>
-  </data>
-  <data name="tRAlt" xml:space="preserve">
-    <value>Alt Destro                                                                                                                          </value>
-  </data>
-  <data name="tR" xml:space="preserve">
-    <value>Premi Grilletto Destro                                                                                                              </value>
-  </data>
-  <data name="tPrintScreen" xml:space="preserve">
-    <value>Stampa schermo                                                                                                                      </value>
-  </data>
-  <data name="tPrevTrack" xml:space="preserve">
-    <value>Traccia precedente                                                                                                                  </value>
-  </data>
-  <data name="tPressCursor" xml:space="preserve">
-    <value>Pressione cursore                                                                                                                   </value>
-  </data>
-  <data name="tPointerYplus" xml:space="preserve">
-    <value>Puntatore Giù                                                                                                                       </value>
-  </data>
-  <data name="tPointerYminus" xml:space="preserve">
-    <value>Puntatore Su                                                                                                                        </value>
-  </data>
-  <data name="tPointerXplus" xml:space="preserve">
-    <value>Puntatore Destra                                                                                                                    </value>
-  </data>
-  <data name="tPointerXminus" xml:space="preserve">
-    <value>Puntatore Sinistra                                                                                                                  </value>
-  </data>
-  <data name="tPointer" xml:space="preserve">
-    <value>Puntatore                                                                                                                           </value>
-  </data>
-  <data name="tPlus" xml:space="preserve">
-    <value>Più (+)                                                                                                                             </value>
-  </data>
-  <data name="tPlayPause" xml:space="preserve">
-    <value>Riproduci/Pausa                                                                                                                     </value>
-  </data>
-  <data name="tPeriod" xml:space="preserve">
-    <value>Punto (.)                                                                                                                           </value>
-  </data>
-  <data name="tPause" xml:space="preserve">
-    <value>Pausa                                                                                                                               </value>
-  </data>
-  <data name="tPagUp" xml:space="preserve">
-    <value>Pag Su                                                                                                                              </value>
-  </data>
-  <data name="tPagDown" xml:space="preserve">
-    <value>Pag Giù                                                                                                                             </value>
-  </data>
-  <data name="TouchmoteAbout2" xml:space="preserve">
-    <value>Grazie a Symphax per aver creato questa meravigliosa applicazione che ha dato una seconda vita ai nostri Wiimote, a Ryochan per i miglioramenti e a Suegrini per aver aggiunto la possibilità di utilizzare 4 LED IR per una maggiore precisione. Questa versione continua quel lavoro e migliora la disposizione a diamante dei LED IR. </value>
-  </data>
-  <data name="TouchmoteAbout1" xml:space="preserve">
-    <value>Touchmote permette a uno o più Wiimote di comportarsi come dispositivo multi-touch e gamepad.                                       </value>
-  </data>
-  <data name="tOne" xml:space="preserve">
-    <value>Uno (1)                                                                                                                             </value>
-  </data>
-  <data name="tNumUp" xml:space="preserve">
-    <value>Tastierino numerico su                                                                                                              </value>
-  </data>
-  <data name="tNumRight" xml:space="preserve">
-    <value>Tastierino numerico destra                                                                                                          </value>
-  </data>
-  <data name="tNumlock" xml:space="preserve">
-    <value>Bloc Num                                                                                                                            </value>
-  </data>
-  <data name="tNumLeft" xml:space="preserve">
-    <value>Tastierino numerico sinistra                                                                                                        </value>
-  </data>
-  <data name="tNumDown" xml:space="preserve">
-    <value>Tastierino numerico giù                                                                                                             </value>
-  </data>
-  <data name="tNextTrack" xml:space="preserve">
-    <value>Traccia successiva                                                                                                                  </value>
-  </data>
-  <data name="tMultiply" xml:space="preserve">
-    <value>Moltiplica (*)                                                                                                                      </value>
-  </data>
-  <data name="tMouseWheelUp" xml:space="preserve">
-    <value>Rotella mouse su                                                                                                                    </value>
-  </data>
-  <data name="tMouseWheelDown" xml:space="preserve">
-    <value>Rotella mouse giù                                                                                                                   </value>
-  </data>
-  <data name="tMouseUp" xml:space="preserve">
-    <value>Movimento mouse su                                                                                                                  </value>
-  </data>
-  <data name="tMouseRightB" xml:space="preserve">
-    <value>Bottone grilletto destro                                                                                                            </value>
-  </data>
-  <data name="tMouseRight" xml:space="preserve">
-    <value>Movimento mouse destra                                                                                                              </value>
-  </data>
-  <data name="tMouseMiddleB" xml:space="preserve">
-    <value>Bottone centrale mouse                                                                                                              </value>
-  </data>
-  <data name="tMouseLeftB" xml:space="preserve">
-    <value>Bottone sinistro mouse                                                                                                              </value>
-  </data>
-  <data name="tMouseLeft" xml:space="preserve">
-    <value>Movimento mouse sinistra                                                                                                            </value>
-  </data>
-  <data name="tMouseExtra2" xml:space="preserve">
-    <value>Bottone aggiuntivo 2 mouse                                                                                                          </value>
-  </data>
-  <data name="tMouseExtra1" xml:space="preserve">
-    <value>Bottone aggiuntivo 1 mouse                                                                                                          </value>
-  </data>
-  <data name="tMouseDown" xml:space="preserve">
-    <value>Movimento mouse giù                                                                                                                 </value>
-  </data>
-  <data name="tMouse" xml:space="preserve">
-    <value>Mouse                                                                                                                               </value>
-  </data>
-  <data name="tMinus" xml:space="preserve">
-    <value>Meno (-)                                                                                                                            </value>
-  </data>
-  <data name="tLWin" xml:space="preserve">
-    <value>Win Sinistro                                                                                                                        </value>
-  </data>
-  <data name="tLShift" xml:space="preserve">
-    <value>Maiusc Sinistro                                                                                                                     </value>
-  </data>
-  <data name="tLongRumble" xml:space="preserve">
-    <value>Vibrazione lunga                                                                                                                    </value>
-  </data>
-  <data name="tLightgunMouse" xml:space="preserve">
-    <value>Mouse Lightgun                                                                                                                      </value>
-  </data>
-  <data name="tLeft" xml:space="preserve">
-    <value>Sinistra                                                                                                                            </value>
-  </data>
-  <data name="tLControl" xml:space="preserve">
-    <value>Ctrl Sinistro                                                                                                                       </value>
-  </data>
-  <data name="tLAlt" xml:space="preserve">
-    <value>Alt Sinistro                                                                                                                        </value>
-  </data>
-  <data name="tL" xml:space="preserve">
-    <value>Premi Grilletto Sinistro                                                                                                            </value>
-  </data>
-  <data name="tInsert" xml:space="preserve">
-    <value>Ins                                                                                                                                </value>
-  </data>
-  <data name="tHome" xml:space="preserve">
-    <value>Home                                                                                                                                </value>
-  </data>
-  <data name="ThisPage" xml:space="preserve">
-    <value>questa pagina                                                                                                                       </value>
-  </data>
-  <data name="tGuide" xml:space="preserve">
-    <value>Guida                                                                                                                               </value>
-  </data>
-  <data name="tFPSMouse" xml:space="preserve">
-    <value>Mouse FPS                                                                                                                           </value>
-  </data>
-  <data name="tExtension" xml:space="preserve">
-    <value>Estensione                                                                                                                          </value>
-  </data>
-  <data name="TestSmoothingWeight" xml:space="preserve">
-    <value>Peso smussamento test:                                                                                                              </value>
-  </data>
-  <data name="TestRegionEasingXOffset" xml:space="preserve">
-    <value>Offset attenuazione regione X test:                                                                                                 </value>
-  </data>
-  <data name="TestRegionEasingXDuration" xml:space="preserve">
-    <value>Durata attenuazione regione X test:                                                                                                 </value>
-  </data>
-  <data name="TestLightgunOneeuroMincutoff" xml:space="preserve">
-    <value>Taglio minimo OneEuro lightgun test:                                                                                                </value>
-  </data>
-  <data name="TestLightgunOneeuroBeta" xml:space="preserve">
-    <value>Attiva beta OneEuro lightgun test:                                                                                                  </value>
-  </data>
-  <data name="TestFpsmouseOffset" xml:space="preserve">
-    <value>Offset mouse FPS test:                                                                                                              </value>
-  </data>
-  <data name="TestDeltaAccelMulti" xml:space="preserve">
-    <value>Moltiplicatore accelerazione delta test:                                                                                            </value>
-  </data>
-  <data name="TestDeltaAccelMinTravel" xml:space="preserve">
-    <value>Percorso minimo accelerazione delta test:                                                                                           </value>
-  </data>
-  <data name="TestDeltaAccelMaxTravel" xml:space="preserve">
-    <value>Percorso massimo accelerazione delta test:                                                                                          </value>
-  </data>
-  <data name="TestDeltaAccelEasingDuration" xml:space="preserve">
-    <value>Durata smussamento accelerazione delta test:                                                                                        </value>
-  </data>
-  <data name="TestDeltaAccel" xml:space="preserve">
-    <value>Attiva accelerazione delta test:                                                                                                    </value>
-  </data>
-  <data name="TestConfigHeader" xml:space="preserve">
-    <value>Configurazione Test                                                                                                                 </value>
-  </data>
-  <data name="tEnd" xml:space="preserve">
-    <value>Fine                                                                                                                                </value>
-  </data>
-  <data name="tDown" xml:space="preserve">
-    <value>Giù                                                                                                                                 </value>
-  </data>
-  <data name="tDivide" xml:space="preserve">
-    <value>Dividi (/)                                                                                                                          </value>
-  </data>
-  <data name="tDisableKey" xml:space="preserve">
-    <value>Disabilitato                                                                                                                        </value>
-  </data>
-  <data name="tDel" xml:space="preserve">
-    <value>Canc                                                                                                                                </value>
-  </data>
-  <data name="tDecimal" xml:space="preserve">
-    <value>Decimale (.)                                                                                                                        </value>
-  </data>
-  <data name="tComma" xml:space="preserve">
-    <value>Virgola (,)                                                                                                                         </value>
-  </data>
-  <data name="TClosing" xml:space="preserve">
-    <value>Chiusura...                                                                                                                         </value>
-  </data>
-  <data name="tCapsLock" xml:space="preserve">
-    <value>Bloc Maiusc                                                                                                                         </value>
-  </data>
-  <data name="tBumperR" xml:space="preserve">
-    <value>Bumper Destro                                                                                                                       </value>
-  </data>
-  <data name="tBumperL" xml:space="preserve">
-    <value>Bumper Sinistro                                                                                                                     </value>
-  </data>
-  <data name="tBrowserStop" xml:space="preserve">
-    <value>Stop browser                                                                                                                        </value>
-  </data>
-  <data name="tBrowserSearch" xml:space="preserve">
-    <value>Ricerca browser                                                                                                                     </value>
-  </data>
-  <data name="tBrowserRefresh" xml:space="preserve">
-    <value>Aggiorna browser                                                                                                                    </value>
-  </data>
-  <data name="tBrowserHome" xml:space="preserve">
-    <value>Home browser                                                                                                                        </value>
-  </data>
-  <data name="tBrowserForward" xml:space="preserve">
-    <value>Avanti browser                                                                                                                      </value>
-  </data>
-  <data name="tBrowserFavorites" xml:space="preserve">
-    <value>Preferiti browser                                                                                                                   </value>
-  </data>
-  <data name="tBrowserBack" xml:space="preserve">
-    <value>Indietro browser                                                                                                                    </value>
-  </data>
-  <data name="tbOutputFilter" xml:space="preserve">
-    <value>Filtro uscite                                                                                                                       </value>
-  </data>
-  <data name="tbName" xml:space="preserve">
-    <value>Predefinito                                                                                                                         </value>
-  </data>
-  <data name="tbKeymapTitle" xml:space="preserve">
-    <value>Titolo                                                                                                                              </value>
-  </data>
-  <data name="tbDefault" xml:space="preserve">
-    <value>Predefinito                                                                                                                         </value>
-  </data>
-  <data name="tBack" xml:space="preserve">
-    <value>Indietro                                                                                                                            </value>
-  </data>
-  <data name="tAdd" xml:space="preserve">
-    <value>Aggiungi (+)                                                                                                                        </value>
-  </data>
-  <data name="Success_Title" xml:space="preserve">
-    <value>Operazione completata                                                                                                               </value>
-  </data>
-  <data name="SoundAndRumbleTitle" xml:space="preserve">
-    <value>Configurazione suono e vibrazione Wiimote                                                                                           </value>
-  </data>
-  <data name="ShakeTitle" xml:space="preserve">
-    <value>Configurazione scuotimento                                                                                                          </value>
-  </data>
-  <data name="ShakeThreshold" xml:space="preserve">
-    <value>Soglia scuotimento:                                                                                                                 </value>
-  </data>
-  <data name="ShakePressedTime" xml:space="preserve">
-    <value>Tempo pressione scuotimento (ms):                                                                                                   </value>
-  </data>
-  <data name="ShakeMaxTimeInBetween" xml:space="preserve">
-    <value>Tempo massimo tra scuotimenti (ms):                                                                                                 </value>
-  </data>
-  <data name="ShakeCount" xml:space="preserve">
-    <value>Conteggio scuotimento:                                                                                                              </value>
-  </data>
-  <data name="SettingsBut" xml:space="preserve">
-    <value>Impostazioni                                                                                                                        </value>
-  </data>
-  <data name="SensorMode" xml:space="preserve">
-    <value>Modalità sensore                                                                                                                    </value>
-  </data>
-  <data name="Scanning" xml:space="preserve">
-    <value>Scansione...                                                                                                                        </value>
-  </data>
-  <data name="SaveError_Title" xml:space="preserve">
-    <value>Errore salvataggio                                                                                                                  </value>
-  </data>
-  <data name="SaveError_Message" xml:space="preserve">
-    <value>Impossibile salvare le impostazioni di calibrazione. Verificare i permessi dei file o riavviare l'applicazione.                      </value>
-  </data>
-  <data name="SaveAndReboot" xml:space="preserve">
-    <value>Salva e riavvia Touchmote                                                                                                           </value>
-  </data>
-  <data name="RumbleXinputTitle" xml:space="preserve">
-    <value>Configurazione vibrazione XInput                                                                                                    </value>
-  </data>
-  <data name="RestartError" xml:space="preserve">
-    <value>Errore riavvio applicazione: {0}                                                                                                    </value>
-  </data>
-  <data name="ReleaseText" xml:space="preserve">
-    <value>Rilascia                                                                                                                            </value>
-  </data>
-  <data name="rbOnscreen" xml:space="preserve">
-    <value>Su schermo                                                                                                                          </value>
-  </data>
-  <data name="rbOffscreen" xml:space="preserve">
-    <value>Fuori schermo                                                                                                                       </value>
-  </data>
-  <data name="Profile_SelectToDelete" xml:space="preserve">
-    <value>Seleziona un profilo da eliminare.                                                                                                  </value>
-  </data>
-  <data name="Profile_NewProfile" xml:space="preserve">
-    <value>Nuovo Profilo:                                                                                                                      </value>
-  </data>
-  <data name="Profile_NameEmpty" xml:space="preserve">
-    <value>Il nome del profilo non può essere vuoto.                                                                                           </value>
-  </data>
-  <data name="Profile_Exists" xml:space="preserve">
-    <value>Il profilo "{0}" esiste già.                                                                                                        </value>
-  </data>
-  <data name="Profile_EnterName" xml:space="preserve">
-    <value>Inserisci un nome per il nuovo profilo.                                                                                             </value>
-  </data>
-  <data name="Profile_DoesNotExist" xml:space="preserve">
-    <value>Il profilo "{0}" non esiste.                                                                                                        </value>
-  </data>
-  <data name="Profile_DeleteError_Title" xml:space="preserve">
-    <value>Errore eliminazione profilo                                                                                                         </value>
-  </data>
-  <data name="Profile_DeleteError_Message" xml:space="preserve">
-    <value>Errore durante l'eliminazione del profilo: {0}                                                                                      </value>
-  </data>
-  <data name="Profile_Deleted" xml:space="preserve">
-    <value>Profilo "{0}" eliminato.                                                                                                            </value>
-  </data>
-  <data name="Profile_DeleteButton" xml:space="preserve">
-    <value>Elimina Profilo                                                                                                                     </value>
-  </data>
-  <data name="Profile_CreateError_Title" xml:space="preserve">
-    <value>Errore creazione profilo                                                                                                            </value>
-  </data>
-  <data name="Profile_CreateError_Message" xml:space="preserve">
-    <value>Errore durante la creazione del profilo: {0}                                                                                        </value>
-  </data>
-  <data name="Profile_CreatedAndActivated" xml:space="preserve">
-    <value>Profilo "{0}" creato e attivato.                                                                                                    </value>
-  </data>
-  <data name="Profile_CreateButton" xml:space="preserve">
-    <value>Crea Profilo                                                                                                                        </value>
-  </data>
-  <data name="Profile_ConfirmDeletion_Title" xml:space="preserve">
-    <value>Conferma eliminazione                                                                                                               </value>
-  </data>
-  <data name="Profile_ConfirmDeletion_Message" xml:space="preserve">
-    <value>Sei sicuro di voler eliminare il profilo "{0}"? Questa azione è irreversibile.                                                      </value>
-  </data>
-  <data name="Profile_CannotDeleteDefault" xml:space="preserve">
-    <value>Impossibile eliminare il profilo "Profilo predefinito".                                                                             </value>
-  </data>
-  <data name="Profile_CalibrationProfiles" xml:space="preserve">
-    <value>Profili calibrazione                                                                                                                </value>
-  </data>
-  <data name="Profile_ActiveProfile" xml:space="preserve">
-    <value>Profilo Attivo:                                                                                                                     </value>
-  </data>
-  <data name="PrimaryMonitor" xml:space="preserve">
-    <value>Monitor principale:                                                                                                                 </value>
-  </data>
-  <data name="PressSyncPart2" xml:space="preserve">
-    <value>per connessione permanente o 1+2 per connessione temporanea.                                                                        </value>
-  </data>
-  <data name="PressSyncPart1" xml:space="preserve">
-    <value>Premi SYNC                                                                                                                          </value>
-  </data>
-  <data name="PointerSensorBarPosCompensation" xml:space="preserve">
-    <value>Compensazione posizione SensorBar:                                                                                                  </value>
-  </data>
-  <data name="PointerPositionSmoothing" xml:space="preserve">
-    <value>Smussamento posizione puntatore:                                                                                                    </value>
-  </data>
-  <data name="PointerPositionRadius" xml:space="preserve">
-    <value>Raggio posizione puntatore:                                                                                                         </value>
-  </data>
-  <data name="PointerMarginsTopBottom" xml:space="preserve">
-    <value>Margini superiore/inferiore puntatore:                                                                                              </value>
-  </data>
-  <data name="PointerMarginsLeftRight" xml:space="preserve">
-    <value>Margini sinistra/destra puntatore:                                                                                                  </value>
-  </data>
-  <data name="PointerFPS" xml:space="preserve">
-    <value>Puntatore FPS:                                                                                                                      </value>
-  </data>
-  <data name="PointerCursorSize" xml:space="preserve">
-    <value>Dimensione cursore puntatore:                                                                                                       </value>
-  </data>
-  <data name="PointerConfigHeaderText" xml:space="preserve">
-    <value>Configurazione puntatore                                                                                                            </value>
-  </data>
-  <data name="PairWiimotes" xml:space="preserve">
-    <value>Associa Wiimote                                                                                                                     </value>
-  </data>
-  <data name="pairWiimote" xml:space="preserve">
-    <value>Associazione...                                                                                                                     </value>
-  </data>
-  <data name="pairOnStart" xml:space="preserve">
-    <value>Associa all'avvio                                                                                                                   </value>
-  </data>
-  <data name="OutputsLabel" xml:space="preserve">
-    <value>Uscite                                                                                                                              </value>
-  </data>
-  <data name="OneWiimoteConnected" xml:space="preserve">
-    <value>Un Wiimote connesso                                                                                                                 </value>
-  </data>
-  <data name="NoTopmost" xml:space="preserve">
-    <value>Non tenere la finestra sempre in primo piano                                                                                        </value>
-  </data>
-  <data name="NotificationsEnabled" xml:space="preserve">
-    <value>Notifiche attivate                                                                                                                  </value>
-  </data>
-  <data name="NoSensors" xml:space="preserve">
-    <value>Nessun sensore rilevato. Assicurarsi di essere alla giusta distanza e puntare lo schermo.                                           </value>
-  </data>
-  <data name="MinimizeToTray" xml:space="preserve">
-    <value>Riduci a icona nell'area di notifica                                                                                                </value>
-  </data>
-  <data name="MinimizeOnStart" xml:space="preserve">
-    <value>Avvia ridotto a icona                                                                                                               </value>
-  </data>
-  <data name="menuExit" xml:space="preserve">
-    <value>Esci                                                                                                                                </value>
-  </data>
-  <data name="Layout" xml:space="preserve">
-    <value>Layout cambiato in                                                                                                                  </value>
-  </data>
-  <data name="KeymapsPath" xml:space="preserve">
-    <value>Percorso Keymaps:                                                                                                                   </value>
-  </data>
-  <data name="KeymapsFolder" xml:space="preserve">
-    <value>Seleziona cartella Keymaps                                                                                                          </value>
-  </data>
-  <data name="KeymapsConfigSelect" xml:space="preserve">
-    <value>Seleziona file configurazione Keymaps                                                                                               </value>
-  </data>
-  <data name="KeymapsConfig" xml:space="preserve">
-    <value>File Config. Keymaps:                                                                                                               </value>
-  </data>
-  <data name="KeyMapLayout" xml:space="preserve">
-    <value>Layout                                                                                                                              </value>
-  </data>
-  <data name="KeyMapDel" xml:space="preserve">
-    <value>Elimina                                                                                                                             </value>
-  </data>
-  <data name="KeymapConfigTitle" xml:space="preserve">
-    <value>Configurazione tasti                                                                                                                </value>
-  </data>
-  <data name="insText2" xml:space="preserve">
-    <value>punta ai bersagli e premi A o B per calibrare                                                                                       </value>
-  </data>
-  <data name="IDTitle" xml:space="preserve">
-    <value>Configurazione colori ID Wiimote                                                                                                    </value>
-  </data>
-  <data name="HoldDown" xml:space="preserve">
-    <value>Tieni premuto                                                                                                                       </value>
-  </data>
-  <data name="GlobalConf" xml:space="preserve">
-    <value>Configurazione generale                                                                                                             </value>
-  </data>
-  <data name="GamepadsLabel" xml:space="preserve">
-    <value>Gamepad                                                                                                                             </value>
-  </data>
-  <data name="FpsmouseSpeed" xml:space="preserve">
-    <value>Velocità mouse FPS:                                                                                                                 </value>
-  </data>
-  <data name="FpsmouseDeadzone" xml:space="preserve">
-    <value>Zona morta mouse FPS:                                                                                                               </value>
-  </data>
-  <data name="Error_Title_Generic" xml:space="preserve">
-    <value>Errore                                                                                                                              </value>
-  </data>
-  <data name="EditLayout" xml:space="preserve">
-    <value>Modifica layout                                                                                                                     </value>
-  </data>
-  <data name="EditKeymaps" xml:space="preserve">
-    <value>Configurazione Wiimote                                                                                                              </value>
-  </data>
-  <data name="dThreshold" xml:space="preserve">
-    <value>Soglia                                                                                                                              </value>
-  </data>
-  <data name="dScale" xml:space="preserve">
-    <value>Scala                                                                                                                               </value>
-  </data>
-  <data name="Done" xml:space="preserve">
-    <value>Fatto                                                                                                                               </value>
-  </data>
-  <data name="DolphinPath" xml:space="preserve">
-    <value>Percorso Dolphin:                                                                                                                   </value>
-  </data>
-  <data name="DolphinFolder" xml:space="preserve">
-    <value>Seleziona cartella Dolphin                                                                                                          </value>
+  <data name="ConnectOnStart" xml:space="preserve">
+    <value>Connetti all'avvio                                                                                                                  </value>
   </data>
   <data name="DisconnectWiimotesOnDolphin" xml:space="preserve">
     <value>Disconnetti Wiimote all'avvio di Dolphin                                                                                            </value>
   </data>
-  <data name="DisconnectOnExit" xml:space="preserve">
-    <value>Disconnetti tutti i Wiimote all'uscita                                                                                              </value>
+  <data name="DolphinPath" xml:space="preserve">
+    <value>Percorso Dolphin:                                                                                                                   </value>
+  </data>
+  <data name="GlobalConf" xml:space="preserve">
+    <value>Configurazione generale                                                                                                             </value>
+  </data>
+  <data name="Configuración de Keymaps:" xml:space="preserve">
+    <value>Configurazione Keymaps:                                                                                                             </value>
+  </data>
+  <data name="KeymapsPath" xml:space="preserve">
+    <value>Percorso Keymaps:                                                                                                                   </value>
+  </data>
+  <data name="menuExit" xml:space="preserve">
+    <value>Esci                                                                                                                                </value>
+  </data>
+  <data name="NotificationsEnabled" xml:space="preserve">
+    <value>Notifiche attivate                                                                                                                  </value>
+  </data>
+  <data name="NoTopmost" xml:space="preserve">
+    <value>Non tenere la finestra sempre in primo piano                                                                                        </value>
+  </data>
+  <data name="PrimaryMonitor" xml:space="preserve">
+    <value>Monitor principale:                                                                                                                 </value>
+  </data>
+  <data name="SaveAndReboot" xml:space="preserve">
+    <value>Salva e riavvia Touchmote                                                                                                           </value>
+  </data>
+  <data name="TouchmoteAbout1" xml:space="preserve">
+    <value>Touchmote permette a uno o più Wiimote di comportarsi come dispositivo multi-touch e gamepad.                                       </value>
+  </data>
+  <data name="TouchmoteAbout2" xml:space="preserve">
+    <value>Grazie a Symphax per aver creato questa meravigliosa applicazione che ha dato una seconda vita ai nostri Wiimote, a Ryochan per i miglioramenti e a Suegrini per aver aggiunto la possibilità di utilizzare 4 LED IR per una maggiore precisione. Questa versione continua quel lavoro e migliora la disposizione a diamante dei LED IR. </value>
+  </data>
+  <data name="TrayBalloonTip" xml:space="preserve">
+    <value>Premi per modificare i parametri di Touchmote                                                                                       </value>
+  </data>
+  <data name="AutoDisconnectTimeout" xml:space="preserve">
+    <value>Timeout disconnessione automatica (ms):                                                                                             </value>
   </data>
   <data name="DefaultContinousScale" xml:space="preserve">
     <value>Scala continua predefinita:                                                                                                         </value>
@@ -861,125 +180,272 @@
   <data name="DefaultContinousDeadzone" xml:space="preserve">
     <value>Zona morta continua predefinita:                                                                                                    </value>
   </data>
-  <data name="ConnectOnStart" xml:space="preserve">
-    <value>Connetti all'avvio                                                                                                                  </value>
+  <data name="PointerConfigHeaderText" xml:space="preserve">
+    <value>Configurazione puntatore                                                                                                            </value>
   </data>
-  <data name="connectedCount" xml:space="preserve">
-    <value>0 Wiimote Connesse                                                                                                                  </value>
+  <data name="PointerSensorBarPosCompensation" xml:space="preserve">
+    <value>Compensazione posizione SensorBar:                                                                                                  </value>
   </data>
-  <data name="Connected" xml:space="preserve">
-    <value>Connesso                                                                                                                            </value>
+  <data name="PointerCursorSize" xml:space="preserve">
+    <value>Dimensione cursore puntatore:                                                                                                       </value>
   </data>
-  <data name="Configuración de Keymaps:" xml:space="preserve">
-    <value>Configurazione Keymaps:                                                                                                             </value>
+  <data name="PointerMarginsTopBottom" xml:space="preserve">
+    <value>Margini superiore/inferiore puntatore:                                                                                              </value>
   </data>
-  <data name="ColorID4" xml:space="preserve">
-    <value>Colore ID 4 (R, G, B):                                                                                                              </value>
+  <data name="PointerMarginsLeftRight" xml:space="preserve">
+    <value>Margini sinistra/destra puntatore:                                                                                                  </value>
   </data>
-  <data name="ColorID3" xml:space="preserve">
-    <value>Colore ID 3 (R, G, B):                                                                                                              </value>
+  <data name="PointerFPS" xml:space="preserve">
+    <value>Puntatore FPS:                                                                                                                      </value>
   </data>
-  <data name="ColorID2" xml:space="preserve">
-    <value>Colore ID 2 (R, G, B):                                                                                                              </value>
+  <data name="PointerPositionSmoothing" xml:space="preserve">
+    <value>Smussamento posizione puntatore:                                                                                                    </value>
   </data>
-  <data name="ColorID1" xml:space="preserve">
-    <value>Colore ID 1 (R, G, B):                                                                                                              </value>
+  <data name="PointerPositionRadius" xml:space="preserve">
+    <value>Raggio posizione puntatore:                                                                                                         </value>
   </data>
-  <data name="ClassicGamepad" xml:space="preserve">
-    <value>Gamepad Classico                                                                                                                    </value>
+  <data name="TestConfigHeader" xml:space="preserve">
+    <value>Configurazione Test                                                                                                                 </value>
   </data>
-  <data name="ChooseWiimoteLayout" xml:space="preserve">
-    <value>Scegli un layout per il Wiimote                                                                                                     </value>
+  <data name="TestDeltaAccel" xml:space="preserve">
+    <value>Attiva accelerazione delta test:                                                                                                    </value>
   </data>
-  <data name="ChooseLayout" xml:space="preserve">
-    <value>Scegli layout                                                                                                                       </value>
+  <data name="TestDeltaAccelMulti" xml:space="preserve">
+    <value>Moltiplicatore accelerazione delta test:                                                                                            </value>
   </data>
-  <data name="cbLayoutChooser" xml:space="preserve">
-    <value>Disponibile nel selettore layout (tieni premuto Home 3 secondi)                                                                     </value>
+  <data name="TestDeltaAccelMinTravel" xml:space="preserve">
+    <value>Percorso minimo accelerazione delta test:                                                                                           </value>
   </data>
-  <data name="cbiWiimote" xml:space="preserve">
-    <value>Wiimote                                                                                                                             </value>
+  <data name="TestDeltaAccelEasingDuration" xml:space="preserve">
+    <value>Durata smussamento accelerazione delta test:                                                                                        </value>
   </data>
-  <data name="cbiOther" xml:space="preserve">
-    <value>Altro                                                                                                                               </value>
+  <data name="TestRegionEasingXDuration" xml:space="preserve">
+    <value>Durata attenuazione regione X test:                                                                                                 </value>
   </data>
-  <data name="cbiMouse" xml:space="preserve">
-    <value>Mouse                                                                                                                               </value>
+  <data name="TestDeltaAccelMaxTravel" xml:space="preserve">
+    <value>Percorso massimo accelerazione delta test:                                                                                          </value>
   </data>
-  <data name="cbiKeyboard" xml:space="preserve">
-    <value>Tastiera                                                                                                                            </value>
+  <data name="TestRegionEasingXOffset" xml:space="preserve">
+    <value>Offset attenuazione regione X test:                                                                                                 </value>
   </data>
-  <data name="cbiCursor" xml:space="preserve">
-    <value>Cursore                                                                                                                             </value>
+  <data name="TestSmoothingWeight" xml:space="preserve">
+    <value>Peso smussamento test:                                                                                                              </value>
   </data>
-  <data name="cbiAll" xml:space="preserve">
-    <value>Tutte                                                                                                                               </value>
-  </data>
-  <data name="cbi360" xml:space="preserve">
-    <value>Gamepad Xbox 360                                                                                                                    </value>
-  </data>
-  <data name="CalibrationMarginY" xml:space="preserve">
-    <value>Margine calibrazione Y:                                                                                                             </value>
+  <data name="TestFpsmouseOffset" xml:space="preserve">
+    <value>Offset mouse FPS test:                                                                                                              </value>
   </data>
   <data name="CalibrationMarginX" xml:space="preserve">
     <value>Margine calibrazione X:                                                                                                             </value>
   </data>
-  <data name="btnAll" xml:space="preserve">
-    <value>Tutti                                                                                                                               </value>
+  <data name="CalibrationMarginY" xml:space="preserve">
+    <value>Margine calibrazione Y:                                                                                                             </value>
   </data>
-  <data name="Battery" xml:space="preserve">
-    <value>Batteria:                                                                                                                           </value>
+  <data name="TestLightgunOneeuroMincutoff" xml:space="preserve">
+    <value>Taglio minimo OneEuro lightgun test:                                                                                                </value>
   </data>
-  <data name="AutoDisconnectTimeout" xml:space="preserve">
-    <value>Timeout disconnessione automatica (ms):                                                                                             </value>
+  <data name="TestLightgunOneeuroBeta" xml:space="preserve">
+    <value>Attiva beta OneEuro lightgun test:                                                                                                  </value>
   </data>
-  <data name="Arrangement_RestartConfirmation_Title" xml:space="preserve">
-    <value>Riavvia applicazione                                                                                                                </value>
+  <data name="FpsmouseDeadzone" xml:space="preserve">
+    <value>Zona morta mouse FPS:                                                                                                               </value>
   </data>
-  <data name="Arrangement_RestartConfirmation_Message" xml:space="preserve">
-    <value>Hai cambiato la disposizione IR, è necessario riavviare Touchmote. Vuoi riavviare ora?                                              </value>
+  <data name="FpsmouseSpeed" xml:space="preserve">
+    <value>Velocità mouse FPS:                                                                                                                 </value>
+  </data>
+  <data name="ShakeTitle" xml:space="preserve">
+    <value>Configurazione scuotimento                                                                                                          </value>
+  </data>
+  <data name="ShakeThreshold" xml:space="preserve">
+    <value>Soglia scuotimento:                                                                                                                 </value>
+  </data>
+  <data name="ShakeCount" xml:space="preserve">
+    <value>Conteggio scuotimento:                                                                                                              </value>
+  </data>
+  <data name="ShakeMaxTimeInBetween" xml:space="preserve">
+    <value>Tempo massimo tra scuotimenti (ms):                                                                                                 </value>
+  </data>
+  <data name="ShakePressedTime" xml:space="preserve">
+    <value>Tempo pressione scuotimento (ms):                                                                                                   </value>
+  </data>
+  <data name="RumbleXinputTitle" xml:space="preserve">
+    <value>Configurazione vibrazione XInput                                                                                                    </value>
+  </data>
+  <data name="XinputRumbleThresholdBig" xml:space="preserve">
+    <value>Soglia vibrazione grande XInput:                                                                                                    </value>
+  </data>
+  <data name="XinputRumbleThresholdSmall" xml:space="preserve">
+    <value>Soglia vibrazione piccola XInput:                                                                                                   </value>
+  </data>
+  <data name="SoundAndRumbleTitle" xml:space="preserve">
+    <value>Configurazione suono e vibrazione Wiimote                                                                                           </value>
+  </data>
+  <data name="WiimoteRumbleTimeShort" xml:space="preserve">
+    <value>Durata vibrazione breve (ms):                                                                                                       </value>
+  </data>
+  <data name="WiimoteRumbleTimeLong" xml:space="preserve">
+    <value>Durata vibrazione lunga (ms):                                                                                                       </value>
+  </data>
+  <data name="WiimodeRumbleTimeAlternatingOn" xml:space="preserve">
+    <value>Tempo vibrazione alternata ON (ms):                                                                                                 </value>
+  </data>
+  <data name="WiimodeRumbleTimeAlternatingOff" xml:space="preserve">
+    <value>Tempo vibrazione Wiimote alternata OFF (ms):                                                                                        </value>
+  </data>
+  <data name="WiimodeLoopSoundTime" xml:space="preserve">
+    <value>Tempo suono loop (ms):                                                                                                              </value>
+  </data>
+  <data name="IDTitle" xml:space="preserve">
+    <value>Configurazione colori ID Wiimote                                                                                                    </value>
+  </data>
+  <data name="ColorID1" xml:space="preserve">
+    <value>Colore ID 1 (R, G, B):                                                                                                              </value>
+  </data>
+  <data name="ColorID2" xml:space="preserve">
+    <value>Colore ID 2 (R, G, B):                                                                                                              </value>
+  </data>
+  <data name="ColorID3" xml:space="preserve">
+    <value>Colore ID 3 (R, G, B):                                                                                                              </value>
+  </data>
+  <data name="ColorID4" xml:space="preserve">
+    <value>Colore ID 4 (R, G, B):                                                                                                              </value>
+  </data>
+  <data name="KeymapsConfig" xml:space="preserve">
+    <value>File Config. Keymaps:                                                                                                               </value>
   </data>
   <data name="AppSettings" xml:space="preserve">
     <value>Impostazioni Touchmote                                                                                                              </value>
   </data>
-  <data name="AppLink" xml:space="preserve">
-    <value>Collega all'applicazione                                                                                                            </value>
+  <data name="WindowsStart" xml:space="preserve">
+    <value>Avvia Touchmote con Windows                                                                                                         </value>
   </data>
-  <data name="AimTopLeft" xml:space="preserve">
-    <value>Punta all'angolo SUPERIORE SINISTRO e premi A o B per calibrare                                                                     </value>
+  <data name="pairOnStart" xml:space="preserve">
+    <value>Associa all'avvio                                                                                                                   </value>
   </data>
-  <data name="AimTopCenter" xml:space="preserve">
-    <value>Punta al bersaglio CENTRALE SUPERIORE e premi A o B per calibrare                                                                   </value>
+  <data name="DisconnectOnExit" xml:space="preserve">
+    <value>Disconnetti tutti i Wiimote all'uscita                                                                                              </value>
   </data>
-  <data name="AimTargets" xml:space="preserve">
+  <data name="MinimizeToTray" xml:space="preserve">
+    <value>Riduci a icona nell'area di notifica                                                                                                </value>
+  </data>
+  <data name="MinimizeOnStart" xml:space="preserve">
+    <value>Avvia ridotto a icona                                                                                                               </value>
+  </data>
+  <data name="EditKeymaps" xml:space="preserve">
+    <value>Configurazione Wiimote                                                                                                              </value>
+  </data>
+  <data name="connectedCount" xml:space="preserve">
+    <value>0 Wiimote Connesse                                                                                                                  </value>
+  </data>
+  <data name="pairWiimote" xml:space="preserve">
+    <value>Associazione...                                                                                                                     </value>
+  </data>
+  <data name="PressSyncPart1" xml:space="preserve">
+    <value>Premi SYNC                                                                                                                          </value>
+  </data>
+  <data name="PressSyncPart2" xml:space="preserve">
+    <value>per connessione permanente o 1+2 per connessione temporanea.                                                                        </value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Riprova amico                                                                                                                       </value>
+  </data>
+  <data name="WiimoteComp" xml:space="preserve">
+    <value>Almeno uno dei tuoi Wiimote non è compatibile con lo stack Bluetooth Microsoft, usa solo Wiimote prodotti prima di Novembre 2011 o segui le istruzioni su </value>
+  </data>
+  <data name="ThisPage" xml:space="preserve">
+    <value>questa pagina                                                                                                                       </value>
+  </data>
+  <data name="PairWiimotes" xml:space="preserve">
+    <value>Associa Wiimote                                                                                                                     </value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Fatto                                                                                                                               </value>
+  </data>
+  <data name="OneWiimoteConnected" xml:space="preserve">
+    <value>Un Wiimote connesso                                                                                                                 </value>
+  </data>
+  <data name="WiimotesConnected" xml:space="preserve">
+    <value>Wiimote Connesse                                                                                                                    </value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>Scansione...                                                                                                                        </value>
+  </data>
+  <data name="TClosing" xml:space="preserve">
+    <value>Chiusura...                                                                                                                         </value>
+  </data>
+  <data name="Layout" xml:space="preserve">
+    <value>Layout cambiato in                                                                                                                  </value>
+  </data>
+  <data name="ChooseLayout" xml:space="preserve">
+    <value>Scegli layout                                                                                                                       </value>
+  </data>
+  <data name="ChooseWiimoteLayout" xml:space="preserve">
+    <value>Scegli un layout per il Wiimote                                                                                                     </value>
+  </data>
+  <data name="RestartError" xml:space="preserve">
+    <value>Errore riavvio applicazione: {0}                                                                                                    </value>
+  </data>
+  <data name="DolphinFolder" xml:space="preserve">
+    <value>Seleziona cartella Dolphin                                                                                                          </value>
+  </data>
+  <data name="KeymapsFolder" xml:space="preserve">
+    <value>Seleziona cartella Keymaps                                                                                                          </value>
+  </data>
+  <data name="KeymapsConfigSelect" xml:space="preserve">
+    <value>Seleziona file configurazione Keymaps                                                                                               </value>
+  </data>
+  <data name="insText2" xml:space="preserve">
     <value>punta ai bersagli e premi A o B per calibrare                                                                                       </value>
-  </data>
-  <data name="AimRightCenter" xml:space="preserve">
-    <value>Punta al bersaglio CENTRALE DESTRO e premi A o B per calibrare                                                                      </value>
-  </data>
-  <data name="AimLeftCenter" xml:space="preserve">
-    <value>Punta al bersaglio CENTRALE SINISTRO e premi A o B per calibrare                                                                    </value>
-  </data>
-  <data name="AimConfirm" xml:space="preserve">
-    <value>Premi A per confermare la calibrazione, premi B per resettare la calibrazione                                                       </value>
-  </data>
-  <data name="AimConfig" xml:space="preserve">
-    <value>Configurazione puntamento                                                                                                           </value>
-  </data>
-  <data name="AimCenter" xml:space="preserve">
-    <value>Punta al bersaglio CENTRALE e premi A o B per calibrare                                                                             </value>
   </data>
   <data name="AimButtomRight" xml:space="preserve">
     <value>Punta all'angolo INFERIORE DESTRO e premi A o B per calibrare                                                                       </value>
   </data>
+  <data name="AimCenter" xml:space="preserve">
+    <value>Punta al bersaglio CENTRALE e premi A o B per calibrare                                                                             </value>
+  </data>
+  <data name="AimTargets" xml:space="preserve">
+    <value>punta ai bersagli e premi A o B per calibrare                                                                                       </value>
+  </data>
+  <data name="AimTopCenter" xml:space="preserve">
+    <value>Punta al bersaglio CENTRALE SUPERIORE e premi A o B per calibrare                                                                   </value>
+  </data>
+  <data name="AimTopLeft" xml:space="preserve">
+    <value>Punta all'angolo SUPERIORE SINISTRO e premi A o B per calibrare                                                                     </value>
+  </data>
   <data name="AimButtomCenter" xml:space="preserve">
     <value>Punta al bersaglio CENTRALE INFERIORE e premi A o B per calibrare                                                                   </value>
   </data>
-  <data name="AdvConfigTitle" xml:space="preserve">
-    <value>Configurazione avanzata                                                                                                             </value>
+  <data name="AimConfirm" xml:space="preserve">
+    <value>Premi A per confermare la calibrazione, premi B per resettare la calibrazione                                                       </value>
   </data>
-  <data name="About" xml:space="preserve">
-    <value>Informazioni                                                                                                                        </value>
+  <data name="AimLeftCenter" xml:space="preserve">
+    <value>Punta al bersaglio CENTRALE SINISTRO e premi A o B per calibrare                                                                    </value>
+  </data>
+  <data name="AimRightCenter" xml:space="preserve">
+    <value>Punta al bersaglio CENTRALE DESTRO e premi A o B per calibrare                                                                      </value>
+  </data>
+  <data name="HoldDown" xml:space="preserve">
+    <value>Tieni premuto                                                                                                                       </value>
+  </data>
+  <data name="NoSensors" xml:space="preserve">
+    <value>Nessun sensore rilevato. Assicurarsi di essere alla giusta distanza e puntare lo schermo.                                           </value>
+  </data>
+  <data name="ReleaseText" xml:space="preserve">
+    <value>Rilascia                                                                                                                            </value>
+  </data>
+  <data name="AimConfig" xml:space="preserve">
+    <value>Configurazione puntamento                                                                                                           </value>
+  </data>
+  <data name="SensorMode" xml:space="preserve">
+    <value>Modalità sensore                                                                                                                    </value>
+  </data>
+  <data name="2IRCentered" xml:space="preserve">
+    <value>2IR: Centrato                                                                                                                       </value>
+  </data>
+  <data name="2IRTop" xml:space="preserve">
+    <value>2IR: Alto                                                                                                                           </value>
+  </data>
+  <data name="2IRBottom" xml:space="preserve">
+    <value>2IR: Basso                                                                                                                          </value>
   </data>
   <data name="4IRSquare" xml:space="preserve">
     <value>4IR: Quadrato                                                                                                                       </value>
@@ -987,13 +453,574 @@
   <data name="4IRDiamond" xml:space="preserve">
     <value>4IR: Rombo                                                                                                                          </value>
   </data>
-  <data name="2IRTop" xml:space="preserve">
-    <value>2IR: Alto                                                                                                                           </value>
+  <data name="tbName" xml:space="preserve">
+    <value>Predefinito                                                                                                                         </value>
   </data>
-  <data name="2IRCentered" xml:space="preserve">
-    <value>2IR: Centrato                                                                                                                       </value>
+  <data name="tbDefault" xml:space="preserve">
+    <value>Predefinito                                                                                                                         </value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>Informazioni                                                                                                                        </value>
+  </data>
+  <data name="SettingsBut" xml:space="preserve">
+    <value>Impostazioni                                                                                                                        </value>
+  </data>
+  <data name="KeymapConfigTitle" xml:space="preserve">
+    <value>Configurazione tasti                                                                                                                </value>
+  </data>
+  <data name="KeyMapLayout" xml:space="preserve">
+    <value>Layout                                                                                                                              </value>
+  </data>
+  <data name="EditLayout" xml:space="preserve">
+    <value>Modifica layout                                                                                                                     </value>
+  </data>
+  <data name="KeyMapDel" xml:space="preserve">
+    <value>Elimina                                                                                                                             </value>
+  </data>
+  <data name="cbLayoutChooser" xml:space="preserve">
+    <value>Disponibile nel selettore layout (tieni premuto Home 3 secondi)                                                                     </value>
+  </data>
+  <data name="AppLink" xml:space="preserve">
+    <value>Collega all'applicazione                                                                                                            </value>
+  </data>
+  <data name="GamepadsLabel" xml:space="preserve">
+    <value>Gamepad                                                                                                                             </value>
+  </data>
+  <data name="btnAll" xml:space="preserve">
+    <value>Tutti                                                                                                                               </value>
+  </data>
+  <data name="rbOnscreen" xml:space="preserve">
+    <value>Su schermo                                                                                                                          </value>
+  </data>
+  <data name="rbOffscreen" xml:space="preserve">
+    <value>Fuori schermo                                                                                                                       </value>
+  </data>
+  <data name="ClassicGamepad" xml:space="preserve">
+    <value>Gamepad Classico                                                                                                                    </value>
+  </data>
+  <data name="OutputsLabel" xml:space="preserve">
+    <value>Uscite                                                                                                                              </value>
+  </data>
+  <data name="cbiAll" xml:space="preserve">
+    <value>Tutte                                                                                                                               </value>
+  </data>
+  <data name="cbiKeyboard" xml:space="preserve">
+    <value>Tastiera                                                                                                                            </value>
+  </data>
+  <data name="cbiMouse" xml:space="preserve">
+    <value>Mouse                                                                                                                               </value>
+  </data>
+  <data name="cbi360" xml:space="preserve">
+    <value>Gamepad Xbox 360                                                                                                                    </value>
+  </data>
+  <data name="cbiWiimote" xml:space="preserve">
+    <value>Wiimote                                                                                                                             </value>
+  </data>
+  <data name="cbiCursor" xml:space="preserve">
+    <value>Cursore                                                                                                                             </value>
+  </data>
+  <data name="cbiOther" xml:space="preserve">
+    <value>Altro                                                                                                                               </value>
+  </data>
+  <data name="tbOutputFilter" xml:space="preserve">
+    <value>Filtro uscite                                                                                                                       </value>
+  </data>
+  <data name="tbKeymapTitle" xml:space="preserve">
+    <value>Titolo                                                                                                                              </value>
+  </data>
+  <data name="tDisableKey" xml:space="preserve">
+    <value>Disabilitato                                                                                                                        </value>
+  </data>
+  <data name="tPointer" xml:space="preserve">
+    <value>Puntatore                                                                                                                           </value>
+  </data>
+  <data name="tPointerXminus" xml:space="preserve">
+    <value>Puntatore Sinistra                                                                                                                  </value>
+  </data>
+  <data name="tPointerXplus" xml:space="preserve">
+    <value>Puntatore Destra                                                                                                                    </value>
+  </data>
+  <data name="tPointerYminus" xml:space="preserve">
+    <value>Puntatore Su                                                                                                                        </value>
+  </data>
+  <data name="tPointerYplus" xml:space="preserve">
+    <value>Puntatore Giù                                                                                                                       </value>
+  </data>
+  <data name="tLeft" xml:space="preserve">
+    <value>Sinistra                                                                                                                            </value>
+  </data>
+  <data name="tRight" xml:space="preserve">
+    <value>Destra                                                                                                                              </value>
+  </data>
+  <data name="tUp" xml:space="preserve">
+    <value>Su                                                                                                                                  </value>
+  </data>
+  <data name="tDown" xml:space="preserve">
+    <value>Giù                                                                                                                                 </value>
+  </data>
+  <data name="tPlus" xml:space="preserve">
+    <value>Più (+)                                                                                                                             </value>
+  </data>
+  <data name="tMinus" xml:space="preserve">
+    <value>Meno (-)                                                                                                                            </value>
+  </data>
+  <data name="tOne" xml:space="preserve">
+    <value>Uno (1)                                                                                                                             </value>
+  </data>
+  <data name="tTwo" xml:space="preserve">
+    <value>Due (2)                                                                                                                             </value>
+  </data>
+  <data name="tTiltXMinus" xml:space="preserve">
+    <value>Inclinazione X -                                                                                                                    </value>
+  </data>
+  <data name="tTiltXPlus" xml:space="preserve">
+    <value>Inclinazione X +                                                                                                                    </value>
+  </data>
+  <data name="tTiltYMinus" xml:space="preserve">
+    <value>Inclinazione Y -                                                                                                                    </value>
+  </data>
+  <data name="tTiltYPlus" xml:space="preserve">
+    <value>Inclinazione Y +                                                                                                                    </value>
+  </data>
+  <data name="tTiltZMinus" xml:space="preserve">
+    <value>Inclinazione Z -                                                                                                                    </value>
+  </data>
+  <data name="tTiltZPlus" xml:space="preserve">
+    <value>Inclinazione Z +                                                                                                                    </value>
+  </data>
+  <data name="tShake" xml:space="preserve">
+    <value>Scuoti                                                                                                                              </value>
+  </data>
+  <data name="tExtension" xml:space="preserve">
+    <value>Estensione                                                                                                                          </value>
+  </data>
+  <data name="tStickLeft" xml:space="preserve">
+    <value>Stick Sinistro                                                                                                                      </value>
+  </data>
+  <data name="tStickRight" xml:space="preserve">
+    <value>Stick Destro                                                                                                                        </value>
+  </data>
+  <data name="tStickUp" xml:space="preserve">
+    <value>Stick Su                                                                                                                            </value>
+  </data>
+  <data name="tStickDown" xml:space="preserve">
+    <value>Stick Giù                                                                                                                           </value>
+  </data>
+  <data name="tStickRotationPlus" xml:space="preserve">
+    <value>Rotazione stick (+)                                                                                                                 </value>
+  </data>
+  <data name="tStickRotationMinus" xml:space="preserve">
+    <value>Rotazione stick (-)                                                                                                                 </value>
+  </data>
+  <data name="tStickLLeft" xml:space="preserve">
+    <value>Stick sinistro sinistra                                                                                                             </value>
+  </data>
+  <data name="tStickLRight" xml:space="preserve">
+    <value>Stick sinistro destra                                                                                                               </value>
+  </data>
+  <data name="tStickLUp" xml:space="preserve">
+    <value>Stick sinistro su                                                                                                                   </value>
+  </data>
+  <data name="tStickLDown" xml:space="preserve">
+    <value>Stick sinistro giù                                                                                                                  </value>
+  </data>
+  <data name="tStickRLeft" xml:space="preserve">
+    <value>Stick destro sinistra                                                                                                               </value>
+  </data>
+  <data name="tStickRRight" xml:space="preserve">
+    <value>Stick destro destra                                                                                                                 </value>
+  </data>
+  <data name="tStickRUp" xml:space="preserve">
+    <value>Stick destro su                                                                                                                     </value>
+  </data>
+  <data name="tStickRDown" xml:space="preserve">
+    <value>Stick destro giù                                                                                                                    </value>
+  </data>
+  <data name="tTriggerL" xml:space="preserve">
+    <value>Grilletto Sinistro                                                                                                                  </value>
+  </data>
+  <data name="tTriggerR" xml:space="preserve">
+    <value>Grilletto Destro                                                                                                                    </value>
+  </data>
+  <data name="tL" xml:space="preserve">
+    <value>Premi Grilletto Sinistro                                                                                                            </value>
+  </data>
+  <data name="tR" xml:space="preserve">
+    <value>Premi Grilletto Destro                                                                                                              </value>
+  </data>
+  <data name="tMouse" xml:space="preserve">
+    <value>Mouse                                                                                                                               </value>
+  </data>
+  <data name="tFPSMouse" xml:space="preserve">
+    <value>Mouse FPS                                                                                                                           </value>
+  </data>
+  <data name="tLightgunMouse" xml:space="preserve">
+    <value>Mouse Lightgun                                                                                                                      </value>
+  </data>
+  <data name="tMouseLeftB" xml:space="preserve">
+    <value>Bottone sinistro mouse                                                                                                              </value>
+  </data>
+  <data name="tMouseMiddleB" xml:space="preserve">
+    <value>Bottone centrale mouse                                                                                                              </value>
+  </data>
+  <data name="tMouseRightB" xml:space="preserve">
+    <value>Bottone grilletto destro                                                                                                            </value>
+  </data>
+  <data name="tMouseWheelUp" xml:space="preserve">
+    <value>Rotella mouse su                                                                                                                    </value>
+  </data>
+  <data name="tMouseWheelDown" xml:space="preserve">
+    <value>Rotella mouse giù                                                                                                                   </value>
+  </data>
+  <data name="tMouseRight" xml:space="preserve">
+    <value>Movimento mouse destra                                                                                                              </value>
+  </data>
+  <data name="tMouseUp" xml:space="preserve">
+    <value>Movimento mouse su                                                                                                                  </value>
+  </data>
+  <data name="tMouseLeft" xml:space="preserve">
+    <value>Movimento mouse sinistra                                                                                                            </value>
+  </data>
+  <data name="tMouseDown" xml:space="preserve">
+    <value>Movimento mouse giù                                                                                                                 </value>
+  </data>
+  <data name="tMouseExtra1" xml:space="preserve">
+    <value>Bottone aggiuntivo 1 mouse                                                                                                          </value>
+  </data>
+  <data name="tMouseExtra2" xml:space="preserve">
+    <value>Bottone aggiuntivo 2 mouse                                                                                                          </value>
+  </data>
+  <data name="tBack" xml:space="preserve">
+    <value>Indietro                                                                                                                            </value>
+  </data>
+  <data name="tReturn" xml:space="preserve">
+    <value>Invio                                                                                                                               </value>
+  </data>
+  <data name="tShift" xml:space="preserve">
+    <value>Maiusc                                                                                                                              </value>
+  </data>
+  <data name="tPause" xml:space="preserve">
+    <value>Pausa                                                                                                                               </value>
+  </data>
+  <data name="tCapsLock" xml:space="preserve">
+    <value>Bloc Maiusc                                                                                                                         </value>
+  </data>
+  <data name="tSpace" xml:space="preserve">
+    <value>Spazio                                                                                                                              </value>
+  </data>
+  <data name="tPagUp" xml:space="preserve">
+    <value>Pag Su                                                                                                                              </value>
+  </data>
+  <data name="tPagDown" xml:space="preserve">
+    <value>Pag Giù                                                                                                                             </value>
+  </data>
+  <data name="tEnd" xml:space="preserve">
+    <value>Fine                                                                                                                                </value>
+  </data>
+  <data name="tHome" xml:space="preserve">
+    <value>Home                                                                                                                                </value>
+  </data>
+  <data name="tNumLeft" xml:space="preserve">
+    <value>Tastierino numerico sinistra                                                                                                        </value>
+  </data>
+  <data name="tNumUp" xml:space="preserve">
+    <value>Tastierino numerico su                                                                                                              </value>
+  </data>
+  <data name="tNumRight" xml:space="preserve">
+    <value>Tastierino numerico destra                                                                                                          </value>
+  </data>
+  <data name="tNumDown" xml:space="preserve">
+    <value>Tastierino numerico giù                                                                                                             </value>
+  </data>
+  <data name="tPrintScreen" xml:space="preserve">
+    <value>Stampa schermo                                                                                                                      </value>
+  </data>
+  <data name="tInsert" xml:space="preserve">
+    <value>Ins                                                                                                                                </value>
+  </data>
+  <data name="tDel" xml:space="preserve">
+    <value>Canc                                                                                                                                </value>
+  </data>
+  <data name="tPeriod" xml:space="preserve">
+    <value>Punto (.)                                                                                                                           </value>
+  </data>
+  <data name="tComma" xml:space="preserve">
+    <value>Virgola (,)                                                                                                                         </value>
+  </data>
+  <data name="tLWin" xml:space="preserve">
+    <value>Win Sinistro                                                                                                                        </value>
+  </data>
+  <data name="tRWin" xml:space="preserve">
+    <value>Win Destro                                                                                                                          </value>
+  </data>
+  <data name="tMultiply" xml:space="preserve">
+    <value>Moltiplica (*)                                                                                                                      </value>
+  </data>
+  <data name="tAdd" xml:space="preserve">
+    <value>Aggiungi (+)                                                                                                                        </value>
+  </data>
+  <data name="tSubtract" xml:space="preserve">
+    <value>Sottrai (-)                                                                                                                         </value>
+  </data>
+  <data name="tDecimal" xml:space="preserve">
+    <value>Decimale (.)                                                                                                                        </value>
+  </data>
+  <data name="tDivide" xml:space="preserve">
+    <value>Dividi (/)                                                                                                                          </value>
+  </data>
+  <data name="tNumlock" xml:space="preserve">
+    <value>Bloc Num                                                                                                                            </value>
+  </data>
+  <data name="tLShift" xml:space="preserve">
+    <value>Maiusc Sinistro                                                                                                                     </value>
+  </data>
+  <data name="tRShift" xml:space="preserve">
+    <value>Maiusc Destro                                                                                                                       </value>
+  </data>
+  <data name="tLControl" xml:space="preserve">
+    <value>Ctrl Sinistro                                                                                                                       </value>
+  </data>
+  <data name="tRControl" xml:space="preserve">
+    <value>Ctrl Destro                                                                                                                         </value>
+  </data>
+  <data name="tLAlt" xml:space="preserve">
+    <value>Alt Sinistro                                                                                                                        </value>
+  </data>
+  <data name="tRAlt" xml:space="preserve">
+    <value>Alt Destro                                                                                                                          </value>
+  </data>
+  <data name="tBrowserBack" xml:space="preserve">
+    <value>Indietro browser                                                                                                                    </value>
+  </data>
+  <data name="tBrowserForward" xml:space="preserve">
+    <value>Avanti browser                                                                                                                      </value>
+  </data>
+  <data name="tBrowserRefresh" xml:space="preserve">
+    <value>Aggiorna browser                                                                                                                    </value>
+  </data>
+  <data name="tBrowserStop" xml:space="preserve">
+    <value>Stop browser                                                                                                                        </value>
+  </data>
+  <data name="tBrowserSearch" xml:space="preserve">
+    <value>Ricerca browser                                                                                                                     </value>
+  </data>
+  <data name="tBrowserFavorites" xml:space="preserve">
+    <value>Preferiti browser                                                                                                                   </value>
+  </data>
+  <data name="tBrowserHome" xml:space="preserve">
+    <value>Home browser                                                                                                                        </value>
+  </data>
+  <data name="tVolumeMute" xml:space="preserve">
+    <value>Silenzia volume                                                                                                                     </value>
   </data>
   <data name="tVolumeUp" xml:space="preserve">
     <value>Volume +</value>
+  </data>
+  <data name="tVolumeDown" xml:space="preserve">
+    <value>Volume -                                                                                                                            </value>
+  </data>
+  <data name="tNextTrack" xml:space="preserve">
+    <value>Traccia successiva                                                                                                                  </value>
+  </data>
+  <data name="tPrevTrack" xml:space="preserve">
+    <value>Traccia precedente                                                                                                                  </value>
+  </data>
+  <data name="tStop" xml:space="preserve">
+    <value>Stop                                                                                                                                </value>
+  </data>
+  <data name="tPlayPause" xml:space="preserve">
+    <value>Riproduci/Pausa                                                                                                                     </value>
+  </data>
+  <data name="tStart" xml:space="preserve">
+    <value>Start                                                                                                                               </value>
+  </data>
+  <data name="tGuide" xml:space="preserve">
+    <value>Guida                                                                                                                               </value>
+  </data>
+  <data name="tStickLPress" xml:space="preserve">
+    <value>Premi Stick sinistro                                                                                                                </value>
+  </data>
+  <data name="tStickRPress" xml:space="preserve">
+    <value>Premi Stick Destro                                                                                                                  </value>
+  </data>
+  <data name="tStickLLight" xml:space="preserve">
+    <value>Stick Sinistro Lightgun                                                                                                             </value>
+  </data>
+  <data name="tStickLLight43" xml:space="preserve">
+    <value>Stick Sinistro Lightgun 4:3                                                                                                         </value>
+  </data>
+  <data name="tStickLCenter" xml:space="preserve">
+    <value>Stick Sinistro Centro                                                                                                               </value>
+  </data>
+  <data name="tStickRLight" xml:space="preserve">
+    <value>Stick Destro Lightgun                                                                                                               </value>
+  </data>
+  <data name="tStickRLight43" xml:space="preserve">
+    <value>Stick Destro Lightgun 4:3                                                                                                           </value>
+  </data>
+  <data name="tStickRCenter" xml:space="preserve">
+    <value>Stick Destro Centro                                                                                                                 </value>
+  </data>
+  <data name="tBumperL" xml:space="preserve">
+    <value>Bumper Sinistro                                                                                                                     </value>
+  </data>
+  <data name="tBumperR" xml:space="preserve">
+    <value>Bumper Destro                                                                                                                       </value>
+  </data>
+  <data name="tPressCursor" xml:space="preserve">
+    <value>Pressione cursore                                                                                                                   </value>
+  </data>
+  <data name="tShortRumble" xml:space="preserve">
+    <value>Vibrazione breve                                                                                                                    </value>
+  </data>
+  <data name="tLongRumble" xml:space="preserve">
+    <value>Vibrazione lunga                                                                                                                    </value>
+  </data>
+  <data name="tRumbleHold" xml:space="preserve">
+    <value>Mantieni vibrazione                                                                                                                 </value>
+  </data>
+  <data name="tRumbleAlt" xml:space="preserve">
+    <value>Vibrazione alternata                                                                                                                </value>
+  </data>
+  <data name="tSound1" xml:space="preserve">
+    <value>Suono 1                                                                                                                             </value>
+  </data>
+  <data name="tSound2" xml:space="preserve">
+    <value>Suono 2                                                                                                                             </value>
+  </data>
+  <data name="tSoundLoop" xml:space="preserve">
+    <value>Loop suono                                                                                                                          </value>
+  </data>
+  <data name="UpdateCheck_LatestVersion" xml:space="preserve">
+    <value>Stai usando l'ultima versione disponibile.                                                                                          </value>
+  </data>
+  <data name="UpdateCheck_ApiError" xml:space="preserve">
+    <value>Errore API GitHub ({0}): {1}                                                                                                        </value>
+  </data>
+  <data name="UpdateCheck_ConnectionError" xml:space="preserve">
+    <value>Errore di connessione durante il controllo aggiornamenti: {0}                                                                       </value>
+  </data>
+  <data name="UpdateCheck_JsonError" xml:space="preserve">
+    <value>Errore nella lettura della risposta JSON da GitHub: {0}                                                                             </value>
+  </data>
+  <data name="UpdateCheck_UnexpectedError" xml:space="preserve">
+    <value>Errore imprevisto durante il controllo aggiornamenti: {0}                                                                           </value>
+  </data>
+  <data name="UpdateCheck_NewVersionAvailable_Message" xml:space="preserve">
+    <value>È disponibile una nuova versione ({0}), vuoi scaricarla e installarla?</value>
+  </data>
+  <data name="UpdateCheck_NewVersionAvailable_Title" xml:space="preserve">
+    <value>Aggiornamento Disponibile                                                                                                           </value>
+  </data>
+  <data name="UpdateCheck_InitialCheckError" xml:space="preserve">
+    <value>Errore nell'avvio del controllo aggiornamenti: {0}                                                                                  </value>
+  </data>
+  <data name="SaveError_Message" xml:space="preserve">
+    <value>Impossibile salvare le impostazioni di calibrazione. Verificare i permessi dei file o riavviare l'applicazione.                      </value>
+  </data>
+  <data name="SaveError_Title" xml:space="preserve">
+    <value>Errore salvataggio                                                                                                                  </value>
+  </data>
+  <data name="Profile_NameEmpty" xml:space="preserve">
+    <value>Il nome del profilo non può essere vuoto.                                                                                           </value>
+  </data>
+  <data name="Profile_Exists" xml:space="preserve">
+    <value>Il profilo "{0}" esiste già.                                                                                                        </value>
+  </data>
+  <data name="Profile_CannotDeleteDefault" xml:space="preserve">
+    <value>Impossibile eliminare il profilo "Profilo predefinito".                                                                             </value>
+  </data>
+  <data name="Profile_DoesNotExist" xml:space="preserve">
+    <value>Il profilo "{0}" non esiste.                                                                                                        </value>
+  </data>
+  <data name="Error_Title_Generic" xml:space="preserve">
+    <value>Errore                                                                                                                              </value>
+  </data>
+  <data name="Profile_EnterName" xml:space="preserve">
+    <value>Inserisci un nome per il nuovo profilo.                                                                                             </value>
+  </data>
+  <data name="Profile_CreatedAndActivated" xml:space="preserve">
+    <value>Profilo "{0}" creato e attivato.                                                                                                    </value>
+  </data>
+  <data name="Success_Title" xml:space="preserve">
+    <value>Operazione completata                                                                                                               </value>
+  </data>
+  <data name="Profile_CreateError_Title" xml:space="preserve">
+    <value>Errore creazione profilo                                                                                                            </value>
+  </data>
+  <data name="Profile_CreateError_Message" xml:space="preserve">
+    <value>Errore durante la creazione del profilo: {0}                                                                                        </value>
+  </data>
+  <data name="Profile_SelectToDelete" xml:space="preserve">
+    <value>Seleziona un profilo da eliminare.                                                                                                  </value>
+  </data>
+  <data name="Profile_ConfirmDeletion_Message" xml:space="preserve">
+    <value>Sei sicuro di voler eliminare il profilo "{0}"? Questa azione è irreversibile.                                                      </value>
+  </data>
+  <data name="Profile_ConfirmDeletion_Title" xml:space="preserve">
+    <value>Conferma eliminazione                                                                                                               </value>
+  </data>
+  <data name="Profile_Deleted" xml:space="preserve">
+    <value>Profilo "{0}" eliminato.                                                                                                            </value>
+  </data>
+  <data name="Profile_DeleteError_Title" xml:space="preserve">
+    <value>Errore eliminazione profilo                                                                                                         </value>
+  </data>
+  <data name="Profile_DeleteError_Message" xml:space="preserve">
+    <value>Errore durante l'eliminazione del profilo: {0}                                                                                      </value>
+  </data>
+  <data name="Profile_CalibrationProfiles" xml:space="preserve">
+    <value>Profili calibrazione                                                                                                                </value>
+  </data>
+  <data name="Profile_ActiveProfile" xml:space="preserve">
+    <value>Profilo Attivo:                                                                                                                     </value>
+  </data>
+  <data name="Profile_NewProfile" xml:space="preserve">
+    <value>Nuovo Profilo:                                                                                                                      </value>
+  </data>
+  <data name="Profile_CreateButton" xml:space="preserve">
+    <value>Crea Profilo                                                                                                                        </value>
+  </data>
+  <data name="Profile_DeleteButton" xml:space="preserve">
+    <value>Elimina Profilo                                                                                                                     </value>
+  </data>
+  <data name="Arrangement_RestartConfirmation_Message" xml:space="preserve">
+    <value>Hai cambiato la disposizione IR, è necessario riavviare Touchmote. Vuoi riavviare ora?                                              </value>
+  </data>
+  <data name="Arrangement_RestartConfirmation_Title" xml:space="preserve">
+    <value>Riavvia applicazione                                                                                                                </value>
+  </data>
+  <data name="dScale" xml:space="preserve">
+    <value>Scala                                                                                                                               </value>
+  </data>
+  <data name="dThreshold" xml:space="preserve">
+    <value>Soglia                                                                                                                              </value>
+  </data>
+  <data name="UpdateCheck_DownloadingUpdate" xml:space="preserve">
+    <value>Errore durante il download dell'aggiornatore: {0}</value>
+  </data>
+  <data name="UpdateCheck_NoInstallerFound" xml:space="preserve">
+    <value>Download completato in: {0}</value>
+  </data>
+  <data name="UpdateCheck_DownloadComplete" xml:space="preserve">
+    <value>Download dell'aggiornatore in corso: {0}</value>
+  </data>
+  <data name="UpdateCheck_DownloadError" xml:space="preserve">
+    <value>Errore durante l'avvio dell'installer: {0}</value>
+  </data>
+  <data name="UpdateCheck_InstallationError" xml:space="preserve">
+    <value>Nessun installer trovato nell'ultima release di GitHub.</value>
+  </data>
+  <data name="UpdateCheck_DownloadCancelled" xml:space="preserve">
+    <value>Download dell'aggiornatore annullato.</value>
+  </data>
+  <data name="UpdateCheck_ConfirmInstallationMessage" xml:space="preserve">
+    <value>L'aggiornamento è stato scaricato. Premi 'Sì' per chiudere Touchmote Enhanced e continuare con l'installazione, oppure 'Annulla' se non desideri aggiornare.</value>
+  </data>
+  <data name="UpdateCheck_ConfirmInstallationTitle" xml:space="preserve">
+    <value>Conferma Installazione</value>
+  </data>
+  <data name="UpdateCheck_InstallationCancelled" xml:space="preserve">
+    <value>Installazione dell'aggiornamento annullata dall'utente.</value>
   </data>
 </root>

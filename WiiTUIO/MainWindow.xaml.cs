@@ -107,7 +107,7 @@ namespace WiiTUIO
 
             Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture;
 
-            
+
 
             //Set highest priority on main process.
             Process currentProcess = Process.GetCurrentProcess();
@@ -304,11 +304,27 @@ namespace WiiTUIO
                     latestVersionTag = latestVersionTag.Substring(1); // Remove the initial 'v'
                 }
 
-                // Get the release URL for the user
-                string releaseHtmlUrl = githubRelease.Value<string>("html_url");
-                if (string.IsNullOrEmpty(releaseHtmlUrl))
+                // Get the assets array to find the executable
+                JArray assets = githubRelease.Value<JArray>("assets");
+                string installerDownloadUrl = null;
+
+                if (assets != null)
                 {
-                    releaseHtmlUrl = GitHubReleasesPageUrl; // Fallback to the general releases page
+                    // Look for an asset with a common executable extension
+                    // You might need to refine this based on your actual release asset names
+                    foreach (JObject asset in assets)
+                    {
+                        string assetName = asset.Value<string>("name");
+                        string downloadUrl = asset.Value<string>("browser_download_url");
+
+                        if (assetName != null && downloadUrl != null &&
+                            (assetName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase) ||
+                             assetName.EndsWith(".msi", StringComparison.OrdinalIgnoreCase))) // Consider .msi if you use installers
+                        {
+                            installerDownloadUrl = downloadUrl;
+                            break; // Found the first executable, take it
+                        }
+                    }
                 }
 
                 Version latestVersion = new Version(latestVersionTag);
@@ -316,7 +332,6 @@ namespace WiiTUIO
                 // Compare versions
                 if (latestVersion > currentVersion)
                 {
-                    // Hay una nueva versión disponible
                     Dispatcher.Invoke(() => {
                         MessageBoxResult dialogResult = MessageBox.Show(
                             string.Format(UpdateCheck_NewVersionAvailable_Message, latestVersion.ToString()),
@@ -327,8 +342,24 @@ namespace WiiTUIO
 
                         if (dialogResult == MessageBoxResult.Yes)
                         {
-                            // Abre la URL en el navegador predeterminado
-                            Process.Start(new ProcessStartInfo(releaseHtmlUrl) { UseShellExecute = true });
+                            if (!string.IsNullOrEmpty(installerDownloadUrl))
+                            {
+                                ShowMessage(string.Format(UpdateCheck_DownloadingUpdate, Path.GetFileName(installerDownloadUrl)), MessageType.Info);
+                                // Show download progress UI elements
+                                if (downloadProgressPanel != null)
+                                {
+                                    downloadProgressPanel.Visibility = Visibility.Visible;
+                                }
+
+                                // Start download on a new thread to avoid blocking UI
+                                Task.Run(() => DownloadAndInstallUpdate(installerDownloadUrl));
+                            }
+                            else
+                            {
+                                ShowMessage(UpdateCheck_NoInstallerFound, MessageType.Error);
+                                // Fallback to opening the releases page if no installer URL is found
+                                Process.Start(new ProcessStartInfo(GitHubReleasesPageUrl) { UseShellExecute = true });
+                            }
                         }
                     });
                 }
@@ -367,6 +398,133 @@ namespace WiiTUIO
                 ShowMessage(string.Format(UpdateCheck_UnexpectedError, e.Message), MessageType.Error);
             }
         }
+
+        /// <summary>
+        /// Downloads the installer and launches it.
+        /// </summary>
+        /// <param name="downloadUrl">The URL of the installer to download.</param>
+        private void DownloadAndInstallUpdate(string downloadUrl)
+        {
+            try
+            {
+                string fileName = Path.GetFileName(downloadUrl);
+                string downloadPath = Path.Combine(Path.GetTempPath(), fileName); // Download to temp directory
+
+                using (WebClient client = new WebClient())
+                {
+                    // Add User-Agent header for GitHub downloads
+                    client.Headers.Add("User-Agent", "TouchmoteAppUpdater");
+
+                    // Hook up progress and completion events
+                    client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
+                    client.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(DownloadFileCompleted);
+
+                    // Start the asynchronous download
+                    client.DownloadFileAsync(new Uri(downloadUrl), downloadPath, downloadPath); // UserState will be downloadPath
+                }
+            }
+            catch (Exception e)
+            {
+                ShowMessage(string.Format(UpdateCheck_DownloadError, e.Message), MessageType.Error);
+                // Hide download progress UI elements in case of immediate error
+                Dispatcher.Invoke(() => {
+                    if (downloadProgressPanel != null)
+                    {
+                        downloadProgressPanel.Visibility = Visibility.Collapsed;
+                    }
+                });
+            }
+        }
+
+        /// <summary>
+        /// Handles the progress of the file download.
+        /// </summary>
+        private void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                // Update your ProgressBar
+                if (downloadProgressBar != null)
+                {
+                    downloadProgressBar.Value = e.ProgressPercentage;
+                }
+                if (downloadProgressText != null)
+                {
+                    downloadProgressText.Text = $"{e.ProgressPercentage}%";
+                }
+                ShowMessage($"Descargando actualizador: {e.ProgressPercentage}%", MessageType.Info);
+            });
+        }
+
+        /// <summary>
+        /// Handles the completion of the file download.
+        /// </summary>
+        private void DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                // Hide download progress UI elements
+                if (downloadProgressPanel != null)
+                {
+                    downloadProgressPanel.Visibility = Visibility.Collapsed;
+                }
+            });
+
+            if (e.Cancelled)
+            {
+                ShowMessage(UpdateCheck_DownloadCancelled, MessageType.Warning);
+                return;
+            }
+
+            if (e.Error != null)
+            {
+                ShowMessage(string.Format(UpdateCheck_DownloadError, e.Error.Message), MessageType.Error);
+                return;
+            }
+
+            // The userState contains the downloadPath as set in DownloadFileAsync
+            string downloadPath = e.UserState as string;
+
+            if (string.IsNullOrEmpty(downloadPath))
+            {
+                ShowMessage(UpdateCheck_InstallationError + " (ruta de descarga no encontrada)", MessageType.Error);
+                return;
+            }
+
+            try
+            {
+                // Show confirmation dialog before closing and launching installer
+                Dispatcher.Invoke(() =>
+                {
+                    MessageBoxResult dialogResult = MessageBox.Show(
+                        UpdateCheck_ConfirmInstallationMessage, // New localized string
+                        UpdateCheck_ConfirmInstallationTitle, // New localized string
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question
+                    );
+
+                    if (dialogResult == MessageBoxResult.Yes)
+                    {
+                        ShowMessage(string.Format(UpdateCheck_DownloadComplete, downloadPath), MessageType.Info);
+
+                        // Launch the installer
+                        Process.Start(new ProcessStartInfo(downloadPath) { UseShellExecute = true });
+
+                        // Close the current application on the UI thread
+                        Application.Current.Shutdown();
+                    }
+                    else
+                    {
+                        ShowMessage(UpdateCheck_InstallationCancelled, MessageType.Info); // New localized string
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                ShowMessage(string.Format(UpdateCheck_InstallationError, ex.Message), MessageType.Error);
+            }
+        }
+
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {

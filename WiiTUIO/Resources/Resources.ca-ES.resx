@@ -117,7 +117,910 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AdvConfigTitle" xml:space="preserve">
+    <value>Configuració Avançada</value>
+  </data>
+  <data name="Battery" xml:space="preserve">
+    <value>Bateria: </value>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>Connectat</value>
+  </data>
+  <data name="ConnectOnStart" xml:space="preserve">
+    <value>Connectar a l'inici</value>
+  </data>
+  <data name="DisconnectWiimotesOnDolphin" xml:space="preserve">
+    <value>Desconnectar Wiimotes a l'inici de Dolphin</value>
+  </data>
+  <data name="DolphinPath" xml:space="preserve">
+    <value>Ruta de Dolphin:</value>
+  </data>
+  <data name="GlobalConf" xml:space="preserve">
+    <value>Configuració General</value>
+  </data>
+  <data name="Configuración de Keymaps:" xml:space="preserve">
+    <value>Configuració de Keymaps:</value>
+  </data>
+  <data name="KeymapsPath" xml:space="preserve">
+    <value>Ruta de Keymaps:</value>
+  </data>
+  <data name="menuExit" xml:space="preserve">
+    <value>Sortir</value>
+  </data>
+  <data name="NotificationsEnabled" xml:space="preserve">
+    <value>Habilita notificacions</value>
+  </data>
+  <data name="NoTopmost" xml:space="preserve">
+    <value>No mantenir la finestra sempre a sobre</value>
+  </data>
+  <data name="PrimaryMonitor" xml:space="preserve">
+    <value>Monitor Principal:</value>
+  </data>
+  <data name="SaveAndReboot" xml:space="preserve">
+    <value>Desa i Reinicia Touchmote</value>
+  </data>
+  <data name="TouchmoteAbout1" xml:space="preserve">
+    <value>Touchmote proporciona una manera d'actuar com un o diversos Wiimotes com a dispositiu multi-tàctil i comandament de joc.</value>
+  </data>
+  <data name="TouchmoteAbout2" xml:space="preserve">
+    <value>Gràcies a Symphax per la creació d'aquesta meravellosa aplicació que ha donat una segona vida als nostres Wiimotes, a Ryochan pels seus millores i a Suegrini per afegir la capacitat d'usar 4 LED IR per a una major precisió. Aquesta versió continua aquest treball i afegeix millores a la disposició en rombe dels LED IR.</value>
+  </data>
+  <data name="TrayBalloonTip" xml:space="preserve">
+    <value>Premeu per editar els paràmetres de Touchmote</value>
+  </data>
+  <data name="AutoDisconnectTimeout" xml:space="preserve">
+    <value>Temps de desconnexió automàtica (ms):</value>
+  </data>
+  <data name="DefaultContinousScale" xml:space="preserve">
+    <value>Escala contínua predeterminada:</value>
+  </data>
+  <data name="DefaultContinousPressThreshold" xml:space="preserve">
+    <value>Llindar de pressió contínua predeterminat:</value>
+  </data>
+  <data name="DefaultContinousDeadzone" xml:space="preserve">
+    <value>Zona morta continua predeterminada:</value>
+  </data>
+  <data name="PointerConfigHeaderText" xml:space="preserve">
+    <value>Configuració del Punter</value>
+  </data>
+  <data name="PointerSensorBarPosCompensation" xml:space="preserve">
+    <value>Compensació de posició de la barra sensor:</value>
+  </data>
+  <data name="PointerCursorSize" xml:space="preserve">
+    <value>Mida del cursor del punter:</value>
+  </data>
+  <data name="PointerMarginsTopBottom" xml:space="preserve">
+    <value>Marges superior/inferior del punter:</value>
+  </data>
+  <data name="PointerMarginsLeftRight" xml:space="preserve">
+    <value>Marges esquerre/dret del punter:</value>
+  </data>
+  <data name="PointerFPS" xml:space="preserve">
+    <value>Punter FPS:</value>
+  </data>
+  <data name="PointerPositionSmoothing" xml:space="preserve">
+    <value>Suavitzat de la Posició del Punter:</value>
+  </data>
+  <data name="PointerPositionRadius" xml:space="preserve">
+    <value>Radi de posició del punter:</value>
+  </data>
+  <data name="TestConfigHeader" xml:space="preserve">
+    <value>Configuració de Prova</value>
+  </data>
+  <data name="TestDeltaAccel" xml:space="preserve">
+    <value>Habilita Acceleració Delta de Prova:</value>
+  </data>
+  <data name="TestDeltaAccelMulti" xml:space="preserve">
+    <value>Multiplicador d'acceleració delta de prova:</value>
+  </data>
+  <data name="TestDeltaAccelMinTravel" xml:space="preserve">
+    <value>Desplaçament mínim d'acceleració delta de prova:</value>
+  </data>
+  <data name="TestDeltaAccelEasingDuration" xml:space="preserve">
+    <value>Durada de suavitzat d'acceleració delta de prova:</value>
+  </data>
+  <data name="TestRegionEasingXDuration" xml:space="preserve">
+    <value>Durada de suavitzat de regió X de prova:</value>
+  </data>
+  <data name="TestDeltaAccelMaxTravel" xml:space="preserve">
+    <value>Desplaçament màxim d'acceleració delta de prova:</value>
+  </data>
+  <data name="TestRegionEasingXOffset" xml:space="preserve">
+    <value>Desplaçament de regió X de prova:</value>
+  </data>
+  <data name="TestSmoothingWeight" xml:space="preserve">
+    <value>Pes de suavitzat de prova:</value>
+  </data>
+  <data name="TestFpsmouseOffset" xml:space="preserve">
+    <value>Desplaçament del ratolí FPS de prova:</value>
+  </data>
+  <data name="CalibrationMarginX" xml:space="preserve">
+    <value>Marge de Calibratge X:</value>
+  </data>
+  <data name="CalibrationMarginY" xml:space="preserve">
+    <value>Marge de Calibratge Y:</value>
+  </data>
+  <data name="TestLightgunOneeuroMincutoff" xml:space="preserve">
+    <value>Tall mínim d'One Euro de pistola de llum:</value>
+  </data>
+  <data name="TestLightgunOneeuroBeta" xml:space="preserve">
+    <value>Beta d'One Euro de pistola de llum:</value>
+  </data>
+  <data name="FpsmouseDeadzone" xml:space="preserve">
+    <value>Zona morta del ratolí FPS:</value>
+  </data>
+  <data name="FpsmouseSpeed" xml:space="preserve">
+    <value>Velocitat del ratolí FPS:</value>
+  </data>
+  <data name="ShakeTitle" xml:space="preserve">
+    <value>Configuració de Sacsejada</value>
+  </data>
+  <data name="ShakeThreshold" xml:space="preserve">
+    <value>Llindar de Sacsejada:</value>
+  </data>
+  <data name="ShakeCount" xml:space="preserve">
+    <value>Comptador de Sacsejada:</value>
+  </data>
+  <data name="ShakeMaxTimeInBetween" xml:space="preserve">
+    <value>Temps màxim entre sacsejades (ms):</value>
+  </data>
+  <data name="ShakePressedTime" xml:space="preserve">
+    <value>Temps de pressió de sacsejada (ms):</value>
+  </data>
+  <data name="RumbleXinputTitle" xml:space="preserve">
+    <value>Configuració de vibració XInput</value>
+  </data>
+  <data name="XinputRumbleThresholdBig" xml:space="preserve">
+    <value>Llindar de vibració gran XInput:</value>
+  </data>
+  <data name="XinputRumbleThresholdSmall" xml:space="preserve">
+    <value>Llindar de vibració petita XInput:</value>
+  </data>
+  <data name="SoundAndRumbleTitle" xml:space="preserve">
+    <value>Configuració de Vibració i So Wiimote</value>
+  </data>
+  <data name="WiimoteRumbleTimeShort" xml:space="preserve">
+    <value>Temps de vibració curta (ms):</value>
+  </data>
+  <data name="WiimoteRumbleTimeLong" xml:space="preserve">
+    <value>Temps de vibració llarga (ms):</value>
+  </data>
+  <data name="WiimodeRumbleTimeAlternatingOn" xml:space="preserve">
+    <value>Temps de vibració alternant ON (ms):</value>
+  </data>
+  <data name="WiimodeRumbleTimeAlternatingOff" xml:space="preserve">
+    <value>Temps de vibració alternant OFF (ms):</value>
+  </data>
+  <data name="WiimodeLoopSoundTime" xml:space="preserve">
+    <value>Temps de so de bucle (ms):</value>
+  </data>
+  <data name="IDTitle" xml:space="preserve">
+    <value>Configuració de Colors dels ID dels Wiimotes</value>
+  </data>
+  <data name="ColorID1" xml:space="preserve">
+    <value>Color ID 1 (R, G, B):</value>
+  </data>
+  <data name="ColorID2" xml:space="preserve">
+    <value>Color ID 2 (R, G, B):</value>
+  </data>
+  <data name="ColorID3" xml:space="preserve">
+    <value>Color ID 3 (R, G, B):</value>
+  </data>
+  <data name="ColorID4" xml:space="preserve">
+    <value>Color ID 4 (R, G, B):</value>
+  </data>
+  <data name="KeymapsConfig" xml:space="preserve">
+    <value>Fitxer de Config. Keymaps:</value>
+  </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>Paràmetres de Touchmote</value>
+  </data>
+  <data name="WindowsStart" xml:space="preserve">
+    <value>Iniciar Touchmote amb Windows</value>
+  </data>
+  <data name="pairOnStart" xml:space="preserve">
+    <value>Aparellar a l'inici</value>
+  </data>
+  <data name="DisconnectOnExit" xml:space="preserve">
+    <value>Desconnectar tots els wiimotes en sortir</value>
+  </data>
+  <data name="MinimizeToTray" xml:space="preserve">
+    <value>Minimitza a la safata</value>
+  </data>
+  <data name="MinimizeOnStart" xml:space="preserve">
+    <value>Iniciar minimitzat</value>
+  </data>
+  <data name="EditKeymaps" xml:space="preserve">
+    <value>Configuració del comandament</value>
+  </data>
+  <data name="connectedCount" xml:space="preserve">
+    <value>0 Wiimotes Connectats</value>
+  </data>
+  <data name="pairWiimote" xml:space="preserve">
+    <value>Aparellant...</value>
+  </data>
+  <data name="PressSyncPart1" xml:space="preserve">
+    <value>Premeu SYNC</value>
+  </data>
+  <data name="PressSyncPart2" xml:space="preserve">
+    <value> per connexió permanent o 1+2 per connexió temporal.</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Intenta-ho de nou, company</value>
+  </data>
+  <data name="WiimoteComp" xml:space="preserve">
+    <value>Almenys un dels vostres Wiimotes no és compatible amb la pila Bluetooth de Microsoft, useu només Wiimotes fabricats abans de Novembre de 2011 o seguiu les instruccions a </value>
+  </data>
+  <data name="ThisPage" xml:space="preserve">
+    <value>aquesta pàgina</value>
+  </data>
+  <data name="PairWiimotes" xml:space="preserve">
+    <value>Aparellar Wiimotes</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Fet</value>
+  </data>
+  <data name="OneWiimoteConnected" xml:space="preserve">
+    <value>Un Wiimote connectat</value>
+  </data>
+  <data name="WiimotesConnected" xml:space="preserve">
+    <value> Wiimotes Connectats</value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>Escanejant...</value>
+  </data>
+  <data name="TClosing" xml:space="preserve">
+    <value>Tancant...</value>
+  </data>
+  <data name="Layout" xml:space="preserve">
+    <value>Disseny canviat a</value>
+  </data>
+  <data name="ChooseLayout" xml:space="preserve">
+    <value>Trieu disseny</value>
+  </data>
+  <data name="ChooseWiimoteLayout" xml:space="preserve">
+    <value>Trieu un disseny per al wiimote </value>
+  </data>
+  <data name="RestartError" xml:space="preserve">
+    <value>Error reiniciant l'aplicació {0}</value>
+  </data>
+  <data name="DolphinFolder" xml:space="preserve">
+    <value>Seleccioneu la carpeta de Dolphin</value>
+  </data>
+  <data name="KeymapsFolder" xml:space="preserve">
+    <value>Seleccioneu la carpeta Keymaps</value>
+  </data>
+  <data name="KeymapsConfigSelect" xml:space="preserve">
+    <value>Seleccioneu el fitxer de configuració Keymaps</value>
+  </data>
+  <data name="insText2" xml:space="preserve">
+    <value>apunteu als objectius i premeu A o B per calibrar</value>
+  </data>
+  <data name="AimButtomRight" xml:space="preserve">
+    <value>Apunteu a la cantonada INFERIOR DRETA i premeu A o B per calibrar</value>
+  </data>
+  <data name="AimCenter" xml:space="preserve">
+    <value>Apunteu a l'objectiu CENTRAL i premeu A o B per calibrar</value>
+  </data>
+  <data name="AimTargets" xml:space="preserve">
+    <value>apunteu als objectius i premeu A o B per calibrar</value>
+  </data>
+  <data name="AimTopCenter" xml:space="preserve">
+    <value>Apunteu a l'objectiu SUPERIOR central i premeu A o B per calibrar</value>
+  </data>
+  <data name="AimTopLeft" xml:space="preserve">
+    <value>Apunteu a la cantonada SUPERIOR ESQUERRA i premeu A o B per calibrar</value>
+  </data>
+  <data name="AimButtomCenter" xml:space="preserve">
+    <value>Apunteu a l'objectiu INFERIOR central i premeu A o B per calibrar</value>
+  </data>
+  <data name="AimConfirm" xml:space="preserve">
+    <value>Premeu A per confirmar la calibratge, premeu B per reiniciar la calibratge</value>
+  </data>
+  <data name="AimLeftCenter" xml:space="preserve">
+    <value>Apunteu a l'objectiu ESQUERRÀ central i premeu A o B per calibrar</value>
+  </data>
+  <data name="AimRightCenter" xml:space="preserve">
+    <value>Apunteu a l'objectiu DRET central i premeu A o B per calibrar</value>
+  </data>
+  <data name="HoldDown" xml:space="preserve">
+    <value>Mantingueu premut</value>
+  </data>
+  <data name="NoSensors" xml:space="preserve">
+    <value>No es troben sensors. Assegureu-vos d'estar a la distància adequada i apuntant a la pantalla.</value>
+  </data>
+  <data name="ReleaseText" xml:space="preserve">
+    <value>Deixeu anar</value>
+  </data>
+  <data name="AimConfig" xml:space="preserve">
+    <value>Configuració de punteria</value>
+  </data>
+  <data name="SensorMode" xml:space="preserve">
+    <value>Mode Sensor</value>
+  </data>
+  <data name="2IRCentered" xml:space="preserve">
+    <value>2IR: Centrat</value>
+  </data>
+  <data name="2IRTop" xml:space="preserve">
+    <value>2IR: Amunt</value>
+  </data>
   <data name="2IRBottom" xml:space="preserve">
     <value>2IR: a baix</value>
+  </data>
+  <data name="4IRSquare" xml:space="preserve">
+    <value>4IR: Quadrat</value>
+  </data>
+  <data name="4IRDiamond" xml:space="preserve">
+    <value>4IR: Rombe</value>
+  </data>
+  <data name="tbName" xml:space="preserve">
+    <value>Predeterminat</value>
+  </data>
+  <data name="tbDefault" xml:space="preserve">
+    <value>Predeterminat</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>Sobre</value>
+  </data>
+  <data name="SettingsBut" xml:space="preserve">
+    <value>Config.</value>
+  </data>
+  <data name="KeymapConfigTitle" xml:space="preserve">
+    <value>Configuració del comandament</value>
+  </data>
+  <data name="KeyMapLayout" xml:space="preserve">
+    <value>Disseny</value>
+  </data>
+  <data name="EditLayout" xml:space="preserve">
+    <value>Editar Disseny</value>
+  </data>
+  <data name="KeyMapDel" xml:space="preserve">
+    <value>Esborra</value>
+  </data>
+  <data name="cbLayoutChooser" xml:space="preserve">
+    <value>Disponible en selector de disseny (manteniu Home 3 segons)</value>
+  </data>
+  <data name="AppLink" xml:space="preserve">
+    <value>Enllaçar a l'aplicació</value>
+  </data>
+  <data name="GamepadsLabel" xml:space="preserve">
+    <value>Comandaments</value>
+  </data>
+  <data name="btnAll" xml:space="preserve">
+    <value>Tots</value>
+  </data>
+  <data name="rbOnscreen" xml:space="preserve">
+    <value>A la pantalla</value>
+  </data>
+  <data name="rbOffscreen" xml:space="preserve">
+    <value>Fora de pantalla</value>
+  </data>
+  <data name="ClassicGamepad" xml:space="preserve">
+    <value>Comandament Clàssic</value>
+  </data>
+  <data name="OutputsLabel" xml:space="preserve">
+    <value>Sortides</value>
+  </data>
+  <data name="cbiAll" xml:space="preserve">
+    <value>Totes</value>
+  </data>
+  <data name="cbiKeyboard" xml:space="preserve">
+    <value>Teclat</value>
+  </data>
+  <data name="cbiMouse" xml:space="preserve">
+    <value>Ratolí</value>
+  </data>
+  <data name="cbi360" xml:space="preserve">
+    <value>Comandament de Xbox 360</value>
+  </data>
+  <data name="cbiWiimote" xml:space="preserve">
+    <value>Wiimote</value>
+  </data>
+  <data name="cbiCursor" xml:space="preserve">
+    <value>Cursor</value>
+  </data>
+  <data name="cbiOther" xml:space="preserve">
+    <value>Altres</value>
+  </data>
+  <data name="tbOutputFilter" xml:space="preserve">
+    <value>Filtre de sortides</value>
+  </data>
+  <data name="tbKeymapTitle" xml:space="preserve">
+    <value>Títol</value>
+  </data>
+  <data name="tDisableKey" xml:space="preserve">
+    <value>Deshabilitat</value>
+  </data>
+  <data name="tPointer" xml:space="preserve">
+    <value>Punter</value>
+  </data>
+  <data name="tPointerXminus" xml:space="preserve">
+    <value>Punter Esquerre</value>
+  </data>
+  <data name="tPointerXplus" xml:space="preserve">
+    <value>Punter Dret</value>
+  </data>
+  <data name="tPointerYminus" xml:space="preserve">
+    <value>Punter Amunt</value>
+  </data>
+  <data name="tPointerYplus" xml:space="preserve">
+    <value>Punter Avall</value>
+  </data>
+  <data name="tLeft" xml:space="preserve">
+    <value>Esquerra</value>
+  </data>
+  <data name="tRight" xml:space="preserve">
+    <value>Dret</value>
+  </data>
+  <data name="tUp" xml:space="preserve">
+    <value>Amunt</value>
+  </data>
+  <data name="tDown" xml:space="preserve">
+    <value>Avall</value>
+  </data>
+  <data name="tPlus" xml:space="preserve">
+    <value>Més (+)</value>
+  </data>
+  <data name="tMinus" xml:space="preserve">
+    <value>Menys (-)</value>
+  </data>
+  <data name="tOne" xml:space="preserve">
+    <value>Un (1)</value>
+  </data>
+  <data name="tTwo" xml:space="preserve">
+    <value>Dos (1)</value>
+  </data>
+  <data name="tTiltXMinus" xml:space="preserve">
+    <value>Inclinació x -</value>
+  </data>
+  <data name="tTiltXPlus" xml:space="preserve">
+    <value>Inclinació x +</value>
+  </data>
+  <data name="tTiltYMinus" xml:space="preserve">
+    <value>Inclinació y -</value>
+  </data>
+  <data name="tTiltYPlus" xml:space="preserve">
+    <value>Inclinació y +</value>
+  </data>
+  <data name="tTiltZMinus" xml:space="preserve">
+    <value>Inclinació Z -</value>
+  </data>
+  <data name="tTiltZPlus" xml:space="preserve">
+    <value>Inclinació Z +</value>
+  </data>
+  <data name="tShake" xml:space="preserve">
+    <value>Sacseja</value>
+  </data>
+  <data name="tExtension" xml:space="preserve">
+    <value>Extensió</value>
+  </data>
+  <data name="tStickLeft" xml:space="preserve">
+    <value>Stick esquerre</value>
+  </data>
+  <data name="tStickRight" xml:space="preserve">
+    <value>Stick dret</value>
+  </data>
+  <data name="tStickUp" xml:space="preserve">
+    <value>Stick Amunt</value>
+  </data>
+  <data name="tStickDown" xml:space="preserve">
+    <value>Stick Avall</value>
+  </data>
+  <data name="tStickRotationPlus" xml:space="preserve">
+    <value>Rotació de Stick (+)</value>
+  </data>
+  <data name="tStickRotationMinus" xml:space="preserve">
+    <value>Rotació de Stick (-)</value>
+  </data>
+  <data name="tStickLLeft" xml:space="preserve">
+    <value>Stick esquerre esquerra</value>
+  </data>
+  <data name="tStickLRight" xml:space="preserve">
+    <value>Stick esquerre dreta</value>
+  </data>
+  <data name="tStickLUp" xml:space="preserve">
+    <value>Stick esquerre amunt</value>
+  </data>
+  <data name="tStickLDown" xml:space="preserve">
+    <value>Stick esquerre avall</value>
+  </data>
+  <data name="tStickRLeft" xml:space="preserve">
+    <value>Stick dret esquerra</value>
+  </data>
+  <data name="tStickRRight" xml:space="preserve">
+    <value>Stick dret dreta</value>
+  </data>
+  <data name="tStickRUp" xml:space="preserve">
+    <value>Stick dret amunt</value>
+  </data>
+  <data name="tStickRDown" xml:space="preserve">
+    <value>Stick dret avall</value>
+  </data>
+  <data name="tTriggerL" xml:space="preserve">
+    <value>Gatell Esquerre</value>
+  </data>
+  <data name="tTriggerR" xml:space="preserve">
+    <value>Gatell Dret</value>
+  </data>
+  <data name="tL" xml:space="preserve">
+    <value>Gatell Esquerre Premut</value>
+  </data>
+  <data name="tR" xml:space="preserve">
+    <value>Gatell Dret Premut</value>
+  </data>
+  <data name="tMouse" xml:space="preserve">
+    <value>Ratolí</value>
+  </data>
+  <data name="tFPSMouse" xml:space="preserve">
+    <value>Ratolí FPS</value>
+  </data>
+  <data name="tLightgunMouse" xml:space="preserve">
+    <value>Ratolí Pistola de Llum</value>
+  </data>
+  <data name="tMouseLeftB" xml:space="preserve">
+    <value>Botó esquerre del ratolí</value>
+  </data>
+  <data name="tMouseMiddleB" xml:space="preserve">
+    <value>Botó central del ratolí</value>
+  </data>
+  <data name="tMouseRightB" xml:space="preserve">
+    <value>Gatell Dret Botó</value>
+  </data>
+  <data name="tMouseWheelUp" xml:space="preserve">
+    <value>Roda del ratolí amunt</value>
+  </data>
+  <data name="tMouseWheelDown" xml:space="preserve">
+    <value>Roda del ratolí avall</value>
+  </data>
+  <data name="tMouseRight" xml:space="preserve">
+    <value>Mov. Ratolí dreta</value>
+  </data>
+  <data name="tMouseUp" xml:space="preserve">
+    <value>Mov. Ratolí amunt</value>
+  </data>
+  <data name="tMouseLeft" xml:space="preserve">
+    <value>Mov. Ratolí esquerra</value>
+  </data>
+  <data name="tMouseDown" xml:space="preserve">
+    <value>Mov. Ratolí avall</value>
+  </data>
+  <data name="tMouseExtra1" xml:space="preserve">
+    <value>Botó 1 extra del ratolí</value>
+  </data>
+  <data name="tMouseExtra2" xml:space="preserve">
+    <value>Botó 2 extra del ratolí</value>
+  </data>
+  <data name="tBack" xml:space="preserve">
+    <value>Enrere</value>
+  </data>
+  <data name="tReturn" xml:space="preserve">
+    <value>Retorn</value>
+  </data>
+  <data name="tShift" xml:space="preserve">
+    <value>Majúscules</value>
+  </data>
+  <data name="tPause" xml:space="preserve">
+    <value>Pausa</value>
+  </data>
+  <data name="tCapsLock" xml:space="preserve">
+    <value>Bloqueig Maj.</value>
+  </data>
+  <data name="tSpace" xml:space="preserve">
+    <value>Espai</value>
+  </data>
+  <data name="tPagUp" xml:space="preserve">
+    <value>Pàg. Amunt</value>
+  </data>
+  <data name="tPagDown" xml:space="preserve">
+    <value>Pàg. Avall</value>
+  </data>
+  <data name="tEnd" xml:space="preserve">
+    <value>Fi</value>
+  </data>
+  <data name="tHome" xml:space="preserve">
+    <value>Inici</value>
+  </data>
+  <data name="tNumLeft" xml:space="preserve">
+    <value>Numpad Esquerra</value>
+  </data>
+  <data name="tNumUp" xml:space="preserve">
+    <value>Numpad Amunt</value>
+  </data>
+  <data name="tNumRight" xml:space="preserve">
+    <value>Numpad Dreta</value>
+  </data>
+  <data name="tNumDown" xml:space="preserve">
+    <value>Numpad avall</value>
+  </data>
+  <data name="tPrintScreen" xml:space="preserve">
+    <value>Imprimeix Pantalla</value>
+  </data>
+  <data name="tInsert" xml:space="preserve">
+    <value>Inseriu</value>
+  </data>
+  <data name="tDel" xml:space="preserve">
+    <value>Suprimeix</value>
+  </data>
+  <data name="tPeriod" xml:space="preserve">
+    <value>Punt (.)</value>
+  </data>
+  <data name="tComma" xml:space="preserve">
+    <value>Coma (,)</value>
+  </data>
+  <data name="tLWin" xml:space="preserve">
+    <value>Win Esquerre</value>
+  </data>
+  <data name="tRWin" xml:space="preserve">
+    <value>Win Dret</value>
+  </data>
+  <data name="tMultiply" xml:space="preserve">
+    <value>Multiplica (*)</value>
+  </data>
+  <data name="tAdd" xml:space="preserve">
+    <value>Afegeix (+)</value>
+  </data>
+  <data name="tSubtract" xml:space="preserve">
+    <value>Resta (-)</value>
+  </data>
+  <data name="tDecimal" xml:space="preserve">
+    <value>Decimal (.)</value>
+  </data>
+  <data name="tDivide" xml:space="preserve">
+    <value>Divideix (/)</value>
+  </data>
+  <data name="tNumlock" xml:space="preserve">
+    <value>Bloq. Numèric</value>
+  </data>
+  <data name="tLShift" xml:space="preserve">
+    <value>Majús. Esquerre</value>
+  </data>
+  <data name="tRShift" xml:space="preserve">
+    <value>Majús. Dret</value>
+  </data>
+  <data name="tLControl" xml:space="preserve">
+    <value>Control esquerre</value>
+  </data>
+  <data name="tRControl" xml:space="preserve">
+    <value>Control dret</value>
+  </data>
+  <data name="tLAlt" xml:space="preserve">
+    <value>Alt Esquerre</value>
+  </data>
+  <data name="tRAlt" xml:space="preserve">
+    <value>Alt Dret</value>
+  </data>
+  <data name="tBrowserBack" xml:space="preserve">
+    <value>Navegador enrere</value>
+  </data>
+  <data name="tBrowserForward" xml:space="preserve">
+    <value>Navegador endavant</value>
+  </data>
+  <data name="tBrowserRefresh" xml:space="preserve">
+    <value>Actualització del navegador</value>
+  </data>
+  <data name="tBrowserStop" xml:space="preserve">
+    <value>Aturada del navegador</value>
+  </data>
+  <data name="tBrowserSearch" xml:space="preserve">
+    <value>Cerca del navegador</value>
+  </data>
+  <data name="tBrowserFavorites" xml:space="preserve">
+    <value>Preferits del navegador</value>
+  </data>
+  <data name="tBrowserHome" xml:space="preserve">
+    <value>Inici del Navegador</value>
+  </data>
+  <data name="tVolumeMute" xml:space="preserve">
+    <value>Silencia el volum</value>
+  </data>
+  <data name="tVolumeUp" xml:space="preserve">
+    <value>Volum +</value>
+  </data>
+  <data name="tVolumeDown" xml:space="preserve">
+    <value>Volum -</value>
+  </data>
+  <data name="tNextTrack" xml:space="preserve">
+    <value>Pista següent</value>
+  </data>
+  <data name="tPrevTrack" xml:space="preserve">
+    <value>Pista anterior</value>
+  </data>
+  <data name="tStop" xml:space="preserve">
+    <value>Atura</value>
+  </data>
+  <data name="tPlayPause" xml:space="preserve">
+    <value>Reprodueix/Pausa</value>
+  </data>
+  <data name="tStart" xml:space="preserve">
+    <value>Inici</value>
+  </data>
+  <data name="tGuide" xml:space="preserve">
+    <value>Guia</value>
+  </data>
+  <data name="tStickLPress" xml:space="preserve">
+    <value>Prem Stick esquerre</value>
+  </data>
+  <data name="tStickRPress" xml:space="preserve">
+    <value>Prem Stick Dret</value>
+  </data>
+  <data name="tStickLLight" xml:space="preserve">
+    <value>Stick Esq. Pistola de Llum</value>
+  </data>
+  <data name="tStickLLight43" xml:space="preserve">
+    <value>Stick Esq. Pistola de Llum 4:3</value>
+  </data>
+  <data name="tStickLCenter" xml:space="preserve">
+    <value>Stick Esquerre Centre</value>
+  </data>
+  <data name="tStickRLight" xml:space="preserve">
+    <value>Stick Drt. Pistola de Llum</value>
+  </data>
+  <data name="tStickRLight43" xml:space="preserve">
+    <value>Stick Drt. Pistola de Llum 4:3</value>
+  </data>
+  <data name="tStickRCenter" xml:space="preserve">
+    <value>Stick Dret Centre</value>
+  </data>
+  <data name="tBumperL" xml:space="preserve">
+    <value>Bumper esquerre</value>
+  </data>
+  <data name="tBumperR" xml:space="preserve">
+    <value>Bumper dret</value>
+  </data>
+  <data name="tPressCursor" xml:space="preserve">
+    <value>Pressió del cursor</value>
+  </data>
+  <data name="tShortRumble" xml:space="preserve">
+    <value>Vibració curta</value>
+  </data>
+  <data name="tLongRumble" xml:space="preserve">
+    <value>Vibració llarga</value>
+  </data>
+  <data name="tRumbleHold" xml:space="preserve">
+    <value>Mantenir vibració</value>
+  </data>
+  <data name="tRumbleAlt" xml:space="preserve">
+    <value>Vibració alternança</value>
+  </data>
+  <data name="tSound1" xml:space="preserve">
+    <value>So 1</value>
+  </data>
+  <data name="tSound2" xml:space="preserve">
+    <value>So 2</value>
+  </data>
+  <data name="tSoundLoop" xml:space="preserve">
+    <value>Bucle de so</value>
+  </data>
+  <data name="UpdateCheck_LatestVersion" xml:space="preserve">
+    <value>Esteu utilitzant l'última versió disponible.</value>
+  </data>
+  <data name="UpdateCheck_ApiError" xml:space="preserve">
+    <value>Error de l'API de GitHub ({0}): {1}</value>
+  </data>
+  <data name="UpdateCheck_ConnectionError" xml:space="preserve">
+    <value>Error de connexió en verificar actualitzacions: {0}</value>
+  </data>
+  <data name="UpdateCheck_JsonError" xml:space="preserve">
+    <value>Error en llegir la resposta JSON de GitHub: {0}</value>
+  </data>
+  <data name="UpdateCheck_UnexpectedError" xml:space="preserve">
+    <value>Error inesperat en verificar actualitzacions: {0}</value>
+  </data>
+  <data name="UpdateCheck_NewVersionAvailable_Message" xml:space="preserve">
+    <value>Hi ha disponible una nova versió ({0}), voleu descarregar-la i instal·lar-la?</value>
+  </data>
+  <data name="UpdateCheck_NewVersionAvailable_Title" xml:space="preserve">
+    <value>Actualització Disponible</value>
+  </data>
+  <data name="UpdateCheck_InitialCheckError" xml:space="preserve">
+    <value>Error en iniciar la verificació d'actualitzacions: {0}</value>
+  </data>
+  <data name="SaveError_Message" xml:space="preserve">
+    <value>No s'ha pogut desar la configuració de calibratge. Si us plau, comproveu els permisos del fitxer o reinicieu l'aplicació.</value>
+  </data>
+  <data name="SaveError_Title" xml:space="preserve">
+    <value>Error de Desa</value>
+  </data>
+  <data name="Profile_NameEmpty" xml:space="preserve">
+    <value>El nom del perfil no pot estar buit.</value>
+  </data>
+  <data name="Profile_Exists" xml:space="preserve">
+    <value>El perfil '{0}' ja existeix.</value>
+  </data>
+  <data name="Profile_CannotDeleteDefault" xml:space="preserve">
+    <value>No es pot eliminar el perfil 'Perfil Predeterminat'.</value>
+  </data>
+  <data name="Profile_DoesNotExist" xml:space="preserve">
+    <value>El perfil '{0}' no existeix.</value>
+  </data>
+  <data name="Error_Title_Generic" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Profile_EnterName" xml:space="preserve">
+    <value>Si us plau, introduïu un nom per al nou perfil.</value>
+  </data>
+  <data name="Profile_CreatedAndActivated" xml:space="preserve">
+    <value>Perfil '{0}' creat i activat.</value>
+  </data>
+  <data name="Success_Title" xml:space="preserve">
+    <value>Fet</value>
+  </data>
+  <data name="Profile_CreateError_Title" xml:space="preserve">
+    <value>Error en Crear Perfil</value>
+  </data>
+  <data name="Profile_CreateError_Message" xml:space="preserve">
+    <value>S'ha produït un error en crear el perfil: {0}</value>
+  </data>
+  <data name="Profile_SelectToDelete" xml:space="preserve">
+    <value>Seleccioneu un perfil per eliminar.</value>
+  </data>
+  <data name="Profile_ConfirmDeletion_Message" xml:space="preserve">
+    <value>Esteu segur que voleu eliminar el perfil '{0}'? Aquesta acció és irreversible.</value>
+  </data>
+  <data name="Profile_ConfirmDeletion_Title" xml:space="preserve">
+    <value>Confirmar Eliminació</value>
+  </data>
+  <data name="Profile_Deleted" xml:space="preserve">
+    <value>Perfil '{0}' eliminat.</value>
+  </data>
+  <data name="Profile_DeleteError_Title" xml:space="preserve">
+    <value>Error en Eliminar Perfil</value>
+  </data>
+  <data name="Profile_DeleteError_Message" xml:space="preserve">
+    <value>S'ha produït un error en eliminar el perfil: {0}</value>
+  </data>
+  <data name="Profile_CalibrationProfiles" xml:space="preserve">
+    <value>Perfils de Calibratge</value>
+  </data>
+  <data name="Profile_ActiveProfile" xml:space="preserve">
+    <value>Perfil Actiu:</value>
+  </data>
+  <data name="Profile_NewProfile" xml:space="preserve">
+    <value>Nou Perfil:</value>
+  </data>
+  <data name="Profile_CreateButton" xml:space="preserve">
+    <value>Crea Perfil</value>
+  </data>
+  <data name="Profile_DeleteButton" xml:space="preserve">
+    <value>Esborra Perfil</value>
+  </data>
+  <data name="Arrangement_RestartConfirmation_Message" xml:space="preserve">
+    <value>Heu canviat la disposició IR, cal reiniciar Touchmote. Voleu reiniciar ara?</value>
+  </data>
+  <data name="Arrangement_RestartConfirmation_Title" xml:space="preserve">
+    <value>Reiniciar Aplicació</value>
+  </data>
+  <data name="dScale" xml:space="preserve">
+    <value>Escala</value>
+  </data>
+  <data name="dThreshold" xml:space="preserve">
+    <value>Llindar</value>
+  </data>
+  <data name="UpdateCheck_DownloadingUpdate" xml:space="preserve">
+    <value>Baixant actualitzador: {0}</value>
+  </data>
+  <data name="UpdateCheck_NoInstallerFound" xml:space="preserve">
+    <value>No s'ha trobat un instal·lador a l'última versió de GitHub.</value>
+  </data>
+  <data name="UpdateCheck_DownloadComplete" xml:space="preserve">
+    <value>Baixada completada a: {0}</value>
+  </data>
+  <data name="UpdateCheck_DownloadError" xml:space="preserve">
+    <value>Error en baixar l'actualitzador: {0}</value>
+  </data>
+  <data name="UpdateCheck_InstallationError" xml:space="preserve">
+    <value>Error en llançar l'instal·lador: {0}</value>
+  </data>
+  <data name="UpdateCheck_DownloadCancelled" xml:space="preserve">
+    <value>Baixada de l'actualitzador cancel·lada.</value>
+  </data>
+  <data name="UpdateCheck_ConfirmInstallationMessage" xml:space="preserve">
+    <value>S'ha descarregat l'actualització, prem "sí" per tancar Touchmote Enhanced i continuar amb la instal·lació o Cancel·la si no desitges actualitzar</value>
+  </data>
+  <data name="UpdateCheck_ConfirmInstallationTitle" xml:space="preserve">
+    <value>Confirmar Instal·lació</value>
+  </data>
+  <data name="UpdateCheck_InstallationCancelled" xml:space="preserve">
+    <value>Instal·lació de l'actualització cancel·lada per l'usuari.</value>
   </data>
 </root>
