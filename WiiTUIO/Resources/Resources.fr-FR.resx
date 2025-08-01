@@ -157,16 +157,16 @@
     <value>Moniteur principal</value>
   </data>
   <data name="SaveAndReboot" xml:space="preserve">
-    <value>Sauvegarder et démarrer Touchmote</value>
+    <value>Sauvegarder et démarrer GunMote</value>
   </data>
   <data name="TouchmoteAbout1" xml:space="preserve">
-    <value>Touchmote permet d'agir comme un ou plusieurs Wiimotes en tant que périphérique multitouche et manette.</value>
+    <value>GunMote permet d'agir comme un ou plusieurs Wiimotes en tant que périphérique multitouche et manette.</value>
   </data>
   <data name="TouchmoteAbout2" xml:space="preserve">
     <value>Merci à Symphax pour avoir créé cette application formidable qui a redonné vie à nos Wiimotes, à Ryochan pour ses améliorations, et à Suegrini pour avoir ajouté la possibilité d'utiliser 4 LED IR pour une meilleure précision. Cette version poursuit ce travail et améliore l'agencement en losange des LED IR.</value>
   </data>
   <data name="TrayBalloonTip" xml:space="preserve">
-    <value>Appuyez pour modifier les paramètres Touchmote</value>
+    <value>Appuyez pour modifier les paramètres GunMote</value>
   </data>
   <data name="AutoDisconnectTimeout" xml:space="preserve">
     <value>Temps de déconnexion automatique (ms) :</value>
@@ -313,10 +313,10 @@
     <value>Fichier de config Keymaps</value>
   </data>
   <data name="AppSettings" xml:space="preserve">
-    <value>Paramètres Touchmote</value>
+    <value>Paramètres GunMote</value>
   </data>
   <data name="WindowsStart" xml:space="preserve">
-    <value>Lancer Touchmote avec Windows</value>
+    <value>Lancer GunMote avec Windows</value>
   </data>
   <data name="pairOnStart" xml:space="preserve">
     <value>Connecter au démarrage</value>
@@ -985,7 +985,7 @@
     <value>Supprimer le profil</value>
   </data>
   <data name="Arrangement_RestartConfirmation_Message" xml:space="preserve">
-    <value>Vous avez modifié la configuration IR, il est nécessaire de redémarrer Touchmote. Voulez-vous redémarrer maintenant ?</value>
+    <value>Vous avez modifié la configuration IR, il est nécessaire de redémarrer GunMote. Voulez-vous redémarrer maintenant ?</value>
   </data>
   <data name="Arrangement_RestartConfirmation_Title" xml:space="preserve">
     <value>Redémarrer l'application</value>
@@ -1015,7 +1015,7 @@
     <value>Téléchargement de la mise à jour annulé.</value>
   </data>
   <data name="UpdateCheck_ConfirmInstallationMessage" xml:space="preserve">
-    <value>La mise à jour a été téléchargée. Appuyez sur 'Oui' pour fermer Touchmote Enhanced et continuer l'installation, ou 'Annuler' si vous ne souhaitez pas mettre à jour.</value>
+    <value>La mise à jour a été téléchargée. Appuyez sur 'Oui' pour fermer GunMote et continuer l'installation, ou 'Annuler' si vous ne souhaitez pas mettre à jour.</value>
   </data>
   <data name="UpdateCheck_ConfirmInstallationTitle" xml:space="preserve">
     <value>Confirmer l'installation</value>
