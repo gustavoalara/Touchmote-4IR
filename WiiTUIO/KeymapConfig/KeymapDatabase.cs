@@ -369,7 +369,7 @@ namespace WiiTUIO
 
             allOutputs.Add(new KeymapOutput(KeymapOutputType.CURSOR, "Cursor", "cursor", false, false, true, false));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.CURSOR, "Lightgun Cursor", "lightguncursor", false, false, true, false));
-            allOutputs.Add(new KeymapOutput(KeymapOutputType.CURSOR, tPressCursor, "cursorpress"));
+            //allOutputs.Add(new KeymapOutput(KeymapOutputType.CURSOR, tPressCursor, "cursorpress"));
 
             allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, tShortRumble, "rumbleshort"));
             allOutputs.Add(new KeymapOutput(KeymapOutputType.WIIMOTE, tLongRumble, "rumblelong"));
