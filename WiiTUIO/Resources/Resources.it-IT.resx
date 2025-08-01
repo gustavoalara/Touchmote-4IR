@@ -157,16 +157,16 @@
     <value>Monitor principale:                                                                                                                 </value>
   </data>
   <data name="SaveAndReboot" xml:space="preserve">
-    <value>Salva e riavvia Touchmote                                                                                                           </value>
+    <value>Salva e riavvia GunMote                                                                                                           </value>
   </data>
   <data name="TouchmoteAbout1" xml:space="preserve">
-    <value>Touchmote permette a uno o più Wiimote di comportarsi come dispositivo multi-touch e gamepad.                                       </value>
+    <value>GunMote permette a uno o più Wiimote di comportarsi come dispositivo multi-touch e gamepad.                                       </value>
   </data>
   <data name="TouchmoteAbout2" xml:space="preserve">
     <value>Grazie a Symphax per aver creato questa meravigliosa applicazione che ha dato una seconda vita ai nostri Wiimote, a Ryochan per i miglioramenti e a Suegrini per aver aggiunto la possibilità di utilizzare 4 LED IR per una maggiore precisione. Questa versione continua quel lavoro e migliora la disposizione a diamante dei LED IR. </value>
   </data>
   <data name="TrayBalloonTip" xml:space="preserve">
-    <value>Premi per modificare i parametri di Touchmote                                                                                       </value>
+    <value>Premi per modificare i parametri di GunMote                                                                                       </value>
   </data>
   <data name="AutoDisconnectTimeout" xml:space="preserve">
     <value>Timeout disconnessione automatica (ms):                                                                                             </value>
@@ -313,10 +313,10 @@
     <value>File Config. Keymaps:                                                                                                               </value>
   </data>
   <data name="AppSettings" xml:space="preserve">
-    <value>Impostazioni Touchmote                                                                                                              </value>
+    <value>Impostazioni GunMote                                                                                                              </value>
   </data>
   <data name="WindowsStart" xml:space="preserve">
-    <value>Avvia Touchmote con Windows                                                                                                         </value>
+    <value>Avvia GunMote con Windows                                                                                                         </value>
   </data>
   <data name="pairOnStart" xml:space="preserve">
     <value>Associa all'avvio                                                                                                                   </value>
@@ -985,7 +985,7 @@
     <value>Elimina Profilo                                                                                                                     </value>
   </data>
   <data name="Arrangement_RestartConfirmation_Message" xml:space="preserve">
-    <value>Hai cambiato la disposizione IR, è necessario riavviare Touchmote. Vuoi riavviare ora?                                              </value>
+    <value>Hai cambiato la disposizione IR, è necessario riavviare GunMote. Vuoi riavviare ora?                                              </value>
   </data>
   <data name="Arrangement_RestartConfirmation_Title" xml:space="preserve">
     <value>Riavvia applicazione                                                                                                                </value>
@@ -1015,7 +1015,7 @@
     <value>Download dell'aggiornatore annullato.</value>
   </data>
   <data name="UpdateCheck_ConfirmInstallationMessage" xml:space="preserve">
-    <value>L'aggiornamento è stato scaricato. Premi 'Sì' per chiudere Touchmote Enhanced e continuare con l'installazione, oppure 'Annulla' se non desideri aggiornare.</value>
+    <value>L'aggiornamento è stato scaricato. Premi 'Sì' per chiudere GunMote e continuare con l'installazione, oppure 'Annulla' se non desideri aggiornare.</value>
   </data>
   <data name="UpdateCheck_ConfirmInstallationTitle" xml:space="preserve">
     <value>Conferma Installazione</value>
