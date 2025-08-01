@@ -1,3 +1,7 @@
+
+<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/a4a4a11d-7abc-4c0a-9e6d-0633e93d5e46" />
+
+
 Gunmote
 ==============
 Introducing Gunmote, the evolution of the Touchmote application created by Symphax and improved by Ryochan7, Suegrini, and others, now focused on using up to 4 Wiimotes on your computer as lightguns with precision and many options.
