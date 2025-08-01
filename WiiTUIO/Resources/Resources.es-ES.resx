@@ -157,16 +157,16 @@
     <value>Monitor Principal:</value>
   </data>
   <data name="SaveAndReboot" xml:space="preserve">
-    <value>Guardar y Reiniciar Touchmote</value>
+    <value>Guardar y Reiniciar GunMote</value>
   </data>
   <data name="TouchmoteAbout1" xml:space="preserve">
-    <value>Touchmote proporciona una manera de actuar a uno o varios Wiimotes como dispositivo multi-touch y gamepad.</value>
+    <value>GunMote proporciona una manera de actuar a uno o varios Wiimotes como dispositivo multi-touch y gamepad.</value>
   </data>
   <data name="TouchmoteAbout2" xml:space="preserve">
     <value>Gracias a Symphax por la creación de esta maravillosa aplicación que le ha dado una segunda vida a nuestros Wiimotes, a Ryochan por sus mejoras y a Suegrini por añadir la capacidad de usar 4 IR LEDS para mayor precisión. Esta versión continúa ese trabajo y añade mejoras a la disposición en diamante de los IR LEDs .</value>
   </data>
   <data name="TrayBalloonTip" xml:space="preserve">
-    <value>Pulsar para editar los parámetros de Touchmote</value>
+    <value>Pulsar para editar los parámetros de GunMote</value>
   </data>
   <data name="AutoDisconnectTimeout" xml:space="preserve">
     <value>Tiempo de desconexión automática (ms):</value>
@@ -313,10 +313,10 @@
     <value>Fichero de Config. Keymaps:</value>
   </data>
   <data name="AppSettings" xml:space="preserve">
-    <value>Parámetros de Touchmote</value>
+    <value>Parámetros de GunMote</value>
   </data>
   <data name="WindowsStart" xml:space="preserve">
-    <value>Iniciar Touchmote con Windows</value>
+    <value>Iniciar GunMote con Windows</value>
   </data>
   <data name="pairOnStart" xml:space="preserve">
     <value>Emparejar al iniciar</value>
@@ -985,7 +985,7 @@
     <value>Borrar Perfil</value>
   </data>
   <data name="Arrangement_RestartConfirmation_Message" xml:space="preserve">
-    <value>Has cambiado de disposición IR, es necesario reiniciar Touchmote. ¿Deseas reiniciar ahora?</value>
+    <value>Has cambiado de disposición IR, es necesario reiniciar GunMote. ¿Deseas reiniciar ahora?</value>
   </data>
   <data name="Arrangement_RestartConfirmation_Title" xml:space="preserve">
     <value>Reiniciar Aplicación</value>
@@ -1015,7 +1015,7 @@
     <value>Descarga del actualizador cancelada.</value>
   </data>
   <data name="UpdateCheck_ConfirmInstallationMessage" xml:space="preserve">
-    <value>Se ha descargado la actualización, pulsa "sí" para cerrar Touchmote Enhanced y continuar con la instalación o Cancelar si no deseas actualizar.</value>
+    <value>Se ha descargado la actualización, pulsa "sí" para cerrar GunMote y continuar con la instalación o Cancelar si no deseas actualizar.</value>
   </data>
   <data name="UpdateCheck_ConfirmInstallationTitle" xml:space="preserve">
     <value>Confirmar Instalación</value>
