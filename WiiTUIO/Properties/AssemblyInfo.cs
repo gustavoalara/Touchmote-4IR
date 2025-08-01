@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Touchmote 4IR Enhanced")]
-[assembly: AssemblyDescription("v1.0b27")]
+[assembly: AssemblyTitle("Gunmote")]
+[assembly: AssemblyDescription("v1.0b29")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Community")]
-[assembly: AssemblyProduct("Touchmote Enhanced")]
-[assembly: AssemblyCopyright("Copyright © Simphax/Suegrini/GustavoALara 2014-2025")]
+[assembly: AssemblyCompany("Gunmote")]
+[assembly: AssemblyProduct("Gunmote")]
+[assembly: AssemblyCopyright("Copyright © PapaGustavoKratos/GustavoALara 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -51,6 +51,6 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.27.0")]
-[assembly: AssemblyFileVersion("1.0.27.0")]
+[assembly: AssemblyVersion("1.0.29.0")]
+[assembly: AssemblyFileVersion("1.0.29.0")]
 [assembly: NeutralResourcesLanguage("en-US")]

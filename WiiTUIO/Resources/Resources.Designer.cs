@@ -223,7 +223,7 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Touchmote Settings.
+        ///   Busca una cadena traducida similar a GunMote Settings.
         /// </summary>
         internal static string AppSettings {
             get {
@@ -232,7 +232,7 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a You have changed IR arrangement, it is necessary to restart Touchmote. Do you want to restart now?.
+        ///   Busca una cadena traducida similar a You have changed IR arrangement, it is necessary to restart GunMote. Do you want to restart now?.
         /// </summary>
         internal static string Arrangement_RestartConfirmation_Message {
             get {
@@ -1132,7 +1132,7 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Save and Restart Touchmote.
+        ///   Busca una cadena traducida similar a Save and Restart GunMote.
         /// </summary>
         internal static string SaveAndReboot {
             get {
@@ -1888,7 +1888,7 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Touchmote provides a way to act as a single or multiple Wiimotes as a multi-touch device and gamepad..
+        ///   Busca una cadena traducida similar a GunMote provides a way to act as a single or multiple Wiimotes as a lightgun device and gamepad..
         /// </summary>
         internal static string TouchmoteAbout1 {
             get {
@@ -2050,7 +2050,7 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Press to edit Touchmote parameters.
+        ///   Busca una cadena traducida similar a Press to edit GunMote parameters.
         /// </summary>
         internal static string TrayBalloonTip {
             get {
@@ -2545,7 +2545,7 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a The update has been downloaded. Press &apos;Yes&apos; to close Touchmote Enhanced and continue with the installation, or &apos;Cancel&apos; if you do not wish to update..
+        ///   Busca una cadena traducida similar a The update has been downloaded. Press &apos;Yes&apos; to close GunMote and continue with the installation, or &apos;Cancel&apos; if you do not wish to update..
         /// </summary>
         internal static string UpdateCheck_ConfirmInstallationMessage {
             get {
@@ -2752,7 +2752,7 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Start Touchmote with Windows.
+        ///   Busca una cadena traducida similar a Start GunMote with Windows.
         /// </summary>
         internal static string WindowsStart {
             get {

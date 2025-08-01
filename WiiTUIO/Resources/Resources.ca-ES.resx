@@ -160,7 +160,7 @@
     <value>Desa i Reinicia GunMote</value>
   </data>
   <data name="TouchmoteAbout1" xml:space="preserve">
-    <value>GunMote proporciona una manera d'actuar com un o diversos Wiimotes com a dispositiu multi-tàctil i comandament de joc.</value>
+    <value>GunMote proporciona una manera d'actuar com un o diversos Wiimotes com a dispositiu Lightgun i comandament de joc.</value>
   </data>
   <data name="TouchmoteAbout2" xml:space="preserve">
     <value>Gràcies a Symphax per la creació d'aquesta meravellosa aplicació que ha donat una segona vida als nostres Wiimotes, a Ryochan pels seus millores i a Suegrini per afegir la capacitat d'usar 4 LED IR per a una major precisió. Aquesta versió continua aquest treball i afegeix millores a la disposició en rombe dels LED IR.</value>

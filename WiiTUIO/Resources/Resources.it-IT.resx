@@ -160,7 +160,7 @@
     <value>Salva e riavvia GunMote                                                                                                           </value>
   </data>
   <data name="TouchmoteAbout1" xml:space="preserve">
-    <value>GunMote permette a uno o più Wiimote di comportarsi come dispositivo multi-touch e gamepad.                                       </value>
+    <value>GunMote permette a uno o più Wiimote di comportarsi come dispositivo Lightgun e gamepad.                                       </value>
   </data>
   <data name="TouchmoteAbout2" xml:space="preserve">
     <value>Grazie a Symphax per aver creato questa meravigliosa applicazione che ha dato una seconda vita ai nostri Wiimote, a Ryochan per i miglioramenti e a Suegrini per aver aggiunto la possibilità di utilizzare 4 LED IR per una maggiore precisione. Questa versione continua quel lavoro e migliora la disposizione a diamante dei LED IR. </value>

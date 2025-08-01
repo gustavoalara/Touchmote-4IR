@@ -25,7 +25,7 @@
             </Rectangle>
         </Button>
         <Label Name="versionLabel" Canvas.Left="76" Canvas.Top="36" FontFamily="Segoe UI Light" FontSize="18">
-            <TextBlock Text="{Binding AppVersion, StringFormat=Touchmote Enhanced {0}}"/>
+            <TextBlock Text="{Binding AppVersion, StringFormat=Gunmote {0}}"/>
         </Label>
         <TextBlock Canvas.Left="81" TextWrapping="Wrap" Canvas.Top="83" Height="54" Width="292" FontFamily="Segoe UI Semilight" Text="{loc:Localization TouchmoteAbout1}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <TextBlock Canvas.Left="81" TextWrapping="Wrap" Canvas.Top="145" Height="129" Width="292" FontFamily="Segoe UI Semilight" HorizontalAlignment="Center" VerticalAlignment="Top" Text="{loc:Localization TouchmoteAbout2}"/>
