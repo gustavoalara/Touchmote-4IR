@@ -1,12 +1,14 @@
-Touchmote
+Gunmote
 ==============
-Introducing Touchmote, a Windows app to control the Windows 8 Metro interface from your couch started by Symphax and improved by Ryochan7, Suegrini and others.<br />
-Swipe, scroll and tap by pointing your Wiimote on your screen or HDTV.
+Introducing Gunmote, the evolution of the Touchmote application created by Symphax and improved by Ryochan7, Suegrini, and others, now focused on using up to 4 Wiimotes on your computer as lightguns with precision and many options.
 
-Touchmote is based on the WiiTUIO project which allows data from a Wii Remote to be translated as genuine Windows touch events.<br />
-Touch position is calculated using One Wii Sensor Bar (upside or downside), 2 Wii Sensor Bar (one upside and one downside), 4 IR Leds on a square arrangement or 4 IR Leds on a diamond arrangement.<br />
+Aim, move, and shoot with your Wiimote at the screen or HD TV.
 
-The application is developed in primarily C# .NET 4.5 and some C++.
+Gunmote is an evolution of Touchmote, which was based on the WiiTUIO project, which allows Wii controller data to be translated into genuine Windows touch and motion events.
+
+The position where the Wiimote is pointing is calculated using a Wii sensor bar (up or down), two Wii sensor bars (one up and one down), four infrared LEDs in a square arrangement, or four infrared LEDs in a diamond arrangement.
+
+The application is developed mainly in C# .NET 4.8 and some C++.
 
 
 Prerequisites
@@ -28,12 +30,12 @@ Please use the GitHub Issue tracker to report bugs. Always include the following
 How to build
 ==============
 *First install:*  
-Microsoft Visual Studio 2019  
+Microsoft Visual Studio 2019 or higher  
 Install **.NET desktop development** Workload  
 Install **Desktop development with C++** Workload  
 Direct X SDK
 
-1. Install the Touchmote drivers and test certificate by running the installer from touchmote.net<br />
+1. Install the Touchmote drivers and test certificate by running the installer from this repo<br />
 2. Run Visual Studio "as Administrator". Open the project file Touchmote.sln. <br />
 3. If you want to use the debugger, edit the file called app.manifest and change uiAccess to false. Otherwise the app has to be run under Program Files. This is for the cursor to be able to show on top of the Modern UI.<br />
 4. Go to Build->Configuration manager...<br />
@@ -60,7 +62,11 @@ If you would like to help translate into new languages, there are some Excel fil
 Release History
 ==============
 
-**v1.0 beta 2**<br />
+**v1.0 beta 29**<br />
+- Name and logo change due to the removal of touch features and a focus on lightgun functionality primarily.
+- Updates url changed
+  
+**v1.0 beta 28**<br />
 - Fixed bad translation of "Right" key on Spanish and French
 
 **v1.0 beta 27**<br />
