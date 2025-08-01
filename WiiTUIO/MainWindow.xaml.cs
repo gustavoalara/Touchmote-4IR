@@ -44,8 +44,8 @@ namespace WiiTUIO
     public partial class MainWindow : MetroWindow, WiiCPP.WiiPairListener
     {
         // Define aquí la URL de la API de releases de tu repositorio de GitHub
-        private const string GitHubApiReleasesUrl = "https://api.github.com/repos/gustavoalara/Touchmote-4IR/releases/latest";
-        private const string GitHubReleasesPageUrl = "https://github.com/gustavoalara/Touchmote-4IR/releases";
+        private const string GitHubApiReleasesUrl = "https://api.github.com/repos/gustavoalara/Gunmote/releases/latest";
+        private const string GitHubReleasesPageUrl = "https://github.com/gustavoalara/Gunmote/releases";
 
 
         private bool wiiPairRunning = false;
@@ -264,7 +264,7 @@ namespace WiiTUIO
 
                 wrGETURL = (HttpWebRequest)WebRequest.Create(sURL);
                 wrGETURL.Method = "GET";
-                wrGETURL.UserAgent = "TouchmoteAppUpdater"; // GitHub API requires a User-Agent
+                wrGETURL.UserAgent = "GunmoteAppUpdater"; // GitHub API requires a User-Agent
                 wrGETURL.Accept = "application/vnd.github.v3+json"; // Optional, but good practice
 
                 wrGETURL.BeginGetResponse(new AsyncCallback(checkNewVersionResponse), currentVersion);
@@ -413,7 +413,7 @@ namespace WiiTUIO
                 using (WebClient client = new WebClient())
                 {
                     // Add User-Agent header for GitHub downloads
-                    client.Headers.Add("User-Agent", "TouchmoteAppUpdater");
+                    client.Headers.Add("User-Agent", "GunmoteAppUpdater");
 
                     // Hook up progress and completion events
                     client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
@@ -731,7 +731,7 @@ namespace WiiTUIO
                         break;
                 }
                 // If you want to use a standard MessageBox for all messages, uncomment this:
-                // MessageBox.Show(message, "Touchmote", MessageBoxButton.OK, icon);
+                // MessageBox.Show(message, "Gunmote", MessageBoxButton.OK, icon);
             }), null);
         }
 
