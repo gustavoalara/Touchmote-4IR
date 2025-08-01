@@ -157,16 +157,16 @@
     <value>Primary Monitor:</value>
   </data>
   <data name="SaveAndReboot" xml:space="preserve">
-    <value>Save and Restart Touchmote</value>
+    <value>Save and Restart GunMote</value>
   </data>
   <data name="TouchmoteAbout1" xml:space="preserve">
-    <value>Touchmote provides a way to act as a single or multiple Wiimotes as a multi-touch device and gamepad.</value>
+    <value>GunMote provides a way to act as a single or multiple Wiimotes as a multi-touch device and gamepad.</value>
   </data>
   <data name="TouchmoteAbout2" xml:space="preserve">
     <value>Thanks to Symphax for creating this wonderful application that has given a second life to our Wiimotes, to Ryochan for his improvements and to Suegrini for adding the ability to use 4 IR LEDS for greater accuracy. This version continues that work and adds improvements to the diamond arrangement of the IR LEDs.</value>
   </data>
   <data name="TrayBalloonTip" xml:space="preserve">
-    <value>Press to edit Touchmote parameters</value>
+    <value>Press to edit GunMote parameters</value>
   </data>
   <data name="AutoDisconnectTimeout" xml:space="preserve">
     <value>Auto Disconnect Timeout (ms):</value>
@@ -313,10 +313,10 @@
     <value>Keymaps Config File:</value>
   </data>
   <data name="AppSettings" xml:space="preserve">
-    <value>Touchmote Settings</value>
+    <value>GunMote Settings</value>
   </data>
   <data name="WindowsStart" xml:space="preserve">
-    <value>Start Touchmote with Windows</value>
+    <value>Start GunMote with Windows</value>
   </data>
   <data name="pairOnStart" xml:space="preserve">
     <value>Pair on Start</value>
@@ -985,7 +985,7 @@
     <value>Delete Profile</value>
   </data>
   <data name="Arrangement_RestartConfirmation_Message" xml:space="preserve">
-    <value>You have changed IR arrangement, it is necessary to restart Touchmote. Do you want to restart now?</value>
+    <value>You have changed IR arrangement, it is necessary to restart GunMote. Do you want to restart now?</value>
   </data>
   <data name="Arrangement_RestartConfirmation_Title" xml:space="preserve">
     <value>Restart Application</value>
@@ -1015,7 +1015,7 @@
     <value>Updater download cancelled.</value>
   </data>
   <data name="UpdateCheck_ConfirmInstallationMessage" xml:space="preserve">
-    <value>The update has been downloaded. Press 'Yes' to close Touchmote Enhanced and continue with the installation, or 'Cancel' if you do not wish to update.</value>
+    <value>The update has been downloaded. Press 'Yes' to close GunMote and continue with the installation, or 'Cancel' if you do not wish to update.</value>
   </data>
   <data name="UpdateCheck_ConfirmInstallationTitle" xml:space="preserve">
     <value>Confirm Installation</value>
