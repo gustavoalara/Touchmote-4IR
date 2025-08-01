@@ -157,16 +157,16 @@
     <value>Primärer Monitor: </value>
   </data>
   <data name="SaveAndReboot" xml:space="preserve">
-    <value>Speichern und Touchmote neu starten </value>
+    <value>Speichern und GunMote neu starten </value>
   </data>
   <data name="TouchmoteAbout1" xml:space="preserve">
-    <value>Touchmote ermöglicht es, einen oder mehrere Wiimotes als Multi-Touch-Gerät und Gamepad zu nutzen. </value>
+    <value>GunMote ermöglicht es, einen oder mehrere Wiimotes als Multi-Touch-Gerät und Gamepad zu nutzen. </value>
   </data>
   <data name="TouchmoteAbout2" xml:space="preserve">
     <value>Dank an Symphax für diese wunderbare Anwendung, die unseren Wiimotes neues Leben eingehaucht hat, an Ryochan für seine Verbesserungen und Suegrini für die 4-IR-LED-Funktion für mehr Präzision. Diese Version setzt die Arbeit fort und verbessert die diamantförmige Anordnung der IR-LEDs. </value>
   </data>
   <data name="TrayBalloonTip" xml:space="preserve">
-    <value>Zum Bearbeiten der Touchmote-Parameter drücken </value>
+    <value>Zum Bearbeiten der GunMote-Parameter drücken </value>
   </data>
   <data name="AutoDisconnectTimeout" xml:space="preserve">
     <value>Automatische Trennung Timeout (ms): </value>
@@ -313,10 +313,10 @@
     <value>Keymaps-Konfigurationsdatei: </value>
   </data>
   <data name="AppSettings" xml:space="preserve">
-    <value>Touchmote-Einstellungen </value>
+    <value>GunMote-Einstellungen </value>
   </data>
   <data name="WindowsStart" xml:space="preserve">
-    <value>Touchmote mit Windows starten </value>
+    <value>GunMote mit Windows starten </value>
   </data>
   <data name="pairOnStart" xml:space="preserve">
     <value>Beim Start koppeln </value>
@@ -985,7 +985,7 @@
     <value>Profil löschen </value>
   </data>
   <data name="Arrangement_RestartConfirmation_Message" xml:space="preserve">
-    <value>Sie haben die IR-Anordnung geändert. Touchmote muss neu gestartet werden. Jetzt neu starten? </value>
+    <value>Sie haben die IR-Anordnung geändert. GunMote muss neu gestartet werden. Jetzt neu starten? </value>
   </data>
   <data name="Arrangement_RestartConfirmation_Title" xml:space="preserve">
     <value>Anwendung neu starten </value>
@@ -1015,7 +1015,7 @@
     <value>Updater-Download abgebrochen.</value>
   </data>
   <data name="UpdateCheck_ConfirmInstallationMessage" xml:space="preserve">
-    <value>Das Update wurde heruntergeladen. Drücken Sie 'Ja', um Touchmote Enhanced zu schließen und mit der Installation fortzufahren, oder 'Abbrechen', wenn Sie nicht aktualisieren möchten.</value>
+    <value>Das Update wurde heruntergeladen. Drücken Sie 'Ja', um GunMote zu schließen und mit der Installation fortzufahren, oder 'Abbrechen', wenn Sie nicht aktualisieren möchten.</value>
   </data>
   <data name="UpdateCheck_ConfirmInstallationTitle" xml:space="preserve">
     <value>Installation bestätigen</value>
