@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddingCertMsg" xml:space="preserve">
-    <value>Añadiendo Certificado de Prueba Touchmote a raíz de confianza.</value>
+    <value>Añadiendo Certificado de Prueba GunMote a raíz de confianza.</value>
   </data>
   <data name="DriverInstallSuccesfull" xml:space="preserve">
     <value>Instalación de driver completada.</value>
   </data>
   <data name="DriverInstallTitle" xml:space="preserve">
-    <value>Instalación del Driver de Touchmote Enhanced</value>
+    <value>Instalación del Driver de GunMote</value>
   </data>
   <data name="DriverUninstallSuccessfull" xml:space="preserve">
     <value>Desinstalación de driver completada.</value>
@@ -142,7 +142,7 @@
     <value>Instalar</value>
   </data>
   <data name="RemovingCertMsg" xml:space="preserve">
-    <value>Eliminando Certificado de Prueba Touchmote.</value>
+    <value>Eliminando Certificado de Prueba GunMote.</value>
   </data>
   <data name="UninstallButton" xml:space="preserve">
     <value>Desinstalar</value>
