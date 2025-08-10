@@ -74,9 +74,25 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Content="{loc:Localization PrimaryMonitor}"/>
-                        <TextBox Grid.Column="1" Text="{Binding primaryMonitor, UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{DynamicResource MahApps.Metro.Styles.TextBox}"/>
+
+                        <Label Grid.Column="0" Content="{loc:Localization PrimaryMonitor}" VerticalAlignment="Center"/>
+
+                        <ComboBox x:Name="MonitorComboBox" Grid.Column="1"
+              SelectionChanged="MonitorComboBox_SelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="2">
+                                        <TextBlock Text="{Binding ModelName}" FontWeight="Bold"/>
+                                        <TextBlock Opacity="0.7" FontSize="11">
+                        <Run Text="{Binding DisplayName}"/>
+                        <Run Text=" - "/>
+                        <Run Text="{Binding Resolution}"/>
+                        <Run Text="{Binding IsPrimary, StringFormat='(Principal)'}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>

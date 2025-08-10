@@ -137,7 +137,7 @@ namespace WiiTUIO
                 this.WindowState = System.Windows.WindowState.Minimized;
             }
 
-            Settings.Default.primaryMonitor = "";
+            //Settings.Default.primaryMonitor = "";
 
             defaultInstance = this;
 

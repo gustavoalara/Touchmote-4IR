@@ -14,8 +14,12 @@ using System.Runtime.CompilerServices; // For CallerMemberName
 using System.Threading; // Added for Thread.Sleep
 using WiiTUIO.Properties; // Added to access the original Settings class
 using System.Globalization;
+using System.Management;
 
 using static WiiTUIO.Resources.Resources;
+using WiiCPP;
+using WiiTUIO.DeviceUtils;
+using System.Text;
 
 namespace WiiTUIO
 {
@@ -57,6 +61,7 @@ namespace WiiTUIO
             InitializeComponent();
             // Sets the DataContext of the window to the Default instance of the original Settings class
             this.DataContext = Settings.Default;
+            PopulateMonitorList();
         }
 
         /// <summary>
@@ -375,6 +380,133 @@ namespace WiiTUIO
             e.Cancel = true; // Cancels the close event
             this.Hide();     // Hides the window
             base.OnClosing(e);
+        }
+
+        public class MonitorDisplayInfo
+        {
+            public string DisplayName { get; set; }
+            public string DevicePath { get; set; }
+            public string Resolution { get; set; }
+            public bool IsPrimary { get; set; }
+            public string ModelName { get; set; }
+        }
+
+        /// <summary>
+        /// Carga la lista de monitores y la asigna al ComboBox.
+        /// </summary>
+        // En la clase AdvSettingsUC de AdvSettingsUC.xaml.cs
+
+        private void PopulateMonitorList()
+        {
+            // 1. Leemos el REGISTRO para obtener los nombres de modelo directamente del EDID.
+            var monitorModelNames = new Dictionary<string, string>();
+            try
+            {
+                // La información de los monitores se guarda aquí en el registro de Windows
+                string registryPath = @"SYSTEM\CurrentControlSet\Enum\DISPLAY";
+                using (var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(registryPath))
+                {
+                    if (key != null)
+                    {
+                        // Iteramos sobre cada fabricante de monitor (ej: BNQ para BenQ, DEL para Dell)
+                        foreach (var vendorKeyName in key.GetSubKeyNames())
+                        {
+                            using (var vendorKey = key.OpenSubKey(vendorKeyName))
+                            {
+                                if (vendorKey == null) continue;
+                                // Iteramos sobre cada monitor de ese fabricante
+                                foreach (var deviceKeyName in vendorKey.GetSubKeyNames())
+                                {
+                                    using (var deviceKey = vendorKey.OpenSubKey(deviceKeyName))
+                                    {
+                                        // Accedemos a los parámetros del dispositivo
+                                        using (var paramsKey = deviceKey.OpenSubKey("Device Parameters"))
+                                        {
+                                            if (paramsKey != null)
+                                            {
+                                                // Aquí está la información cruda del monitor (EDID)
+                                                var edidData = (byte[])paramsKey.GetValue("EDID");
+                                                if (edidData != null)
+                                                {
+                                                    // Buscamos dentro del EDID los bloques descriptores
+                                                    for (int i = 54; i <= 108; i += 18)
+                                                    {
+                                                        // El descriptor de nombre de modelo empieza con 0x00, 0x00, 0x00, 0xFC, 0x00
+                                                        if (edidData[i] == 0x00 && edidData[i + 1] == 0x00 && edidData[i + 2] == 0x00 && edidData[i + 3] == 0xFC && edidData[i + 4] == 0x00)
+                                                        {
+                                                            string modelName = Encoding.ASCII.GetString(edidData, i + 5, 13).Trim('\0', '\n', '\r').Trim();
+                                                            // La clave es el ID del Vendedor/Producto (ej: BNQ78E6)
+                                                            monitorModelNames[vendorKeyName] = modelName;
+                                                            break; // Salimos al encontrar el nombre
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Registry EDID query for monitor names failed: " + ex.Message);
+            }
+
+            // 2. Creamos la lista para la UI como antes
+            var monitorsForDisplay = new List<MonitorDisplayInfo>();
+            var allMonitors = WiiTUIO.DeviceUtils.DeviceUtil.GetMonitorList();
+
+            foreach (var monitor in allMonitors)
+            {
+                var screen = WiiTUIO.DeviceUtils.DeviceUtil.GetScreen(monitor.DevicePath);
+                string pnpIdPart = DeviceUtil.GetMonitorPnpDeviceId(screen.DeviceName); // ej: BNQ78E6
+
+                string modelName = "Generic PnP Monitor";
+                // Buscamos el nombre en nuestro diccionario del registro
+                if (pnpIdPart != null && monitorModelNames.ContainsKey(pnpIdPart))
+                {
+                    string foundName = monitorModelNames[pnpIdPart];
+                    if (!string.IsNullOrEmpty(foundName))
+                    {
+                        modelName = foundName;
+                    }
+                }
+
+                monitorsForDisplay.Add(new MonitorDisplayInfo
+                {
+                    ModelName = modelName,
+                    DevicePath = monitor.DevicePath,
+                    DisplayName = screen.DeviceName.Replace(@"\\.\", ""),
+                    Resolution = $"{screen.Bounds.Width}x{screen.Bounds.Height}",
+                    IsPrimary = screen.Primary
+                });
+            }
+
+            MonitorComboBox.ItemsSource = monitorsForDisplay;
+
+            // Seleccionamos el monitor guardado
+            string savedMonitorPath = Settings.Default.primaryMonitor;
+            var selectedMonitor = monitorsForDisplay.FirstOrDefault(m => m.DevicePath == savedMonitorPath);
+            if (selectedMonitor != null)
+            {
+                MonitorComboBox.SelectedItem = selectedMonitor;
+            }
+        }
+
+        /// <summary>
+        /// Se ejecuta cuando el usuario selecciona un nuevo monitor en el ComboBox.
+        /// </summary>
+        private void MonitorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MonitorComboBox.SelectedItem is MonitorDisplayInfo selectedMonitor)
+            {
+                // Actualiza la propiedad en la configuración.
+                // No se guarda aquí, se guarda con el botón "Save & Restart".
+                Settings.Default.primaryMonitor = selectedMonitor.DevicePath;
+            }
         }
     }
 }
