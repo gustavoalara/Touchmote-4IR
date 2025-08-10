@@ -664,7 +664,7 @@
     <value>Botó central del ratolí</value>
   </data>
   <data name="tMouseRightB" xml:space="preserve">
-    <value>Gatell Dret Botó</value>
+    <value>Botó Dret del ratolí</value>
   </data>
   <data name="tMouseWheelUp" xml:space="preserve">
     <value>Roda del ratolí amunt</value>
@@ -1022,5 +1022,26 @@
   </data>
   <data name="UpdateCheck_InstallationCancelled" xml:space="preserve">
     <value>Instal·lació de l'actualització cancel·lada per l'usuari.</value>
+  </data>
+  <data name="ChangeLang" xml:space="preserve">
+    <value>Llengua</value>
+  </data>
+  <data name="ChangeLanguage_Title" xml:space="preserve">
+    <value>Canviar idioma</value>
+  </data>
+  <data name="ChangeLanguage_Accept" xml:space="preserve">
+    <value>Acceptar</value>
+  </data>
+  <data name="ChangeLanguage_Cancel" xml:space="preserve">
+    <value>Cancel·lar</value>
+  </data>
+  <data name="ChangeLanguage_Message" xml:space="preserve">
+    <value>Tria un idioma nou</value>
+  </data>
+  <data name="Restart_Title" xml:space="preserve">
+    <value>Cal reiniciar</value>
+  </data>
+  <data name="Restart_Message" xml:space="preserve">
+    <value>El idioma ha canviat. L'aplicació es reiniciarà per aplicar els canvis.</value>
   </data>
 </root>

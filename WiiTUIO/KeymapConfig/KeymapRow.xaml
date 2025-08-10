@@ -7,7 +7,7 @@
              d:DesignHeight="40" d:DesignWidth="240"
              xmlns:loc="clr-namespace:WiiTUIO">
     <Grid>
-        <Border Width="180" Name="border" Background="#FF2E2E2E" BorderThickness="0" BorderBrush="Red" Margin="5" CornerRadius="2">
+        <Border Width="200" Name="border" Background="#FF2E2E2E" BorderThickness="0" BorderBrush="Red" Margin="5" CornerRadius="2">
             <TextBlock Name="tbName" Text="{loc:Localization tbName}" Margin="5" FontSize="14" FontFamily="Segoe UI Semilight" Foreground="White" TextAlignment="Left" />
         </Border>
         <TextBlock Name="tbDefault" Text="{loc:Localization tbDefault}" Margin="158,13,39,11" FontSize="10" FontFamily="Segoe UI Semilight" Foreground="White" TextAlignment="Left" TextDecorations="{x:Null}" Visibility="Hidden" />

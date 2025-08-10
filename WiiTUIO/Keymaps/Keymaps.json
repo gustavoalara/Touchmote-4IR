@@ -8,10 +8,6 @@
       "Title": "Mouse",
       "Keymap": "mouse.json"
     },
-    {
-      "Title": "Steering Wheel",
-      "Keymap": "steeringwheel.json"
-    }
   ],
   "Applications": [
   ],

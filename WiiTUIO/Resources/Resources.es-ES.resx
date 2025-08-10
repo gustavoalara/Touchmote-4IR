@@ -604,7 +604,7 @@
     <value>Stick Arriba</value>
   </data>
   <data name="tStickDown" xml:space="preserve">
-    <value>Stick aAbajo</value>
+    <value>Stick Abajo</value>
   </data>
   <data name="tStickRotationPlus" xml:space="preserve">
     <value>Rotación de Stick (+)</value>
@@ -658,13 +658,13 @@
     <value>Ratón Lightgun</value>
   </data>
   <data name="tMouseLeftB" xml:space="preserve">
-    <value>Botón izquierdo del ratón</value>
+    <value>Botón izq. del ratón</value>
   </data>
   <data name="tMouseMiddleB" xml:space="preserve">
     <value>Botón central del ratón</value>
   </data>
   <data name="tMouseRightB" xml:space="preserve">
-    <value>Gatillo Derecho Botón</value>
+    <value>Botón der. ratón</value>
   </data>
   <data name="tMouseWheelUp" xml:space="preserve">
     <value>Rueda del ratón arriba</value>
@@ -1022,5 +1022,26 @@
   </data>
   <data name="UpdateCheck_InstallationCancelled" xml:space="preserve">
     <value>Instalación de la actualización cancelada por el usuario.</value>
+  </data>
+  <data name="ChangeLang" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="ChangeLanguage_Title" xml:space="preserve">
+    <value>Cambiar Idioma</value>
+  </data>
+  <data name="ChangeLanguage_Accept" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="ChangeLanguage_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ChangeLanguage_Message" xml:space="preserve">
+    <value>Elige nuevo lenguaje</value>
+  </data>
+  <data name="Restart_Title" xml:space="preserve">
+    <value>Reinicio Necesario</value>
+  </data>
+  <data name="Restart_Message" xml:space="preserve">
+    <value>El idioma ha cambiado. La aplicación se reiniciará para aplicar los cambios.</value>
   </data>
 </root>

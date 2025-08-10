@@ -148,10 +148,10 @@
     <value>Sortir</value>
   </data>
   <data name="NotificationsEnabled" xml:space="preserve">
-    <value>Notificatyions activées</value>
+    <value>Notifications activées</value>
   </data>
   <data name="NoTopmost" xml:space="preserve">
-    <value>Ne maintenir la fenêtre toujours en haut</value>
+    <value>Ne pas garder la fenêtre toujours au-dessus</value>
   </data>
   <data name="PrimaryMonitor" xml:space="preserve">
     <value>Moniteur principal</value>
@@ -247,10 +247,10 @@
     <value>Active la version bêta OneEuro du Lightgun de test :</value>
   </data>
   <data name="FpsmouseDeadzone" xml:space="preserve">
-    <value>Zone lorte de la souris FPS</value>
+    <value>Zone morte de la souris FPS :</value>
   </data>
   <data name="FpsmouseSpeed" xml:space="preserve">
-    <value>Vitesse de la souris FPS</value>
+    <value>Vitesse de la souris FPS:</value>
   </data>
   <data name="ShakeTitle" xml:space="preserve">
     <value>Configuration de sécousse</value>
@@ -361,7 +361,7 @@
     <value>Terminé</value>
   </data>
   <data name="OneWiimoteConnected" xml:space="preserve">
-    <value>Un WIImotye connecté </value>
+    <value>Un WIImote connecté </value>
   </data>
   <data name="WiimotesConnected" xml:space="preserve">
     <value>Wiimotes connectées</value>
@@ -664,31 +664,31 @@
     <value>Bouton central de la souris</value>
   </data>
   <data name="tMouseRightB" xml:space="preserve">
-    <value>Gachette droite</value>
+    <value>Bouton droite de la souris</value>
   </data>
   <data name="tMouseWheelUp" xml:space="preserve">
-    <value>Molette de la souris vers le haut</value>
+    <value>Molette souris vers le haut</value>
   </data>
   <data name="tMouseWheelDown" xml:space="preserve">
-    <value>Molette de la souris vers le bas</value>
+    <value>Molette souris vers le bas</value>
   </data>
   <data name="tMouseRight" xml:space="preserve">
-    <value>Mouvement de la souris vers la droite</value>
+    <value>Mouv. souris vers la droite</value>
   </data>
   <data name="tMouseUp" xml:space="preserve">
-    <value>Mouvement de la souris vers le haut</value>
+    <value>Mouv. souris vers le haut</value>
   </data>
   <data name="tMouseLeft" xml:space="preserve">
-    <value>Mouvement de la souris vers la gauche</value>
+    <value>Mouv. souris vers la gauche</value>
   </data>
   <data name="tMouseDown" xml:space="preserve">
-    <value>Mouvement de la souris vers le bas</value>
+    <value>Mouv. souris vers le bas</value>
   </data>
   <data name="tMouseExtra1" xml:space="preserve">
-    <value>Bouton supplémentaire 1 de la souris</value>
+    <value>Bouton supp. 1 de la souris</value>
   </data>
   <data name="tMouseExtra2" xml:space="preserve">
-    <value>Bouton supplémentaire 2 de la souris</value>
+    <value>Bouton supp. 2 de la souris</value>
   </data>
   <data name="tBack" xml:space="preserve">
     <value>Retour</value>
@@ -1022,5 +1022,26 @@
   </data>
   <data name="UpdateCheck_InstallationCancelled" xml:space="preserve">
     <value>Installation de la mise à jour annulée par l'utilisateur.</value>
+  </data>
+  <data name="ChangeLang" xml:space="preserve">
+    <value>Langue</value>
+  </data>
+  <data name="ChangeLanguage_Title" xml:space="preserve">
+    <value>Changer de langue</value>
+  </data>
+  <data name="ChangeLanguage_Accept" xml:space="preserve">
+    <value>Accepter</value>
+  </data>
+  <data name="ChangeLanguage_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="ChangeLanguage_Message" xml:space="preserve">
+    <value>Choisissez une nouvelle langue</value>
+  </data>
+  <data name="Restart_Title" xml:space="preserve">
+    <value>Redémarrage requis</value>
+  </data>
+  <data name="Restart_Message" xml:space="preserve">
+    <value>La langue a changé. L'application va redémarrer pour appliquer les modifications.</value>
   </data>
 </root>

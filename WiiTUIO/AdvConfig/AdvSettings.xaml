@@ -217,24 +217,6 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Content="{loc:Localization PointerSensorBarPos}"/>
-                        <TextBox Grid.Column="1" Text="{Binding pointer_sensorBarPos, UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{DynamicResource MahApps.Metro.Styles.TextBox}"/>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Content="{loc:Localization Pointer4IRMode}"/>
-                        <TextBox Grid.Column="1" Text="{Binding pointer_4IRMode, UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{DynamicResource MahApps.Metro.Styles.TextBox}"/>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Content="{loc:Localization PointerFPS}"/>
                         <Slider Grid.Column="1" Value="{Binding pointer_FPS, UpdateSourceTrigger=PropertyChanged}" Minimum="1" Maximum="200" SmallChange="1" LargeChange="10"
                                 Style="{DynamicResource MahApps.Metro.Styles.Slider}"/>
@@ -530,7 +512,7 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Content="{loc:Localization WiimodeRumbleTimeLong}"/>
+                        <Label Grid.Column="0" Content="{loc:Localization WiimoteRumbleTimeLong}"/>
                         <Slider Grid.Column="1" Value="{Binding wiimode_rumbleTime_long, UpdateSourceTrigger=PropertyChanged}" Minimum="0" Maximum="1000" SmallChange="10" LargeChange="100"
                                 Style="{DynamicResource MahApps.Metro.Styles.Slider}"/>
                         <TextBox Grid.Column="1" Text="{Binding wiimode_rumbleTime_long, StringFormat={}{0:N0}, UpdateSourceTrigger=PropertyChanged}" Width="50" HorizontalAlignment="Right" PreviewTextInput="NumericTextBox_PreviewTextInput"

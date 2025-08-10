@@ -664,7 +664,7 @@
     <value>Mouse Middle Button</value>
   </data>
   <data name="tMouseRightB" xml:space="preserve">
-    <value>Right Trigger  Button</value>
+    <value>Mouse Right Button</value>
   </data>
   <data name="tMouseWheelUp" xml:space="preserve">
     <value>Mouse Wheel Up</value>
@@ -1022,5 +1022,26 @@
   </data>
   <data name="UpdateCheck_InstallationCancelled" xml:space="preserve">
     <value>Update installation cancelled by user.</value>
+  </data>
+  <data name="ChangeLang" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="ChangeLanguage_Title" xml:space="preserve">
+    <value>Change Language</value>
+  </data>
+  <data name="ChangeLanguage_Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="ChangeLanguage_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ChangeLanguage_Message" xml:space="preserve">
+    <value>Choose new language</value>
+  </data>
+  <data name="Restart_Title" xml:space="preserve">
+    <value>Restart Required</value>
+  </data>
+  <data name="Restart_Message" xml:space="preserve">
+    <value>The language has been changed. The application will restart to apply the changes.</value>
   </data>
 </root>

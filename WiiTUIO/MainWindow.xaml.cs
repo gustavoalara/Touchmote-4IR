@@ -33,6 +33,7 @@ using WiiTUIO.ArcadeHook;
 using System.IO.Pipes;
 using System.Globalization;
 using System.Reflection; // Needed for Assembly.GetExecutingAssembly
+using MahApps.Metro.Controls.Dialogs;
 
 using static WiiTUIO.Resources.Resources; // Importa la clase Resources para acceso directo a las cadenas
 
@@ -46,7 +47,8 @@ namespace WiiTUIO
         // Define aquí la URL de la API de releases de tu repositorio de GitHub
         private const string GitHubApiReleasesUrl = "https://api.github.com/repos/gustavoalara/Gunmote/releases/latest";
         private const string GitHubReleasesPageUrl = "https://github.com/gustavoalara/Gunmote/releases";
-
+        
+        private LanguageSelectorUC languagePanel;
 
         private bool wiiPairRunning = false;
 
@@ -103,9 +105,24 @@ namespace WiiTUIO
         public MainWindow()
         {
             // Localization
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.CurrentUICulture;
 
-            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture;
+            if (!string.IsNullOrEmpty(Settings.Default.DefaultLanguage))
+            {
+                try
+                {
+                    // Aplica el idioma guardado a la cultura del hilo de la UI.
+                    var culture = new CultureInfo(Settings.Default.DefaultLanguage);
+                    Thread.CurrentThread.CurrentUICulture = culture;
+                    Thread.CurrentThread.CurrentCulture = culture;
+                }
+                catch (CultureNotFoundException)
+                {
+                    // Si el idioma guardado es inválido por alguna razón,
+                    // simplemente continúa con el idioma por defecto del sistema.
+                    Settings.Default.DefaultLanguage = "";
+                    Settings.Default.Save();
+                }
+            }
 
 
 
@@ -144,6 +161,7 @@ namespace WiiTUIO
             this.tbPairDone.Visibility = Visibility.Collapsed;
             this.spErrorMsg.Visibility = Visibility.Collapsed;
             this.spInfoMsg.Visibility = Visibility.Collapsed;
+            this.canvasLanguage.Visibility = Visibility.Collapsed;
             this.animateExpand(this.mainPanel);
 
             overlayUIThread = new Thread(() =>
@@ -201,6 +219,10 @@ namespace WiiTUIO
             aboutpanel.OnClose += AboutPanel_OnClose;
 
             this.canvasAbout.Children.Add(aboutpanel);
+
+            languagePanel = new LanguageSelectorUC();
+            languagePanel.OnClose += LanguagePanel_OnClose;
+            this.canvasLanguage.Children.Add(languagePanel);
 
             Loaded += MainWindow_Loaded;
 
@@ -781,6 +803,10 @@ namespace WiiTUIO
             {
                 animateExpand(this.mainPanel);
             }
+            if (this.canvasLanguage.IsVisible)
+            {
+                animateCollapse(this.canvasLanguage, false);
+            }
             //this.canvasSettings.Visibility = Visibility.Collapsed;
             //this.canvasAbout.Visibility = Visibility.Collapsed;
             //this.mainPanel.Visibility = Visibility.Visible;
@@ -1129,7 +1155,141 @@ namespace WiiTUIO
                 arcadeHookThread = null;
             }
         }
+        /// <summary>
+        /// Obtiene una lista de las culturas (idiomas) disponibles en la aplicación,
+        /// basándose en los ensamblados de recursos satélite.
+        /// </summary>
+        /// <returns>Una lista de objetos CultureInfo representando los idiomas disponibles.</returns>
+        private List<CultureInfo> GetAvailableCultures()
+        {
+            var cultures = new List<CultureInfo>();
+            // Obtiene la ruta del ensamblado principal
+            var exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            if (exePath == null) return cultures;
 
+            // Añade la cultura por defecto (normalmente inglés, del fichero Resources.resx)
+            cultures.Add(new CultureInfo("en"));
+
+            // Busca directorios que coincidan con nombres de cultura válidos
+            foreach (var dir in Directory.GetDirectories(exePath))
+            {
+                try
+                {
+                    var dirInfo = new DirectoryInfo(dir);
+                    // Comprueba si el nombre del directorio es un nombre de cultura válido
+                    var culture = CultureInfo.GetCultureInfo(dirInfo.Name);
+
+                    // Comprueba si existe el ensamblado de recursos para esa cultura
+                    if (File.Exists(Path.Combine(dir, $"{Assembly.GetExecutingAssembly().GetName().Name}.resources.dll")))
+                    {
+                        cultures.Add(culture);
+                    }
+                }
+                catch (CultureNotFoundException)
+                {
+                    // El nombre del directorio no es una cultura válida, lo ignoramos.
+                }
+            }
+            return cultures.Distinct().ToList();
+        }
+        private void btnChangeLang_Click(object sender, RoutedEventArgs e)
+        {
+            showLanguage();
+        }
+
+        // Asegúrate de que tu método auxiliar ShowSelectAsync también usa los settings
+        public Task<string> ShowSelectAsync(string title, string message, IEnumerable<string> items, MetroDialogSettings settings)
+        {
+            string availableOptions = string.Join(", ", items);
+            return this.ShowInputAsync(title, $"{message}\n\nOpciones: {availableOptions}", settings);
+        }
+
+        // **Función auxiliar ShowSelectAsync para MahApps.Metro**
+        // MahApps no tiene un diálogo de selección directa, así que podemos simularlo.
+        // (Esta es una implementación simplificada. Para una real, se crearía un CustomDialog)
+        public Task<string> ShowSelectAsync(string title, string message, IEnumerable<string> items)
+        {
+            // Esta implementación es un ejemplo. La forma ideal es con un CustomDialog
+            // Por simplicidad, aquí usaremos el InputDialog, pidiendo al usuario que escriba
+            // o, mejor aún, crear un diálogo personalizado.
+            // Dado que crear un CustomDialog es más complejo, lo más directo es que elijas
+            // la opción que mejor se adapte a tu proyecto.
+            // Si quieres el código para un CustomDialog completo, pídemelo.
+            // Por ahora, para que funcione, podrías hacer un bucle sobre las opciones.
+
+            // Vamos a usar el ShowInputAsync y el usuario debe escribir el nombre.
+            // Es una solución intermedia.
+            string availableOptions = string.Join(", ", items);
+            return this.ShowInputAsync(title, $"{message}\n\nOpciones: {availableOptions}");
+        }
+
+        private void showLanguage()
+        {
+            // Oculta los otros paneles
+            if (this.mainPanel.IsVisible) animateCollapse(this.mainPanel, false);
+            if (this.canvasSettings.IsVisible) animateCollapse(this.canvasSettings, false);
+            if (this.canvasAbout.IsVisible) animateCollapse(this.canvasAbout, false);
+
+            // Muestra el panel de idioma
+            if (!this.canvasLanguage.IsVisible)
+            {
+                animateExpand(this.canvasLanguage);
+            }
+        }
+
+        private void LanguagePanel_OnClose()
+        {
+            // Le preguntamos al panel si el usuario eligió un nuevo idioma
+            bool restart = languagePanel.ShouldRestart();
+
+            // Volvemos a la pantalla principal
+            showMain();
+
+            // Si hay que reiniciar, mostramos el mensaje y lo hacemos
+            if (restart)
+            {
+                MessageBox.Show(
+                    Restart_Message,
+                    Restart_Title,
+                    MessageBoxButton.OK, MessageBoxImage.Information
+                );
+
+                //System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                Restart();
+            }
+        }
+        /// <summary>
+        /// Handles the Click event for the "Restart" button.
+        /// Changes language and restarts the application.
+        /// </summary>
+        private void Restart()
+        {
+
+            try
+            {
+                string executablePath = System.Windows.Application.ResourceAssembly.Location;
+
+                // Creates a new ProcessStartInfo for the restart
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = executablePath,
+                    UseShellExecute = true, // Important for the operating system to handle the launch
+                    WorkingDirectory = Path.GetDirectoryName(executablePath), // Sets the working directory
+                    Arguments = "--restarting" // Adds the argument to indicate it's a restart
+                };
+
+                Process.Start(startInfo);
+
+                // A small delay to ensure the new process has time to start
+                Thread.Sleep(500);
+                System.Windows.Application.Current.Shutdown();
+
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(string.Format(RestartError, ex.Message), "Restart Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 
 

@@ -664,7 +664,7 @@
     <value>Mittlere Maustaste </value>
   </data>
   <data name="tMouseRightB" xml:space="preserve">
-    <value>Rechter Trigger Knopf </value>
+    <value>Rechter Maustaste </value>
   </data>
   <data name="tMouseWheelUp" xml:space="preserve">
     <value>Mausrad Hoch </value>
@@ -1022,5 +1022,26 @@
   </data>
   <data name="UpdateCheck_InstallationCancelled" xml:space="preserve">
     <value>Update-Installation vom Benutzer abgebrochen.</value>
+  </data>
+  <data name="ChangeLang" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="ChangeLanguage_Title" xml:space="preserve">
+    <value>Sprache ändern</value>
+  </data>
+  <data name="ChangeLanguage_Accept" xml:space="preserve">
+    <value>Akzeptieren</value>
+  </data>
+  <data name="ChangeLanguage_Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="ChangeLanguage_Message" xml:space="preserve">
+    <value>Wählen Sie eine neue Sprache</value>
+  </data>
+  <data name="Restart_Title" xml:space="preserve">
+    <value>Neustart erforderlich</value>
+  </data>
+  <data name="Restart_Message" xml:space="preserve">
+    <value>Die Sprache wurde geändert. Die Anwendung wird neu gestartet, um die Änderungen zu übernehmen.</value>
   </data>
 </root>

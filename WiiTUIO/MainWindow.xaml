@@ -23,6 +23,7 @@
     <Controls:MetroWindow.WindowCommands>
         <Controls:WindowCommands>
             <Button Name="btnAbout" Content="{loc:Localization About}" Click="btnAbout_Click" />
+            <Button Name="btnChangeLang" Content="{loc:Localization ChangeLang}" Click="btnChangeLang_Click" />
             <Button Name="btnAppSettings" Click="btnAppSettings_Click">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20" Height="20">
@@ -99,6 +100,8 @@
         <StackPanel Name="canvasSettings">
         </StackPanel>
         <StackPanel Name="canvasAbout">
+        </StackPanel>
+        <StackPanel Name="canvasLanguage">
         </StackPanel>
     </StackPanel>
 </Controls:MetroWindow>

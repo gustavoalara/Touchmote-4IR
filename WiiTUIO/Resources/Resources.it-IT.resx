@@ -664,7 +664,7 @@
     <value>Bottone centrale mouse                                                                                                              </value>
   </data>
   <data name="tMouseRightB" xml:space="preserve">
-    <value>Bottone grilletto destro                                                                                                            </value>
+    <value>Bottone destro mouse                                                                                                           </value>
   </data>
   <data name="tMouseWheelUp" xml:space="preserve">
     <value>Rotella mouse su                                                                                                                    </value>
@@ -1022,5 +1022,26 @@
   </data>
   <data name="UpdateCheck_InstallationCancelled" xml:space="preserve">
     <value>Installazione dell'aggiornamento annullata dall'utente.</value>
+  </data>
+  <data name="ChangeLang" xml:space="preserve">
+    <value>Lingua</value>
+  </data>
+  <data name="ChangeLanguage_Title" xml:space="preserve">
+    <value>Cambiare lingua</value>
+  </data>
+  <data name="ChangeLanguage_Accept" xml:space="preserve">
+    <value>Accetta</value>
+  </data>
+  <data name="ChangeLanguage_Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="ChangeLanguage_Message" xml:space="preserve">
+    <value>Scegli una nuova lingua</value>
+  </data>
+  <data name="Restart_Title" xml:space="preserve">
+    <value>Riavvio necessario</value>
+  </data>
+  <data name="Restart_Message" xml:space="preserve">
+    <value>La lingua è stata modificata. L'applicazione verrà riavviata per applicare le modifiche.</value>
   </data>
 </root>

@@ -367,6 +367,51 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Language.
+        /// </summary>
+        internal static string ChangeLang {
+            get {
+                return ResourceManager.GetString("ChangeLang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Accept.
+        /// </summary>
+        internal static string ChangeLanguage_Accept {
+            get {
+                return ResourceManager.GetString("ChangeLanguage_Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cancel.
+        /// </summary>
+        internal static string ChangeLanguage_Cancel {
+            get {
+                return ResourceManager.GetString("ChangeLanguage_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Choose new language.
+        /// </summary>
+        internal static string ChangeLanguage_Message {
+            get {
+                return ResourceManager.GetString("ChangeLanguage_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Change Language.
+        /// </summary>
+        internal static string ChangeLanguage_Title {
+            get {
+                return ResourceManager.GetString("ChangeLanguage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Choose Layout.
         /// </summary>
         internal static string ChooseLayout {
@@ -1114,6 +1159,24 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The language has been changed. The application will restart to apply the changes..
+        /// </summary>
+        internal static string Restart_Message {
+            get {
+                return ResourceManager.GetString("Restart_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Restart Required.
+        /// </summary>
+        internal static string Restart_Title {
+            get {
+                return ResourceManager.GetString("Restart_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Error restarting the application: {0}.
         /// </summary>
         internal static string RestartError {
@@ -1780,7 +1843,7 @@ namespace WiiTUIO.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Right Trigger  Button.
+        ///   Busca una cadena traducida similar a Mouse Right Button.
         /// </summary>
         internal static string tMouseRightB {
             get {

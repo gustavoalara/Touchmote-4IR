@@ -739,6 +739,16 @@ namespace WiiTUIO.Properties
                 handler(this, new PropertyChangedEventArgs(name));
             }
         }
+		private string _DefaultLanguage = ""; // Valor inicial vacío
+        public string DefaultLanguage
+        {
+            get { return _DefaultLanguage; }
+            set
+            {
+                _DefaultLanguage = value;
+                OnPropertyChanged("DefaultLanguage");
+            }
+        }
 
     }
 

@@ -21,7 +21,7 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
-    <PublishUrl>C:\Users\Simon\Desktop\</PublishUrl>
+    <PublishUrl>https://github.com/gustavoalara/Gunmote</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -31,7 +31,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://touchmote.net/</InstallUrl>
+    <InstallUrl>https://github.com/gustavoalara/Gunmote/releases/latest</InstallUrl>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <ApplicationRevision>1</ApplicationRevision>
@@ -211,6 +211,9 @@
     <Compile Include="ArcadeHook\IniFileHandler.cs" />
     <Compile Include="ArcadeHook\OutputProvider.cs" />
     <Compile Include="Autostart.cs" />
+    <Compile Include="LanguageSelectorUC.xaml.cs">
+      <DependentUpon>LanguageSelectorUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LocalizationExtension.cs" />
     <Compile Include="CommandListener.cs" />
     <Compile Include="DeviceUtils\AudioUtil.cs" />
@@ -345,6 +348,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="LanguageSelectorUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LayoutSelectionRow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -427,9 +434,6 @@
     <None Include="Keymaps\mouse.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Keymaps\steeringwheel.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Keymaps\Keymaps.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -506,10 +510,10 @@
 
 GOTO END
 
-xcopy "$(TargetDir)..\$(ConfigurationName)" "C:\Program Files\Touchmote" /H /Y
-cd "C:\Program Files\Touchmote"
+xcopy "$(TargetDir)..\$(ConfigurationName)" "C:\Program Files\Gunmote" /H /Y
+cd "C:\Program Files\Gunmote"
 
-"C:\Program Files (x86)\Windows Kits\8.1\bin\$(PlatformName)\signtool.exe" sign /v /a /s ROOT /n Touchmote /t http://timestamp.digicert.com/scripts/timstamp.dll "C:\Program Files\Touchmote\Touchmote.exe"
+"C:\Program Files (x86)\Windows Kits\8.1\bin\$(PlatformName)\signtool.exe" sign /v /a /s ROOT /n Gunmote /t http://timestamp.digicert.com/scripts/timstamp.dll "C:\Program Files\Gunmote\Gunmote.exe"
 
 :END</PostBuildEvent>
   </PropertyGroup>
