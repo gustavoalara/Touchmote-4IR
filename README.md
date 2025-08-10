@@ -66,6 +66,11 @@ If you would like to help translate into new languages, there are some Excel fil
 Release History
 ==============
 
+**v1.0 beta 30**<br />
+- Added language selector in the UI.
+- Fix language issues and size fields
+- Modified default wiimote profiles for Mouse Lightgun and Default (XInput)
+  
 **v1.0 beta 29**<br />
 - Name and logo change due to the removal of touch features and a focus on lightgun functionality primarily.
 - Updates url changed
