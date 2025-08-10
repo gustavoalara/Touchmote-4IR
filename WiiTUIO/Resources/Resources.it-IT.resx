@@ -460,10 +460,10 @@
     <value>Predefinito                                                                                                                         </value>
   </data>
   <data name="About" xml:space="preserve">
-    <value>Informazioni                                                                                                                        </value>
+    <value>Info</value>
   </data>
   <data name="SettingsBut" xml:space="preserve">
-    <value>Impostazioni                                                                                                                        </value>
+    <value>Impost.</value>
   </data>
   <data name="KeymapConfigTitle" xml:space="preserve">
     <value>Configurazione tasti                                                                                                                </value>

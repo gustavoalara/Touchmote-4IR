@@ -463,7 +463,7 @@
     <value>À propos</value>
   </data>
   <data name="SettingsBut" xml:space="preserve">
-    <value>Configuration</value>
+    <value>Config.</value>
   </data>
   <data name="KeymapConfigTitle" xml:space="preserve">
     <value>Configuration des touches</value>

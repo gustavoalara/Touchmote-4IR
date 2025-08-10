@@ -14,7 +14,7 @@ namespace WiiTUIO
         {
             using (TaskService ts = new TaskService())
             {
-                Microsoft.Win32.TaskScheduler.Task task = ts.GetTask("Touchmote");
+                Microsoft.Win32.TaskScheduler.Task task = ts.GetTask("Gunmote");
                 return task != null;
             }
         }
@@ -25,19 +25,19 @@ namespace WiiTUIO
             using (TaskService ts = new TaskService())
             {
                 TaskDefinition td = ts.NewTask();
-                td.RegistrationInfo.Description = "Autostart Touchmote";
+                td.RegistrationInfo.Description = "Autostart Gunmote";
 
                 td.Triggers.Add(new LogonTrigger());
 
-                td.Actions.Add(new ExecAction(System.AppDomain.CurrentDomain.BaseDirectory + "Touchmote.exe", null, System.AppDomain.CurrentDomain.BaseDirectory));
+                td.Actions.Add(new ExecAction(System.AppDomain.CurrentDomain.BaseDirectory + "Gunmote.exe", null, System.AppDomain.CurrentDomain.BaseDirectory));
                 td.Settings.MultipleInstances = TaskInstancesPolicy.StopExisting;
                 td.Principal.RunLevel = TaskRunLevel.Highest;
 
-                ts.RootFolder.RegisterTaskDefinition(@"Touchmote", td);
+                ts.RootFolder.RegisterTaskDefinition(@"Gunmote", td);
 
                 return true;
 
-                //ts.RootFolder.DeleteTask("Touchmote");
+                //ts.RootFolder.DeleteTask("Gunmote");
 
             }
         }
@@ -47,7 +47,7 @@ namespace WiiTUIO
             // Get the service on the local machine
             using (TaskService ts = new TaskService())
             {
-                ts.RootFolder.DeleteTask("Touchmote");
+                ts.RootFolder.DeleteTask("Gunmote");
                 return true;
             }
         }
