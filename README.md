@@ -65,6 +65,9 @@ If you would like to help translate into new languages, there are some Excel fil
 
 Release History
 ==============
+**v1.0 beta 32**<br />
+- Added the ability to display the system monitors in the monitor selection dropdown within the advanced settings screen. For now, this makes the overlays move to the selected screen (including the cursor and cursor lightgun modes). The mouse and mouse lightgun modes remain on the screen where the IR LEDs are located
+  
 **v1.0 beta 31**<br />
 - Fixed an issue where Italian did not display correctly.
 - Fixed autostart with windows not working
