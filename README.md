@@ -65,7 +65,10 @@ If you would like to help translate into new languages, there are some Excel fil
 
 Release History
 ==============
-
+**v1.0 beta 31**<br />
+- Fixed an issue where Italian did not display correctly.
+- Fixed autostart with windows not working
+  
 **v1.0 beta 30**<br />
 - Added language selector in the UI.
 - Fix language issues and size fields
