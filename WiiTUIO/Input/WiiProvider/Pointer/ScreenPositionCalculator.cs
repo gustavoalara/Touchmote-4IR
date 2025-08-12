@@ -607,8 +607,24 @@ namespace WiiTUIO.Provider
             marginX = Math.Min(1.0, Math.Max(0.0, (1 - median.X - midMarginX) * marginBoundsX));
             marginY = Math.Min(1.0, Math.Max(0.0, (median.Y - (marginOffsetY + midMarginX)) * marginBoundsY));
 
+            if (Settings.Default.pointer_4IRMode != "diamond")
+            {
+            // Modo Touchmote heredado (square/none)
             lightbarX = (resultPos.X - topLeftPt.X) * boundsX + Settings.Default.CalibrationMarginX;
             lightbarY = (resultPos.Y - topLeftPt.Y) * boundsY + Settings.Default.CalibrationMarginY;
+            
+            // Aplicar márgenes globales heredados
+            lightbarX = (lightbarX * (1 - Settings.Default.pointer_marginsLeftRight * 2)) 
+                         + Settings.Default.pointer_marginsLeftRight;
+            lightbarY = (lightbarY * (1 - Settings.Default.pointer_marginsTopBottom * 2)) 
+                         + Settings.Default.pointer_marginsTopBottom;
+            }
+            else
+            {
+            // Modo diamond → usar directamente coordenadas warp, sin márgenes heredados
+            lightbarX = resultPos.X;
+            lightbarY = resultPos.Y;
+            }
 
             if (x <= 0)
             {
