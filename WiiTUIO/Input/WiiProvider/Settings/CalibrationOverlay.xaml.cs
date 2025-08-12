@@ -471,14 +471,14 @@ namespace WiiTUIO.Provider
                 {
                     Dispatcher.BeginInvoke(new Action(delegate ()
                     {
-                        this.movePoint(1 - marginXBackup, 1 - marginYBackup); // Bottom Right Corner
+                        this.movePoint(1, 1); // Bottom Right Corner
                         this.insText2.Text = AimButtomRight;
                         this.TextBorder.UpdateLayout();
                         this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                         this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
                     }), null);
 
-                    step = 1;
+                    step = 0;
                 }
                 else if (Settings.Default.pointer_4IRMode == "square")
                 {
@@ -675,7 +675,18 @@ namespace WiiTUIO.Provider
                     switch (step)
                     {
                         case 0:
-                            if (Settings.Default.pointer_4IRMode == "square")
+                            if (Settings.Default.pointer_4IRMode == "none")
+                            {
+                                Dispatcher.BeginInvoke(new Action(delegate ()
+                                {
+                                    this.movePoint(1, 1); // Right-bottom
+                                    this.insText2.Text = AimBottomRight;
+                                    this.TextBorder.UpdateLayout();
+                                    this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
+                                    this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
+                                }), null);
+                            }
+                            else if (Settings.Default.pointer_4IRMode == "square")
                             {
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
@@ -685,7 +696,6 @@ namespace WiiTUIO.Provider
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                                     this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
                                 }), null);
-                                step = 1;
                             }
                             else if (Settings.Default.pointer_4IRMode == "diamond")
                             {
@@ -697,8 +707,8 @@ namespace WiiTUIO.Provider
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                                     this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
                                 }), null);
-                                step = 1;
                             }
+                            step = 1;
                             break;
                         case 1:
                             if (Settings.Default.pointer_4IRMode == "none")
@@ -930,37 +940,65 @@ namespace WiiTUIO.Provider
             switch (step)
             {
                 case 0: // Center Capture (Square, Diamond)
-                    else if (Settings.Default.pointer_4IRMode == "diamond" || Settings.Default.pointer_4IRMode == "square")
+                    //this.keyMapper.settings.CenterX = 0.5f;
+                    //this.keyMapper.settings.CenterY = 0.5f;
+                    float sumX = 0f;
+                    float sumY = 0f;
+                    int count = 0;
+
+                    for (int i = 0; i < 4; i++)
                     {
-                        //this.keyMapper.settings.CenterX = 0.5f;
-                        //this.keyMapper.settings.CenterY = 0.5f;
-                        float sumX = 0f;
-                        float sumY = 0f;
-                        int count = 0;
-
-                        for (int i = 0; i < 4; i++)
+                        if (irState.IRSensors[i].Found)
                         {
-                            if (irState.IRSensors[i].Found)
-                            {
-                                sumX += irState.IRSensors[i].Position.X;
-                                sumY += irState.IRSensors[i].Position.Y;
-                                count++;
-                            }
+                            sumX += irState.IRSensors[i].Position.X;
+                            sumY += irState.IRSensors[i].Position.Y;
+                            count++;
                         }
-
-                        if (count > 0)
-                        {
-                            this.keyMapper.settings.CenterX = sumX / count;
-                            this.keyMapper.settings.CenterY = sumY / count;
-                        }
-
+                    }
+                    if (count > 0)
+                    {
+                        this.keyMapper.settings.CenterX = sumX / count;
+                        this.keyMapper.settings.CenterY = sumY / count;
                     }
                     break;
                 case 1: // Bottom Right (none) or Top-Left (Square) or Top (Diamond)
                     if (Settings.Default.pointer_4IRMode == "none")
                     {
-                        this.keyMapper.settings.Bottom = (float)this.keyMapper.cursorPos.RelativeY;
-                        this.keyMapper.settings.Right = (float)this.keyMapper.cursorPos.RelativeX;
+                        bool topBar = Settings.Default.pointer_sensorBarPos == "top";
+                        int ledIndex = -1;
+                        float maxX = float.MinValue;
+                    
+                        // Buscar LED derecho (máximo X)
+                        for (int i = 0; i < 4; i++)
+                        {
+                            if (irState.IRSensors[i].Found && irState.IRSensors[i].Position.X > maxX)
+                            {
+                                maxX = irState.IRSensors[i].Position.X;
+                                ledIndex = i;
+                            }
+                        }
+                    
+                        if (ledIndex != -1)
+                        {
+                            float pointX = irState.IRSensors[ledIndex].Position.X;
+                            float pointY = irState.IRSensors[ledIndex].Position.Y;
+                            float centerX = this.keyMapper.settings.CenterX;
+                            float centerY = this.keyMapper.settings.CenterY;
+                            double rotation = this.keyMapper.cursorPos.Rotation;
+                    
+                            // Corrección por rotación
+                            float relativeX = pointX - centerX;
+                            float relativeY = pointY - centerY;
+                            float rotatedX = (float)(relativeX * Math.Cos(rotation) - relativeY * Math.Sin(rotation));
+                            float rotatedY = (float)(relativeX * Math.Sin(rotation) + relativeY * Math.Cos(rotation));
+                    
+                            this.keyMapper.settings.Right = centerX + rotatedX;
+                    
+                            if (topBar)
+                                this.keyMapper.settings.Top = centerY + rotatedY;
+                            else
+                                this.keyMapper.settings.Bottom = centerY + rotatedY;
+                        }
                     }
                     else if (Settings.Default.pointer_4IRMode == "square")
                     {
@@ -1033,8 +1071,41 @@ namespace WiiTUIO.Provider
                 case 2: // Top Left Capture (None) or Top-Right (Square) or Bottom (Diamond)
                     if (Settings.Default.pointer_4IRMode == "none")
                     {
-                        this.keyMapper.settings.Top = (float)this.keyMapper.cursorPos.RelativeY;
-                        this.keyMapper.settings.Left = (float)this.keyMapper.cursorPos.RelativeX;
+                        bool topBar = Settings.Default.pointer_sensorBarPos == "top";
+                        int ledIndex = -1;
+                        float minX = float.MaxValue;
+                    
+                        // Buscar LED izquierdo (mínimo X)
+                        for (int i = 0; i < 4; i++)
+                        {
+                            if (irState.IRSensors[i].Found && irState.IRSensors[i].Position.X < minX)
+                            {
+                                minX = irState.IRSensors[i].Position.X;
+                                ledIndex = i;
+                            }
+                        }
+                    
+                        if (ledIndex != -1)
+                        {
+                            float pointX = irState.IRSensors[ledIndex].Position.X;
+                            float pointY = irState.IRSensors[ledIndex].Position.Y;
+                            float centerX = this.keyMapper.settings.CenterX;
+                            float centerY = this.keyMapper.settings.CenterY;
+                            double rotation = this.keyMapper.cursorPos.Rotation;
+                    
+                            // Corrección por rotación
+                            float relativeX = pointX - centerX;
+                            float relativeY = pointY - centerY;
+                            float rotatedX = (float)(relativeX * Math.Cos(rotation) - relativeY * Math.Sin(rotation));
+                            float rotatedY = (float)(relativeX * Math.Sin(rotation) + relativeY * Math.Cos(rotation));
+                    
+                            this.keyMapper.settings.Left = centerX + rotatedX;
+                    
+                            if (topBar)
+                                this.keyMapper.settings.Top = centerY + rotatedY;
+                            else
+                                this.keyMapper.settings.Bottom = centerY + rotatedY;
+                        }
                     }
                     else if (Settings.Default.pointer_4IRMode == "square")
                     {
