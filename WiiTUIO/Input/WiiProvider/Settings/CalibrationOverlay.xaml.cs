@@ -66,6 +66,8 @@ namespace WiiTUIO.Provider
         private double marginXBackup;
         private double marginYBackup;
 
+        private PointF calibratedTopLeft, calibratedTopRight, calibratedBottomLeft, calibratedBottomRight;
+
         private int yMin, yMax, xMin, xMax;
         private PointF[] finalPos = new PointF[4];
         private uint[] see = new uint[4];
@@ -677,8 +679,8 @@ namespace WiiTUIO.Provider
                             {
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
-                                    this.movePoint(1 - marginXBackup, 1 - marginYBackup); // Bottom Right Corner
-                                    this.insText2.Text = AimButtomRight;
+                                    this.movePoint(0, 0); // Top Left Corner
+                                    this.insText2.Text = AimTopLeft;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                                     this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
@@ -699,12 +701,24 @@ namespace WiiTUIO.Provider
                             }
                             break;
                         case 1:
-                            if (Settings.Default.pointer_4IRMode == "none" || Settings.Default.pointer_4IRMode == "square")
+                            if (Settings.Default.pointer_4IRMode == "none")
                             {
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
                                     this.movePoint(marginXBackup, marginYBackup);
                                     this.insText2.Text = AimTopLeft;
+                                    this.TextBorder.UpdateLayout();
+                                    this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
+                                    this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
+                                }), null);
+                                step = 2;
+                            }
+                            if (Settings.Default.pointer_4IRMode == "square")
+                            {
+                                Dispatcher.BeginInvoke(new Action(delegate ()
+                                {
+                                    this.movePoint(1, 0);
+                                    this.insText2.Text = AimTopRight;
                                     this.TextBorder.UpdateLayout();
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                                     this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
@@ -725,8 +739,8 @@ namespace WiiTUIO.Provider
                             }
                             break;
                         case 2:
-                            // This is the last calibration point for "none" and "square"
-                            if (Settings.Default.pointer_4IRMode == "none" || Settings.Default.pointer_4IRMode == "square")
+                            // This is the last calibration point for "none"
+                            if (Settings.Default.pointer_4IRMode == "none")
                             {
                                 // Final assignment logic for square (since Top, Bottom, Left, Right are assigned in buttonTimer_Elapsed)
                                 if (Settings.Default.pointer_4IRMode == "square")
@@ -752,6 +766,18 @@ namespace WiiTUIO.Provider
                                 }), null);
                                 step = 5; // Go directly to unified confirmation step
                             }
+                            else if (Settings.Default.pointer_4IRMode == "square")
+                            {
+                                Dispatcher.BeginInvoke(new Action(delegate ()
+                                {
+                                    this.movePoint(0, 1); // Left Bottom Corner
+                                    this.insText2.Text = AimBottomLeft;
+                                    this.TextBorder.UpdateLayout();
+                                    this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
+                                    this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
+                                }), null);
+                                step = 3;
+                            }
                             else if (Settings.Default.pointer_4IRMode == "diamond")
                             {
                                 Dispatcher.BeginInvoke(new Action(delegate ()
@@ -766,8 +792,18 @@ namespace WiiTUIO.Provider
                             }
                             break;
                         case 3:
-                            // This step is only reached in "diamond" for right-center
-                            if (Settings.Default.pointer_4IRMode == "diamond")
+                            if (Settings.Default.pointer_4IRMode == "square")
+                            {
+                                Dispatcher.BeginInvoke(new Action(delegate ()
+                                {
+                                    this.movePoint(1, 1); // Right-Center
+                                    this.insText2.Text = AimBottomRight;
+                                    this.TextBorder.UpdateLayout();
+                                    this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
+                                    this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
+                                }), null);
+                            }
+                            else if (Settings.Default.pointer_4IRMode == "diamond")
                             {
                                 Dispatcher.BeginInvoke(new Action(delegate ()
                                 {
@@ -777,28 +813,21 @@ namespace WiiTUIO.Provider
                                     this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
                                     this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
                                 }), null);
-                                step = 4;
                             }
+                                step = 4;                            }
                             break;
                         case 4:
-                            // This is the last calibration point for "diamond"
-                            if (Settings.Default.pointer_4IRMode == "diamond")
-                            {
-                                // No assignment logic needed here, as DiamondTopY, BottomY, LeftX, RightX
-                                // are assigned directly in buttonTimer_Elapsed in their respective steps.
-                                // Also no Settings.Default calibration margins to restore for this mode.
 
-                                Dispatcher.BeginInvoke(new Action(delegate ()
-                                {
-                                    this.CalibrationPoint.Visibility = Visibility.Hidden; // Hide target
-                                    this.wiimoteNo.Text = null;
-                                    this.insText2.Text = AimConfirm;
-                                    this.TextBorder.UpdateLayout();
-                                    this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
-                                    this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
-                                }), null);
-                                step = 5; // Go directly to unified confirmation step
-                            }
+                            Dispatcher.BeginInvoke(new Action(delegate ()
+                            {
+                                this.CalibrationPoint.Visibility = Visibility.Hidden; // Hide target
+                                this.wiimoteNo.Text = null;
+                                this.insText2.Text = AimConfirm;
+                                this.TextBorder.UpdateLayout();
+                                this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
+                                this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
+                            }), null);
+                            step = 5; // Go directly to unified confirmation step
                             break;
                         default: break;
                     }
@@ -901,14 +930,7 @@ namespace WiiTUIO.Provider
             switch (step)
             {
                 case 0: // Center Capture (Square, Diamond)
-                    if (Settings.Default.pointer_4IRMode == "square")
-                    {
-                        this.keyMapper.settings.CenterX = (float)((this.keyMapper.cursorPos.RelativeX - 2) * Math.Cos(this.keyMapper.cursorPos.Rotation) - (this.keyMapper.cursorPos.RelativeY - 2) * Math.Sin(this.keyMapper.cursorPos.Rotation) + 2);
-                        this.keyMapper.settings.CenterY = (float)((this.keyMapper.cursorPos.RelativeX - 2) * Math.Sin(-this.keyMapper.cursorPos.Rotation) + (this.keyMapper.cursorPos.RelativeY - 2) * Math.Cos(-this.keyMapper.cursorPos.Rotation) + 2);
-                        this.keyMapper.settings.TLled = (float)(0.5 - ((this.keyMapper.cursorPos.Width / this.keyMapper.cursorPos.Height) / 4));
-                        this.keyMapper.settings.TRled = (float)(0.5 + ((this.keyMapper.cursorPos.Width / this.keyMapper.cursorPos.Height) / 4));
-                    }
-                    else if (Settings.Default.pointer_4IRMode == "diamond")
+                    else if (Settings.Default.pointer_4IRMode == "diamond" || Settings.Default.pointer_4IRMode == "square")
                     {
                         //this.keyMapper.settings.CenterX = 0.5f;
                         //this.keyMapper.settings.CenterY = 0.5f;
@@ -934,7 +956,7 @@ namespace WiiTUIO.Provider
 
                     }
                     break;
-                case 1: // Bottom Right Capture (None, Square) or Top (Diamond)
+                case 1: // Bottom Right (none) or Top-Left (Square) or Top (Diamond)
                     if (Settings.Default.pointer_4IRMode == "none")
                     {
                         this.keyMapper.settings.Bottom = (float)this.keyMapper.cursorPos.RelativeY;
@@ -942,13 +964,40 @@ namespace WiiTUIO.Provider
                     }
                     else if (Settings.Default.pointer_4IRMode == "square")
                     {
-                        bottomOffset = (float)this.keyMapper.cursorPos.LightbarY;
-                        rightOffset = (float)this.keyMapper.cursorPos.LightbarX;
+                        int cornerIndex = -1;
+                        float minSum = float.MaxValue; // Top-Left minimiza X+Y
+        
+                        for (int i = 0; i < 4; i++)
+                        {
+                            if (irState.IRSensors[i].Found)
+                            {
+                                float sum = irState.IRSensors[i].Position.X + irState.IRSensors[i].Position.Y;
+                                if (sum < minSum)
+                                {
+                                    minSum = sum;
+                                    cornerIndex = i;
+                                }
+                            }
+                        }
+        
+                        if (cornerIndex != -1)
+                        {
+                            float pointX = irState.IRSensors[cornerIndex].Position.X;
+                            float pointY = irState.IRSensors[cornerIndex].Position.Y;
+                            float centerX = this.keyMapper.settings.CenterX;
+                            float centerY = this.keyMapper.settings.CenterY;
+                            double rotation = this.keyMapper.cursorPos.Rotation;
+        
+                            float relativeX = pointX - centerX;
+                            float relativeY = pointY - centerY;
+                            float rotatedX = (float)(relativeX * Math.Cos(rotation) - relativeY * Math.Sin(rotation));
+                            float rotatedY = (float)(relativeX * Math.Sin(rotation) + relativeY * Math.Cos(rotation));
+                            
+                            calibratedTopLeft = new PointF(centerX + rotatedX, centerY + rotatedY);
+                        }
                     }
                     else if (Settings.Default.pointer_4IRMode == "diamond")
                     {
-
-
                         int topIndex = -1;
                         float topY = float.MaxValue;
 
@@ -961,19 +1010,27 @@ namespace WiiTUIO.Provider
                             }
                         }
                         this.keyMapper.settings.DiamondTopY = 1.0f + irState.IRSensors[topIndex].Position.Y;
-                        /*if (topIndex >= 0)
+                        if (topIndex != -1)
                         {
-                            Dispatcher.BeginInvoke(new Action(() =>
-                            {
-                                insText2.Text = $"LED ARRIBA detectado: LED{topIndex} Y={irState.IRSensors[topIndex].Position.Y:0.000}";
-                                this.TextBorder.UpdateLayout();
-                                this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
-                                this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
-                            }), null);
-                        }*/
+                            // 1. Obtenemos los datos necesarios
+                            float pointX = irState.IRSensors[topIndex].Position.X;
+                            float pointY = irState.IRSensors[topIndex].Position.Y;
+                            float centerX = this.keyMapper.settings.CenterX;
+                            float centerY = this.keyMapper.settings.CenterY;
+                            double rotation = this.keyMapper.cursorPos.Rotation;
+        
+                            // 2. Aplicamos la fórmula de rotación
+                            float relativeX = pointX - centerX;
+                            float relativeY = pointY - centerY;
+                            float rotatedY = (float)(relativeX * Math.Sin(rotation) + relativeY * Math.Cos(rotation));
+                            float finalY = centerY + rotatedY;
+        
+                            // 3. Usamos la coordenada Y corregida
+                            this.keyMapper.settings.DiamondTopY = 1.0f + finalY;
+                        }
                     }
                     break;
-                case 2: // Top Left Capture (None, Square) or Bottom (Diamond)
+                case 2: // Top Left Capture (None) or Top-Right (Square) or Bottom (Diamond)
                     if (Settings.Default.pointer_4IRMode == "none")
                     {
                         this.keyMapper.settings.Top = (float)this.keyMapper.cursorPos.RelativeY;
@@ -981,8 +1038,38 @@ namespace WiiTUIO.Provider
                     }
                     else if (Settings.Default.pointer_4IRMode == "square")
                     {
-                        topOffset = (float)this.keyMapper.cursorPos.LightbarY;
-                        leftOffset = (float)this.keyMapper.cursorPos.LightbarX;
+                        // --- NUEVA LÓGICA PARA SQUARE: CAPTURAR ESQUINA SUPERIOR-DERECHA ---
+                        int cornerIndex = -1;
+                        float maxDiff = float.MinValue; // Top-Right maximiza X-Y
+        
+                        for (int i = 0; i < 4; i++)
+                        {
+                            if (irState.IRSensors[i].Found)
+                            {
+                                float diff = irState.IRSensors[i].Position.X - irState.IRSensors[i].Position.Y;
+                                if (diff > maxDiff)
+                                {
+                                    maxDiff = diff;
+                                    cornerIndex = i;
+                                }
+                            }
+                        }
+        
+                        if (cornerIndex != -1)
+                        {
+                            float pointX = irState.IRSensors[cornerIndex].Position.X;
+                            float pointY = irState.IRSensors[cornerIndex].Position.Y;
+                            float centerX = this.keyMapper.settings.CenterX;
+                            float centerY = this.keyMapper.settings.CenterY;
+                            double rotation = this.keyMapper.cursorPos.Rotation;
+        
+                            float relativeX = pointX - centerX;
+                            float relativeY = pointY - centerY;
+                            float rotatedX = (float)(relativeX * Math.Cos(rotation) - relativeY * Math.Sin(rotation));
+                            float rotatedY = (float)(relativeX * Math.Sin(rotation) + relativeY * Math.Cos(rotation));
+        
+                            calibratedTopRight = new PointF(centerX + rotatedX, centerY + rotatedY);
+                        }
                     }
                     else if (Settings.Default.pointer_4IRMode == "diamond")
                     {
@@ -997,21 +1084,59 @@ namespace WiiTUIO.Provider
                                 bottomIndex = i;
                             }
                         }
-                        this.keyMapper.settings.DiamondBottomY = 0 - (1.0f - irState.IRSensors[bottomIndex].Position.Y);
-                        /*if (bottomIndex >= 0)
+                        if (bottomIndex != -1)
                         {
-                            Dispatcher.BeginInvoke(new Action(() =>
-                            {
-                                insText2.Text = $"LED ABAJO detectado: LED{bottomIndex} Y={irState.IRSensors[bottomIndex].Position.Y:0.000}";
-                                this.TextBorder.UpdateLayout();
-                                this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
-                                this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
-                            }), null);
-                        }*/
+                            float pointX = irState.IRSensors[bottomIndex].Position.X;
+                            float pointY = irState.IRSensors[bottomIndex].Position.Y;
+                            float centerX = this.keyMapper.settings.CenterX;
+                            float centerY = this.keyMapper.settings.CenterY;
+                            double rotation = this.keyMapper.cursorPos.Rotation;
+        
+                            float relativeX = pointX - centerX;
+                            float relativeY = pointY - centerY;
+                            float rotatedY = (float)(relativeX * Math.Sin(rotation) + relativeY * Math.Cos(rotation));
+                            float finalY = centerY + rotatedY;
+                            
+                            this.keyMapper.settings.DiamondBottomY = 0 - (1.0f - finalY);
+                        }
                     }
                     break;
-                case 3: // Left Capture (Diamond)
-                    if (Settings.Default.pointer_4IRMode == "diamond")
+                case 3: // Bottom-Left (Square) or Left (Diamond)
+                    if (Settings.Default.pointer_4IRMode == "square")
+                    {
+                        int cornerIndex = -1;
+                        float minDiff = float.MaxValue; // Bottom-Left minimiza X-Y
+        
+                        for (int i = 0; i < 4; i++)
+                        {
+                            if (irState.IRSensors[i].Found)
+                            {
+                                float diff = irState.IRSensors[i].Position.X - irState.IRSensors[i].Position.Y;
+                                if (diff < minDiff)
+                                {
+                                    minDiff = diff;
+                                    cornerIndex = i;
+                                }
+                            }
+                        }
+        
+                        if (cornerIndex != -1)
+                        {
+                            float pointX = irState.IRSensors[cornerIndex].Position.X;
+                            float pointY = irState.IRSensors[cornerIndex].Position.Y;
+                            float centerX = this.keyMapper.settings.CenterX;
+                            float centerY = this.keyMapper.settings.CenterY;
+                            double rotation = this.keyMapper.cursorPos.Rotation;
+        
+                            float relativeX = pointX - centerX;
+                            float relativeY = pointY - centerY;
+                            float rotatedX = (float)(relativeX * Math.Cos(rotation) - relativeY * Math.Sin(rotation));
+                            float rotatedY = (float)(relativeX * Math.Sin(rotation) + relativeY * Math.Cos(rotation));
+        
+                            calibratedBottomLeft = new PointF(centerX + rotatedX, centerY + rotatedY);
+                        }
+                    }
+                    else if (Settings.Default.pointer_4IRMode == "diamond")
                     {
                         int leftIndex = -1;
                         float leftX = float.MinValue;
@@ -1024,21 +1149,71 @@ namespace WiiTUIO.Provider
                                 leftIndex = i;
                             }
                         }
-                        this.keyMapper.settings.DiamondLeftX = 0 - (1.0f - irState.IRSensors[leftIndex].Position.X);
-                        /*if (leftIndex >= 0)
+                        if (leftIndex != -1)
                         {
-                            Dispatcher.BeginInvoke(new Action(() =>
-                            {
-                                insText2.Text = $"LED IZQUIERDO detectado: LED{leftIndex} X={irState.IRSensors[leftIndex].Position.X:0.000}";
-                                this.TextBorder.UpdateLayout();
-                                this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
-                                this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
-                            }), null);
-                        }*/
+                            float pointX = irState.IRSensors[leftIndex].Position.X;
+                            float pointY = irState.IRSensors[leftIndex].Position.Y;
+                            float centerX = this.keyMapper.settings.CenterX;
+                            float centerY = this.keyMapper.settings.CenterY;
+                            double rotation = this.keyMapper.cursorPos.Rotation;
+        
+                            float relativeX = pointX - centerX;
+                            float relativeY = pointY - centerY;
+                            float rotatedX = (float)(relativeX * Math.Cos(rotation) - relativeY * Math.Sin(rotation));
+                            float finalX = centerX + rotatedX;
+        
+                            this.keyMapper.settings.DiamondLeftX = 0 - (1.0f - finalX);
+                        }
                     }
                     break;
-                case 4: // Right Capture (Diamond)
-                    if (Settings.Default.pointer_4IRMode == "diamond")
+                case 4: // Bottom-Right (Square) or Right (Diamond)
+                    if (Settings.Default.pointer_4IRMode == "square")
+                    {
+                        int cornerIndex = -1;
+                        float maxSum = float.MinValue; // Bottom-Right maximiza X+Y
+        
+                        for (int i = 0; i < 4; i++)
+                        {
+                            if (irState.IRSensors[i].Found)
+                            {
+                                float sum = irState.IRSensors[i].Position.X + irState.IRSensors[i].Position.Y;
+                                if (sum > maxSum)
+                                {
+                                    maxSum = sum;
+                                    cornerIndex = i;
+                                }
+                            }
+                        }
+        
+                        if (cornerIndex != -1)
+                        {
+                            float pointX = irState.IRSensors[cornerIndex].Position.X;
+                            float pointY = irState.IRSensors[cornerIndex].Position.Y;
+                            float centerX = this.keyMapper.settings.CenterX;
+                            float centerY = this.keyMapper.settings.CenterY;
+                            double rotation = this.keyMapper.cursorPos.Rotation;
+        
+                            float relativeX = pointX - centerX;
+                            float relativeY = pointY - centerY;
+                            float rotatedX = (float)(relativeX * Math.Cos(rotation) - relativeY * Math.Sin(rotation));
+                            float rotatedY = (float)(relativeX * Math.Sin(rotation) + relativeY * Math.Cos(rotation));
+                            
+                            calibratedBottomRight = new PointF(centerX + rotatedX, centerY + rotatedY);
+        
+                            // Una vez tenemos las 4 esquinas, calculamos el bounding box
+                            float top = Math.Min(calibratedTopLeft.Y, calibratedTopRight.Y);
+                            float bottom = Math.Max(calibratedBottomLeft.Y, calibratedBottomRight.Y);
+                            float left = Math.Min(calibratedTopLeft.X, calibratedBottomLeft.X);
+                            float right = Math.Max(calibratedTopRight.X, calibratedBottomRight.X);
+        
+                            // Asignamos los valores finales con el offset
+                            this.keyMapper.settings.Top = 1.0f + top;
+                            this.keyMapper.settings.Bottom = 0 - (1.0f - bottom);
+                            this.keyMapper.settings.Left = 0 - (1.0f - left);
+                            this.keyMapper.settings.Right = 1.0f + right;
+                        }
+                    }
+                    else if (Settings.Default.pointer_4IRMode == "diamond")
                     {
                         {
                             int rightIndex = -1;
@@ -1052,17 +1227,21 @@ namespace WiiTUIO.Provider
                                     rightIndex = i;
                                 }
                             }
-                            this.keyMapper.settings.DiamondRightX = 1.0f + irState.IRSensors[rightIndex].Position.X;
-                            /*if (rightIndex >= 0)
+                            if (rightIndex != -1)
                             {
-                                Dispatcher.BeginInvoke(new Action(() =>
-                                {
-                                    insText2.Text = $"LED DERECHO detectado: LED{rightIndex} X={irState.IRSensors[rightIndex].Position.X:0.000}";
-                                    this.TextBorder.UpdateLayout();
-                                    this.TextBorder.SetValue(Canvas.LeftProperty, 0.5 * this.ActualWidth - (this.TextBorder.ActualWidth / 2));
-                                    this.TextBorder.SetValue(Canvas.TopProperty, 0.25 * this.ActualHeight - (this.TextBorder.ActualHeight / 2));
-                                }), null);
-                            }*/
+                                float pointX = irState.IRSensors[rightIndex].Position.X;
+                                float pointY = irState.IRSensors[rightIndex].Position.Y;
+                                float centerX = this.keyMapper.settings.CenterX;
+                                float centerY = this.keyMapper.settings.CenterY;
+                                double rotation = this.keyMapper.cursorPos.Rotation;
+            
+                                float relativeX = pointX - centerX;
+                                float relativeY = pointY - centerY;
+                                float rotatedX = (float)(relativeX * Math.Cos(rotation) - relativeY * Math.Sin(rotation));
+                                float finalX = centerX + rotatedX;
+            
+                                this.keyMapper.settings.DiamondRightX = 1.0f + finalX;
+                            }
                         }
                     }
                     break;
