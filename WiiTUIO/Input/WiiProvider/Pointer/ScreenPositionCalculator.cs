@@ -143,8 +143,6 @@ namespace WiiTUIO.Provider
             minYPos = -(int)(screen.Bounds.Height * Settings.Default.pointer_marginsTopBottom);
             maxYPos = screen.Bounds.Height + (int)(screen.Bounds.Height * Settings.Default.pointer_marginsTopBottom);
             maxHeight = maxYPos - minYPos;
-            SBPositionOffset = (int)(screen.Bounds.Height * Settings.Default.pointer_sensorBarPosCompensation);
-            CalcMarginOffsetY = Settings.Default.pointer_sensorBarPosCompensation;
 
             midMarginX = Settings.Default.pointer_marginsLeftRight * 0.5;
             midMarginY = Settings.Default.pointer_marginsTopBottom * 0.5;
@@ -168,8 +166,8 @@ namespace WiiTUIO.Provider
 
         private void recalculateLightgunCoordBounds()
         {
-            boundsX = (1 - Settings.Default.CalibrationMarginX * 2) / (bottomRightPt.X - topLeftPt.X);
-            boundsY = (1 - Settings.Default.CalibrationMarginY * 2) / (bottomRightPt.Y - topLeftPt.Y);
+            boundsX = 2 / (bottomRightPt.X - topLeftPt.X);
+            boundsY = 2 / (bottomRightPt.Y - topLeftPt.Y);
         }
 
         public CursorPos CalculateCursorPos(WiimoteState wiimoteState)
@@ -179,8 +177,6 @@ namespace WiiTUIO.Provider
             double marginX, marginY = 0.0;
             double lightbarX = 0.0;
             double lightbarY = 0.0;
-            int offsetY = 0;
-            double marginOffsetY = 0.0;
             PointF resultPos = new PointF();
 
             IRState irState = wiimoteState.IRState;
@@ -293,17 +289,6 @@ namespace WiiTUIO.Provider
                     lastIrPoint2 = -1;
 
                     return err;
-                }
-
-                if (Properties.Settings.Default.pointer_sensorBarPos == "top")
-                {
-                    offsetY = -SBPositionOffset;
-                    marginOffsetY = CalcMarginOffsetY;
-                }
-                else if (Properties.Settings.Default.pointer_sensorBarPos == "bottom")
-                {
-                    offsetY = SBPositionOffset;
-                    marginOffsetY = -CalcMarginOffsetY;
                 }
 
                 resultPos = median;
@@ -602,29 +587,15 @@ namespace WiiTUIO.Provider
             }
 
             x = Convert.ToInt32((float)maxWidth * (1 - median.X) + minXPos);
-            y = Convert.ToInt32((float)maxHeight * median.Y + minYPos) + offsetY;
+            y = Convert.ToInt32((float)maxHeight * median.Y + minYPos);
 
+            //estos margenes habrá que ver si son necesarios
             marginX = Math.Min(1.0, Math.Max(0.0, (1 - median.X - midMarginX) * marginBoundsX));
-            marginY = Math.Min(1.0, Math.Max(0.0, (median.Y - (marginOffsetY + midMarginX)) * marginBoundsY));
+            marginY = Math.Min(1.0, Math.Max(0.0, (median.Y - (midMarginX)) * marginBoundsY));
 
-            if (Settings.Default.pointer_4IRMode != "diamond")
-            {
-            // Modo Touchmote heredado (square/none)
-            lightbarX = (resultPos.X - topLeftPt.X) * boundsX + Settings.Default.CalibrationMarginX;
-            lightbarY = (resultPos.Y - topLeftPt.Y) * boundsY + Settings.Default.CalibrationMarginY;
-            
-            // Aplicar márgenes globales heredados
-            lightbarX = (lightbarX * (1 - Settings.Default.pointer_marginsLeftRight * 2)) 
-                         + Settings.Default.pointer_marginsLeftRight;
-            lightbarY = (lightbarY * (1 - Settings.Default.pointer_marginsTopBottom * 2)) 
-                         + Settings.Default.pointer_marginsTopBottom;
-            }
-            else
-            {
-            // Modo diamond → usar directamente coordenadas warp, sin márgenes heredados
             lightbarX = resultPos.X;
             lightbarY = resultPos.Y;
-            }
+
 
             if (x <= 0)
             {
